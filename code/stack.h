@@ -1,5 +1,8 @@
-/* expression.h */
+/**
+ * @file Ficheiro com as várias invocações às funções da Stack
+ */
 
+/* expression.h */
 typedef struct {
     int sizeofnums;                                 // base pointer (numero elementos)
     int alloc;                                      // número alocado

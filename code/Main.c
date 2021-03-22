@@ -1,3 +1,7 @@
+/**
+ * @file Ficheiro que contêm a função principal do programa
+ */
+
 #include <assert.h>
 #include "operations.h"
 #include <stdio.h>
@@ -6,8 +10,19 @@
 
 #define CALC 10240
 
+/**
+ * \brief Preenche a stack e faz as várias operações na própria
+ *
+ * @param Stack e Input do terminal
+ *
+ */
 void stackop(Stack *,char *);
 
+/**
+ * \brief Função main (função principal do programa)
+ *
+ * @returns O valor 0
+ */
 int main(void) {
     Stack s;
     initialize(&s);
@@ -23,9 +38,16 @@ int main(void) {
     return 0;
 }
 
+/**
+ * \brief Mesma função definida em cima 
+ *
+ * É colocada aqui por preferência, de modo a tornar o código mais legível
+ *
+ * @param Stack e Input do terminal 
+ *
+ */
 void stackop(Stack *stack, char *calc) {
     int i = 0;
-   // strcat(calc, " ");
     while(calc[i] != '\n' && calc[i] != '\0') {
         // para nums
         char num[15] = "";

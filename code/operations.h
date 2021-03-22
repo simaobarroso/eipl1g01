@@ -1,4 +1,6 @@
-/* operations.h */
+/**
+ * @file Ficheiro com as várias invocações às funções de operações
+ */
 #include <math.h>
 #include "stack.h"
 
