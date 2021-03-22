@@ -1,17 +1,17 @@
 /* operations.h */
 #include <math.h>
+#include "stack.h"
 
-extern int optype(int);
-extern int operation(char,int *);
-extern int soma (int *x);
-extern int subtrai (int *x);
-extern int multiplica (int *x);
-extern int divide (int *x);
-extern int modulo (int *x);
-extern int potencia (int *x);
-extern int bitwiseand (int *x);
-extern int bitwiseor (int *x);
-extern int bitwisexor (int *x);
-extern int incrementa (int *x);
-extern int decrementa (int *x);
-extern int bitwisenot (int *x);
+void operation(char,Stack *);
+int soma (int,int);
+int subtrai (int,int);
+int multiplica (int,int);
+int divide (int,int);
+int modulo (int,int);
+int potencia (int,int);
+int bitwiseand (int,int);
+int bitwiseor (int,int);
+int bitwisexor (int,int);
+int incrementa (int);
+int decrementa (int);
+int bitwisenot (int);
