@@ -1,23 +1,17 @@
-#include <stdio.h>
 #include <assert.h>
 #include "operations.h"
-#include "stack.h"
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <sys/types.h>
 
 #define CALC 100
 
 void stackop(Stack *,char *);
-void initialize(Stack *);
 
-//*****************************************
-// Main
-int main (){
-   
-     Stack s;
-    char *calc = malloc(CALC*sizeof(char));
-    
+int main(void) {
+    Stack s;
+    initialize(&s);
+    char calc[CALC];
     assert(fgets(calc, CALC, stdin) != NULL);
 
     stackop(&s, calc);
@@ -25,42 +19,23 @@ int main (){
         printf("%d", s.nums[i]);
     }
     putchar('\n');
-    freeall(&s,calc);
     return 0;
-}
-
-    
-    return 0;
-
 }
 
 void stackop(Stack *stack, char *calc) {
-    int calcsize = strlen(calc);
-    changesizeofnums(stack,0);
-    int i;
-    while(i < calcsize) {
+    int i = 0;
+
+    while(calc[i] != '\n' && calc[i] != '\0') {
         // para nums
-        if(calc[i] >= '0' || calc[i] <= '9') {
-            char *num =  "";
-            int sign = 1;
-            
-            while(calc[i] != ' ') {
-                if(calc[i-1] == '-') sign = -1;
-                strncat(num,&calc[i],1);
-                i++;
-            }
-            push((atoi(num)*sign), stack);
+        char num[15] = "";
+        int sign = 1;
+            if(calc[i] >= '0' && calc[i] <= '9') { // 30 = '0' e 39 = '9'
+            // push((atoi(num)*sign), stack);
         }
         // para ops
-        else {
-            int op = optype(calc[i]);
-            if(op != -1) {
-                int *n = peek(stack);
-                operation(calc[i],n-op);
-                if(op) freelast(stack);
-                stack->current -= op+1;
-            }
-            i++;
+        else if(calc[i+1] == ' ' || calc[i+1] == '\0' || calc[i+1] == '\n') {
+            operation(calc[i],stack);
         }
+        i++;
     }
 }
