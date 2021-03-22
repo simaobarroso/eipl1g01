@@ -1,80 +1,66 @@
 #include <stdio.h>
-#include <math.h>
 #include <assert.h>
+#include "operations.h"
+#include "stack.h"
+#include <stdlib.h>
+#include <string.h>
+#include <sys/types.h>
 
-// Definições das funcoes matematicas
+#define CALC 100
 
-int soma(int num1, int num2);
-int subtrai(int num1, int num2);
-int multiplica(int num1, int num2);
-int divide(int num1, int num2);
-int modulo(int num1, int num2);
-int potencia(int num1, int num2);
-int incrementa(int num1, int num2); // num2 sempre 1
-int decrementa(int num1, int num2); // num2 sempre 1
-int bitwiseand(int num1, int num2);
-int bitwiseor(int num1, int num2);
-int bitwisexor(int num1, int num2);
-int bitwisenot(int num1, int num2); // num2 sempre 1
+void stackop(Stack *,char *);
+void initialize(Stack *);
 
 //*****************************************
 // Main
 int main (){
-    //leitura da string de operaçoes
-    assert( fgets(s, STRSIZE, stdin) != NULL);
+   
+     Stack s;
+    char *calc = malloc(CALC*sizeof(char));
+    
+    assert(fgets(calc, CALC, stdin) != NULL);
 
-}
-//*****************************************
-//funcoes matematicas
-
-int soma (int x, int y) {
-  return(x + y);
-}
-
-int subtrai (int x, int y) {
-  return(x - y);
-}
-
-int multiplica (int x, int y) {
-  return(x * y);
-}
-
-int divide (int x, int y) {
-  if (y != 0)
-    return (x / y);
-  else
+    stackop(&s, calc);
+    for(int i = 0; i < s.sizeofnums; i++) {
+        printf("%d", s.nums[i]);
+    }
+    putchar('\n');
+    freeall(&s,calc);
     return 0;
-} 
-
-int modulo (int x, int y) {
-    return (x % y);
 }
 
-int potencia (int x, int y) {
-    return (pow (x, y));
+    
+    return 0;
+
 }
 
-int bitwiseand (int x, int y) {
-    return (x & y);
+void stackop(Stack *stack, char *calc) {
+    int calcsize = strlen(calc);
+    changesizeofnums(stack,0);
+    int i;
+    while(i < calcsize) {
+        // para nums
+        if(calc[i] >= '0' || calc[i] <= '9') {
+            char *num =  "";
+            int sign = 1;
+            
+            while(calc[i] != ' ') {
+                if(calc[i-1] == '-') sign = -1;
+                strncat(num,&calc[i],1);
+                i++;
+            }
+            push((atoi(num)*sign), stack);
+        }
+        // para ops
+        else {
+            int op = optype(calc[i]);
+            if(op != -1) {
+                int *n = peek(stack);
+                operation(calc[i],n-op);
+                if(op) freelast(stack);
+                stack->current -= op+1;
+            }
+            i++;
+        }
+    }
 }
-
-int bitwiseor (int x, int y) {
-    return (x | y);
-}
-
-int bitwisexor (int x, int y) {
-    return (x ^ y);
-}
-
-int incrementa (int x, int y) {
-	return (y + x);
-}
-
-int decrementa (int x, int y) {
-	return (y - x);
-}
-
-int bitwisenot (int x, int y) {
-    return ((~ y) * x);
-}
-
