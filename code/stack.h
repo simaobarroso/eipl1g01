@@ -1,16 +1,16 @@
 /* expression.h */
-#include "operations.h"
 
 typedef struct {
-    int sizeofnums;                                 // base pointer
-    int current;                                    // stack pointer
+    int sizeofnums;                                 // base pointer (numero elementos)
+    int alloc;                                      // número alocado
     int *nums;                                      // stack itself
 } Stack;
 
-extern void initialize(Stack *);
-extern int *peek(Stack *);
-extern void changesizeofnums(Stack *, int);
-extern void changecurrent(Stack *, int);
-extern void push(int,Stack *);
-extern void freelast(Stack *);
-extern void freeall(Stack *,char *);
+void initialize(Stack *);
+int *peek(Stack *);
+void changesizeofnums(Stack *, int);
+void changecurrent(Stack *, int);
+void push(int,Stack *);
+int pop(Stack *);
+void freelast(Stack *);
+void freeall(Stack *,char *);
