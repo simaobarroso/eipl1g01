@@ -14,20 +14,20 @@
  * @param Stack
  */
 void initialize(Stack *list) {
-    list->sizeofnums = 0;
-    list->nums = malloc(SIZE*sizeof(int));
+    list->sizeofstack = 0;
+    list->arr = malloc(SIZE*sizeof(int));
     list->alloc = SIZE;
 }
 
 /*
 int *peek(Stack *list) {
-    return &list->nums[list->sizeofnums-1];
+    return &list->arr[list->sizeofarr-1];
 }
 */
 
 /*
-void changesizeofnums(Stack *list, int sizeofnums) {
-    list->sizeofnums = sizeofnums;
+void changesizeofstack(Stack *list, int sizeofstack) {
+    list->sizeofstack = sizeofstack;
 }
  */
 
@@ -39,7 +39,7 @@ void changesizeofnums(Stack *list, int sizeofnums) {
  * @returns Se está vazia retorna 1, caso contrário retorna 0 
  */
 int isEmpty (Stack *list) {
-	return (!list->sizeofnums);
+	return (!list->sizeofstack);
 }
 /**
  * \brief Verifica se uma stack está cheia
@@ -49,7 +49,7 @@ int isEmpty (Stack *list) {
  * @returns Se está cheia retorna 1, caso contrário retorna 0  
  */
 int isFull(Stack *list) {
-    return(list->sizeofnums == list->alloc);
+    return(list->sizeofstack == list->alloc);
 }
 
 /**
@@ -60,11 +60,11 @@ int isFull(Stack *list) {
 void push(int x, Stack *list) {
     if(isFull(list)) {
         list->alloc *= 2;
-        int *tmp = realloc(list->nums, list->alloc*sizeof(int));
+        int *tmp = realloc(list->arr, list->alloc*sizeof(int));
         assert(tmp != NULL);
-        list->nums = tmp;
+        list->arr = tmp;
     }
-    list->nums[list->sizeofnums++] = x;
+    list->arr[list->sizeofstack++] = x;
 }
 
 /**
@@ -74,10 +74,10 @@ void push(int x, Stack *list) {
  *
  * @returns Devolve o conteúdo desse índice
  */
-int pop(Stack *list) {
+Container pop(Stack *list) {
 	if (isEmpty(list)) {
         putchar('\n');
         exit (EXIT_SUCCESS);
 	}
-	return list->nums[--list->sizeofnums];
+	return list->arr[--list->sizeofstack];
 }
