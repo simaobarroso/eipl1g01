@@ -17,3 +17,4 @@ int bitwisexor (int,int);
 int incrementa (int);
 int decrementa (int);
 int bitwisenot (int);
+char toChar (char);

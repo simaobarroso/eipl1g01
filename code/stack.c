@@ -15,8 +15,8 @@
  */
 void initialize(Stack *list) {
     list->sizeofstack = 0;
-    list->arr = malloc(SIZE*sizeof(int));
-    list->alloc = SIZE;
+    list->arr         = malloc(SIZE*sizeof(int));
+    list->alloc       = SIZE;
 }
 
 /*
@@ -57,10 +57,10 @@ int isFull(Stack *list) {
  *
  * @param Stack e um Int
  */
-void push(int x, Stack *list) {
+void push(Container x, Stack *list) {
     if(isFull(list)) {
         list->alloc *= 2;
-        int *tmp = realloc(list->arr, list->alloc*sizeof(int));
+        Container *tmp = realloc(list->arr, list->alloc*sizeof(Container));
         assert(tmp != NULL);
         list->arr = tmp;
     }
@@ -80,4 +80,16 @@ Container pop(Stack *list) {
         exit (EXIT_SUCCESS);
 	}
 	return list->arr[--list->sizeofstack];
+}
+
+/**
+ * \brief Imprime a stack para o stdout.
+ *
+ * @param Stack
+ */
+void printstack(Stack *stack) {
+    for(int i = 0; i < stack->sizeofstack; i++)
+        if(stack->arr[i].label == Long) printf("%ld", stack->arr[i].Content.l);
+        else if(stack->arr[i].label == Double) printf("%lf", stack->arr[i].Content.f);
+        else printf("%c", stack->arr[i].Content.c);
 }

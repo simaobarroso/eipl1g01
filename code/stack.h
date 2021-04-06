@@ -27,5 +27,6 @@ void initialize(Stack *);
 // int *peek(Stack *);
 // void changesizeofnums(Stack *, int);
 void changecurrent(Stack *, int);
-void push(int, Stack *);
+void push(Container, Stack *);
 Container pop(Stack *);
+void printstack(Stack *);

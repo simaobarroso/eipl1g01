@@ -30,11 +30,14 @@ int main(void) {
     assert(fgets(calc, CALC, stdin) != NULL);
 
     stackop(&s, calc);
-    for(int i = 0; i < s.sizeofnums; i++) {
-        printf("%d", s.nums[i]);
+    for(int i = 0; i < s.sizeofstack; i++) {
+        printf("%d", s.arr[i]);                                 // isto está errado --Mota
+        /*
+        printstack(&s);
+        */
     }
     putchar('\n');
-    free(s.nums);
+    free(s.arr);
     return 0;
 }
 
@@ -46,6 +49,8 @@ int main(void) {
  * @param Stack e Input do terminal 
  *
  */
+
+// vai ser preciso muita coisa aqui...
 void stackop(Stack *stack, char *calc) {
     int i = 0;
     while(calc[i] != '\n' && calc[i] != '\0') {
@@ -59,7 +64,7 @@ void stackop(Stack *stack, char *calc) {
                 strncat(num,&calc[i],1);
                 i++;
             }
-            push((atoi(num)*sign), stack);
+            push((atoi(num)*sign), stack); // adaptar isto --Mota
         }
         // para ops
         else if(calc[i] != ' ' && !(calc[i+1] >= '0' && calc[i+1] <= '9')){
@@ -68,3 +73,15 @@ void stackop(Stack *stack, char *calc) {
         i++;
     }
 }
+
+/*
+Portanto, cenas:
+
+A função push, apesar de estar adaptada, vai de certeza precisar de cenas que a ponham a
+funfar direito, visto que estava adaptada a int. Tudo o que for operação de int neste
+momento tem que funcionar ambas com double e long, logo acho preferível fazer as operações
+com o que quer que receba imediatamente com o "case of".
+Alguma explicação que seja necessária, por favor dizer!
+
+ass.: Mota
+*/

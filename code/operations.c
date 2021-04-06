@@ -18,7 +18,10 @@ enum Operations {
 	Bitwisexor = '^',
 	Incrementa = ')',
 	Decrementa = '(',
-	Bitwisenot = '~'
+	Bitwisenot = '~',
+    ToChar = 'c',           // eu já acrescentei isto --Mota
+    Logico = 'e'            // depois explico isto --Mota
+    
     // acrescentar os próximos operadores aqui (próximos guiões)
 };
 
@@ -28,9 +31,11 @@ enum Operations {
  * @param Operador e Stack  
  *
  */
+
+// isto está mesmo terrível, é preciso rever bué cenas aqui
 void operation(char op, Stack *stack) {
-    int res = 0;
-    int op1 = pop(stack);
+    Container res;                  // isto está definitivamente mal --Mota
+    Container op1 = pop(stack);     // isto também --Mota
     switch(op) {
         case Soma:
             res = soma(pop(stack),op1);
@@ -68,6 +73,8 @@ void operation(char op, Stack *stack) {
         case Bitwisenot:
             res = bitwisenot(op1);
             break;
+        case ToChar:
+            res = toChar(stack);
         default:
             return;
     }
@@ -209,4 +216,9 @@ int decrementa (int x) {
  */
 int bitwisenot (int x) {
     return ~x;
+}
+
+// acrescentei isto --Mota
+char toChar(char c) {
+    return c;
 }
