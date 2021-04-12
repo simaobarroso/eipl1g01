@@ -12,55 +12,87 @@
 void operation(char op, Stack* stack) {
     Container res;
     initializeContainer(&res,NotAType);
-    Container op1 = pop(stack);
+    Container op1;
     switch (op) {
         case Soma:
+            op1 = pop(stack);
             res = soma(pop(stack), op1);
+            push(res, stack);
             break;
         case Subtrai:
+            op1 = pop(stack);
             res = subtrai(pop(stack), op1);
+            push(res, stack);
             break;
         case Multiplica:
+            op1 = pop(stack);
             res = multiplica(pop(stack), op1);
+            push(res, stack);
             break;
         case Divide:
+            op1 = pop(stack);
             res = divide(pop(stack), op1);
+            push(res, stack);
             break;
         case Modulo:
+            op1 = pop(stack);
             res = modulo(pop(stack), op1);
+            push(res, stack);
             break;
         case Potencia:
+            op1 = pop(stack);
             res = potencia(pop(stack), op1);
+            push(res, stack);
             break;
         case Bitwiseand:
+            op1 = pop(stack);
             res = bitwiseand(pop(stack), op1);
+            push(res, stack);
             break;
         case Bitwiseor:
+            op1 = pop(stack);
             res = bitwiseor(pop(stack), op1);
+            push(res, stack);
             break;
         case Bitwisexor:
+            op1 = pop(stack);
             res = bitwisexor(pop(stack), op1);
+            push(res, stack);
             break;
         case Incrementa:
+            op1 = pop(stack);
             res = incrementa(op1);
+            push(res, stack);
             break;
         case Decrementa:
+            op1 = pop(stack);
             res = decrementa(op1);
+            push(res, stack);
             break;
         case Bitwisenot:
+            op1 = pop(stack);
             res = bitwisenot(op1);
+            push(res, stack);
             break;
         case ToChar:
+            op1 = pop(stack);
             res = toChar(op1);
+            push(res, stack);
             break;
-            case ToDouble:
+        case ToDouble:
+            op1 = pop(stack);
             res = toDouble(op1);
+            push(res, stack);
             break;
         case ToInt:
+            op1 = pop(stack);
             res = toInt(op1);
+            push(res, stack);
             break;
         case ToString:
+            op1 = pop(stack);
             res = toString(op1);
+            push(res, stack);
             break;  
         case Troca3:
             troca3(stack);
@@ -74,10 +106,12 @@ void operation(char op, Stack* stack) {
         case CopiaN:
             copiaN(stack);
             break;
+        case Pop:
+            pop(stack);
+            break;
         default:
             return;
     }
-    push(res, stack);
 }
 
 // precisa de documentação
@@ -151,7 +185,7 @@ Container decrementa(Container x) {
             break;
         case Char:
             --x.content.c;
-        break;
+            break;
         default:
             assert(0 || "Error: wrong type");
     }
@@ -241,7 +275,7 @@ void inverte2(Stack *stack) {
 }
 
 void duplica(Stack *stack) {
-    push(stack->arr[stack->sizeofstack], stack);
+    push(stack->arr[stack->sizeofstack - 1], stack);
 }
 
 void copiaN(Stack *stack) {
@@ -249,7 +283,7 @@ void copiaN(Stack *stack) {
     long n;
     if (copy.label == Long) {
         n = copy.content.l; // o indice tem que ser long
-        push(stack->arr[stack->sizeofstack - n], stack); // dá push do elemento no indice no topo
+        push(stack->arr[stack->sizeofstack - n - 1], stack); // dá push do elemento no indice no topo
     }
     else
         assert(0 || "Error: wrong type");

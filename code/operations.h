@@ -29,6 +29,7 @@ enum Operations {
     Inverte2 = '\\',
     Duplica = '_',
     CopiaN = '$',
+    Pop = ';',
     Logico = 'e' // explicar isto depois --Mota
 
     // acrescentar os próximos operadores aqui (próximos guiões)
