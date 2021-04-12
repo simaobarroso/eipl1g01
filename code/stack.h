@@ -63,7 +63,7 @@ int isEmpty(Stack* list);
  *
  * @returns Se está cheia retorna 1, caso contrário retorna 0
  */
-int isFull(Stack* list)
+int isFull(Stack* list);
 
 /**
  * \brief Coloca um valor no último índicie do array (topo da stack)
