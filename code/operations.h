@@ -22,7 +22,14 @@ enum Operations {
     Decrementa = '(',
     Bitwisenot = '~',
     ToChar = 'c',
-    Logico = 'e' // depois explico isto --Mota
+    ToInt = 'i',
+    ToString = 's',
+    ToDouble = 'f',
+    Troca3 = '@',
+    Inverte2 = '\\',
+    Duplica = '_',
+    CopiaN = '$',
+    Logico = 'e' // explicar isto depois --Mota
 
     // acrescentar os próximos operadores aqui (próximos guiões)
 };
@@ -135,3 +142,10 @@ Container bitwisenot(Container);
 
 // TODO(Mota): é preciso documentar isto
 Container toChar(Container);
+Container toInt(Container);
+Container toDouble(Container);
+Container toString(Container);
+void troca3(Stack*);
+void inverte2(Stack*);
+void duplica(Stack*);
+void copiaN(Stack*);
