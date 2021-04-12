@@ -76,12 +76,13 @@ void parser(Stack* stack, char* calc) {
         else if (calc[i-1] == '\'' || calc[i-1] == '"') {
             // if (calc[i-1] == '\'') {
             initializeContainer(&toPush, Char);
+            toPush.content.c = calc[i];
             push(toPush,stack);
             // }
             // else string - próximos guiões
         }
         // para ops
-        else if (calc[i] != ' ') {
+        else if (calc[i] != ' ' && !(calc[i] == '\'' || calc[i] == '"')) {
             // operation(calc[i], stack);
             if (calc[i] != 'l') operation(calc[i], stack);
             else {
