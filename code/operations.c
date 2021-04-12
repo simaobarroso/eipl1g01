@@ -6,7 +6,9 @@
 #include <assert.h>
 #include <math.h>
 #include <stdio.h>
-
+/**
+ * \brief "Variavel global"
+ */
 #define CALC 4096
 
 void operation(char op, Stack* stack) {
@@ -114,7 +116,13 @@ void operation(char op, Stack* stack) {
     }
 }
 
-// precisa de documentação
+/**
+ * \brief Operacao com dois numeros, independentemente do tipo
+ *
+ * @param Funcao e operador
+ * 
+ * @returns Retorna uma funcao que faz operacao com dois numeros 
+ */
 #define MATH_OPERATION(func, op)                           \
     Container func(Container x, Container y) {             \
         Container res;                                     \
@@ -132,11 +140,30 @@ void operation(char op, Stack* stack) {
             assert(0 || "Error: wrong type");              \
         return res;                                        \
     }
+/**
+ * \brief Soma dois numeros 
+ */
 #define SOMA(x, y) x + y
+/**
+ * \brief Subtrai dois numeros 
+ */
 #define SUBTRAI(x, y) x - y
+/**
+ * \brief Multiplica dois numeros 
+ */
 #define MULTIPLICA(x, y) x* y
+/**
+ * \brief Divisao dois numeros 
+ */
 #define DIVIDE(x, y) x / y
-// precisa de documentação
+
+/**
+ * \brief Operacao com dois inteiros
+ *
+ * @param Funcao e operador
+ * 
+ * @returns Retorna uma funcao que faz operacao com dois inteiros
+ */
 #define INTEGER_OPERATION(func, op)                     \
     Container func(Container x, Container y) {          \
         Container res;                                  \
@@ -234,11 +261,11 @@ Container toDouble(Container x) {
     return x;
 }
 
-Container toString(Container x) { // eu depois quero explicar algo acerca disto
+Container toString(Container x) { // tentar implementar apenas quando aparece o "l"
     char str[CALC];
     if (x.label != String) {
         if (x.label == Long) {
-            sprintf(str,"%ld",x.content.l);  //se o long for unsigned e %lu, senao e %ld - João
+            sprintf(str,"%ld",x.content.l); 
             x.content.s = str;
         } else if (x.label == Char) {
             sprintf(str,"%c",x.content.c);
