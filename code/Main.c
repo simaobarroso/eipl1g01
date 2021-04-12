@@ -82,7 +82,7 @@ void parser(Stack* stack, char* calc) {
             // else string - próximos guiões
         }
         // para ops
-        else if (calc[i] != ' ' && !(calc[i] == '\'' || calc[i] == '"')) {
+        else if (calc[i] != ' ' && !(calc[i] == '\'' || calc[i] == '"') && !(calc[i+1] >= '0' && calc[i+1] <= '9')) {
             // operation(calc[i], stack);
             if (calc[i] != 'l') operation(calc[i], stack);
             else {
