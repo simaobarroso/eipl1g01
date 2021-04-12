@@ -140,13 +140,59 @@ Container decrementa(Container);
  * @returns O valor do bitwisenot
  */
 Container bitwisenot(Container);
-
-// TODO(Mota): é preciso documentar isto
+/**
+ * \brief Converte para char
+ *
+ * @param Uma variável de qualquer tipo
+ *
+ * @returns O valor em Char
+ */
 Container toChar(Container);
+/**
+ * \brief Converte para Int
+ *
+ * @param Uma variável de qualquer tipo
+ *
+ * @returns O valor em Int
+ */
 Container toInt(Container);
+/**
+ * \brief Converte para Double
+ *
+ * @param Uma variável de qualquer tipo
+ *
+ * @returns O valor em Double
+ */
 Container toDouble(Container);
+/**
+ * \brief Converte para String
+ *
+ * @param Uma variável de qualquer tipo
+ *
+ * @returns O valor em String
+ */
 Container toString(Container);
+/**
+ * \brief Troca o 3º valor da stack para o topo
+ *
+ * @param Uma stack
+ */
 void troca3(Stack*);
+/**
+ * \brief Mete o 2º valor da stack no topo
+ *
+ * @param Uma stack
+ */
 void inverte2(Stack*);
+/**
+ * \brief Duplica o valor do topo da stack
+ *
+ * @param Uma stack
+ */
 void duplica(Stack*);
+/**
+ * \brief Copia o n-ésimo valor da stack (o valor no topo da stack é 0) e mete esse valor no topo
+ *
+ * @param Uma stack
+ */
 void copiaN(Stack*);
