@@ -2,31 +2,33 @@
  * @file Ficheiro com as várias invocações às funções da Stack
  */
 /* expression.h */
-typedef enum {                                      // ir acrescentando nos próximos guiões
+typedef enum { // ir acrescentando nos próximos guiões
     Long,
     Double,
-    Char
+    Char,
+    String,
+    NotAType
 } Label;
 
-typedef struct {                                    // idém ^^
+typedef struct { // idém ^^
     Label label;
     union {
         long l;
         double f;
         char c;
-    } Content;
+        char* s;
+    } content;
 } Container;
 
 typedef struct {
-    Container *arr;                                 // stack itself
-    int sizeofstack;                                // base pointer (numero elementos)
-    int alloc;                                      // número alocado
+    Container* arr;  // stack itself
+    int sizeofstack; // tamanho da stack
+    int alloc;       // número alocado
 } Stack;
 
-void initialize(Stack *);
-// int *peek(Stack *);
-// void changesizeofnums(Stack *, int);
-void changecurrent(Stack *, int);
-void push(Container, Stack *);
-Container pop(Stack *);
-void printstack(Stack *);
+void initialize(Stack*);
+void initializeContainer(Container*,Label);
+void changecurrent(Stack*, int);
+void push(Container, Stack*);
+Container pop(Stack*);
+void printstack(Stack*);

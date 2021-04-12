@@ -1,55 +1,48 @@
 /**
  * @file Ficheiro que define o que é a Stack
  */
-#include <assert.h>
 #include "stack.h"
+
+#include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
 #define SIZE 10
 
+void initializeContainer(Container* contains, Label l) {
+    contains->label = l;
+    contains->content.l = 0;
+}
 
 /**
  * \brief Inicializa a Stack
  *
  * @param Stack
  */
-void initialize(Stack *list) {
+void initialize(Stack* list) {
     list->sizeofstack = 0;
-    list->arr         = malloc(SIZE*sizeof(int));
-    list->alloc       = SIZE;
+    list->arr = malloc(SIZE * sizeof(Container));
+    list->alloc = SIZE;
 }
-
-/*
-int *peek(Stack *list) {
-    return &list->arr[list->sizeofarr-1];
-}
-*/
-
-/*
-void changesizeofstack(Stack *list, int sizeofstack) {
-    list->sizeofstack = sizeofstack;
-}
- */
 
 /**
  * \brief Verifica se a stack a stack está vazia
  *
  * @param Stack
  *
- * @returns Se está vazia retorna 1, caso contrário retorna 0 
+ * @returns Se está vazia retorna 1, caso contrário retorna 0
  */
-int isEmpty (Stack *list) {
-	return (!list->sizeofstack);
+int isEmpty(Stack* list) {
+    return !list->sizeofstack;
 }
 /**
  * \brief Verifica se uma stack está cheia
  *
  * @param Stack
  *
- * @returns Se está cheia retorna 1, caso contrário retorna 0  
+ * @returns Se está cheia retorna 1, caso contrário retorna 0
  */
-int isFull(Stack *list) {
-    return(list->sizeofstack == list->alloc);
+int isFull(Stack* list) {
+    return (list->sizeofstack == list->alloc);
 }
 
 /**
@@ -57,10 +50,10 @@ int isFull(Stack *list) {
  *
  * @param Stack e um Int
  */
-void push(Container x, Stack *list) {
-    if(isFull(list)) {
+void push(Container x, Stack* list) {
+    if (isFull(list)) {
         list->alloc *= 2;
-        Container *tmp = realloc(list->arr, list->alloc*sizeof(Container));
+        Container* tmp = realloc(list->arr, list->alloc * sizeof(Container));
         assert(tmp != NULL);
         list->arr = tmp;
     }
@@ -74,12 +67,12 @@ void push(Container x, Stack *list) {
  *
  * @returns Devolve o conteúdo desse índice
  */
-Container pop(Stack *list) {
-	if (isEmpty(list)) {
+Container pop(Stack* list) {
+    if (isEmpty(list)) {
         putchar('\n');
-        exit (EXIT_SUCCESS);
-	}
-	return list->arr[--list->sizeofstack];
+        exit(EXIT_SUCCESS);
+    }
+    return list->arr[--list->sizeofstack];
 }
 
 /**
@@ -87,9 +80,16 @@ Container pop(Stack *list) {
  *
  * @param Stack
  */
-void printstack(Stack *stack) {
-    for(int i = 0; i < stack->sizeofstack; i++)
-        if(stack->arr[i].label == Long) printf("%ld", stack->arr[i].Content.l);
-        else if(stack->arr[i].label == Double) printf("%lf", stack->arr[i].Content.f);
-        else printf("%c", stack->arr[i].Content.c);
+void printstack(Stack* stack) {
+    for (int i = 0; i < stack->sizeofstack; i++) {
+        if (stack->arr[i].label == Long)
+            printf("%ld", stack->arr[i].content.l);
+        else if (stack->arr[i].label == Double)
+            printf("%g", stack->arr[i].content.f);
+        else if (stack->arr[i].label == Char)
+            printf("%c", stack->arr[i].content.c);
+        else {
+            printf("%s", stack->arr[i].content.s);
+        }
+    }
 }
