@@ -10,7 +10,7 @@
 #include <string.h>
 
 
-#define CALC 8192
+#define SIZE 8192
 
 /**
  * \brief Função main (função principal do programa)
@@ -46,10 +46,10 @@ int main(void) {
     };
     Stack s;
     initialize(&s);
-    char calc[CALC];
-    assert(fgets(calc, CALC, stdin) != NULL);
+    char line[SIZE];
+    assert(fgets(line,SIZE,stdin) != NULL);
 
-    parser(&s, calc,hashmap);
+    parser(&s,line,hashmap);
     printstack(&s);
     putchar('\n');
     free(s.arr);

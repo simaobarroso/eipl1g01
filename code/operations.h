@@ -60,7 +60,7 @@ enum Operations {
  * @param Operador e Stack
  *
  */
-void operation(char, Stack*);
+void operation(char*, Stack*, int*);
 /**
  * \brief A soma de duas variáveis
  *

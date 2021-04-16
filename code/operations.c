@@ -11,10 +11,10 @@
  */
 #define CALC 100
 
-void operation(char op, Stack* stack) { // provavelmente vamos ter que dar um carater de controlo
+void operation(char* calc, Stack* stack, int* iterator) { // provavelmente vamos ter que dar um carater de controlo
     Container res;
-    switch (op) {
-        case Either: break;
+    switch (calc[*iterator]) {
+        case Either: *iterator++; break;
         case Soma:
             res = soma(pop(stack), pop(stack));
             push(res, stack);
