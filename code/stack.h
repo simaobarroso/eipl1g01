@@ -10,8 +10,7 @@ typedef enum { // ir acrescentando nos próximos guiões
     Long,
     Double,
     Char,
-    String,
-    NotAType
+    String
 } Label;
 
 /**

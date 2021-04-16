@@ -49,14 +49,11 @@ Container pop(Stack* list) {
 
 void printstack(Stack* stack) {
     for (int i = 0; i < stack->sizeofstack; i++) {
-        if (stack->arr[i].label == Long)
-            printf("%ld", stack->arr[i].content.l);
-        else if (stack->arr[i].label == Double)
-            printf("%g", stack->arr[i].content.f);
-        else if (stack->arr[i].label == Char)
-            printf("%c", stack->arr[i].content.c);
-        else {
-            printf("%s", stack->arr[i].content.s);
+        switch (stack->arr[i].label) {
+            case Long: printf("%ld", stack->arr[i].content.l); break;
+            case Double: printf("%g", stack->arr[i].content.f); break;
+            case Char: printf("%c", stack->arr[i].content.c); break;
+            case String: printf("%s", stack->arr[i].content.s); break;
         }
     }
 }

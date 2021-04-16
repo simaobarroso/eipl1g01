@@ -9,6 +9,7 @@
  * \brief Os vários operadores matemáticos
  */
 enum Operations {
+    Either = 'e',   // isto vai criar condições consoante o carater seguinte
     Soma = '+',
     Subtrai = '-',
     Multiplica = '*',
@@ -30,7 +31,23 @@ enum Operations {
     Duplica = '_',
     CopiaN = '$',
     Pop = ';',
-    Logico = 'e' // explicar isto depois --Mota
+    Menor = '<',
+    Maior = '>',
+    Igual = '=',
+    Not = '!',
+    CopyTop = ':',
+    IfThenElse = '?',
+    A = 'A',
+    B = 'B',
+    C = 'C',
+    D = 'D',
+    E = 'E',
+    F = 'F',
+    NewLine = 'N',
+    S = 'S',
+    X = 'X',
+    Y = 'Y',
+    Z = 'Z'
 
     // acrescentar os próximos operadores aqui (próximos guiões)
 };

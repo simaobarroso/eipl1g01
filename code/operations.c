@@ -9,91 +9,74 @@
 /**
  * \brief "Variavel global"
  */
-#define CALC 4096
+#define CALC 100
 
-void operation(char op, Stack* stack) {
+void operation(char op, Stack* stack) { // provavelmente vamos ter que dar um carater de controlo
     Container res;
-    initializeContainer(&res,NotAType);
-    Container op1;
     switch (op) {
+        case Either: break;
         case Soma:
-            op1 = pop(stack);
-            res = soma(pop(stack), op1);
+            res = soma(pop(stack), pop(stack));
             push(res, stack);
             break;
         case Subtrai:
-            op1 = pop(stack);
-            res = subtrai(pop(stack), op1);
+            res = subtrai(pop(stack), pop(stack));
             push(res, stack);
             break;
         case Multiplica:
-            op1 = pop(stack);
-            res = multiplica(pop(stack), op1);
+            res = multiplica(pop(stack), pop(stack));
             push(res, stack);
             break;
         case Divide:
-            op1 = pop(stack);
-            res = divide(pop(stack), op1);
+            res = divide(pop(stack), pop(stack));
             push(res, stack);
             break;
         case Modulo:
-            op1 = pop(stack);
-            res = modulo(pop(stack), op1);
+            res = modulo(pop(stack), pop(stack));
             push(res, stack);
             break;
         case Potencia:
-            op1 = pop(stack);
-            res = potencia(pop(stack), op1);
+            res = potencia(pop(stack), pop(stack));
             push(res, stack);
             break;
         case Bitwiseand:
-            op1 = pop(stack);
-            res = bitwiseand(pop(stack), op1);
+            res = bitwiseand(pop(stack), pop(stack));
             push(res, stack);
             break;
         case Bitwiseor:
-            op1 = pop(stack);
-            res = bitwiseor(pop(stack), op1);
+            res = bitwiseor(pop(stack), pop(stack));
             push(res, stack);
             break;
         case Bitwisexor:
-            op1 = pop(stack);
-            res = bitwisexor(pop(stack), op1);
+            res = bitwisexor(pop(stack), pop(stack));
             push(res, stack);
             break;
         case Incrementa:
-            op1 = pop(stack);
-            res = incrementa(op1);
+            res = incrementa(pop(stack));
             push(res, stack);
             break;
         case Decrementa:
-            op1 = pop(stack);
-            res = decrementa(op1);
+            res = decrementa(pop(stack));
             push(res, stack);
             break;
         case Bitwisenot:
-            op1 = pop(stack);
-            res = bitwisenot(op1);
+            res = bitwisenot(pop(stack));
             push(res, stack);
             break;
         case ToChar:
-            op1 = pop(stack);
-            res = toChar(op1);
+            res = toChar(pop(stack));
             push(res, stack);
             break;
         case ToDouble:
-            op1 = pop(stack);
-            res = toDouble(op1);
+            res = toDouble(pop(stack));
             push(res, stack);
             break;
         case ToInt:
-            op1 = pop(stack);
-            res = toInt(op1);
+            res = toInt(pop(stack));
             push(res, stack);
             break;
         case ToString:
-            op1 = pop(stack);
-            res = toString(op1);
+            res = toString(pop(stack));
             push(res, stack);
             break;  
         case Troca3:
@@ -140,6 +123,7 @@ void operation(char op, Stack* stack) {
             assert(0 || "Error: wrong type");              \
         return res;                                        \
     }
+
 /**
  * \brief Soma dois numeros 
  */
@@ -241,7 +225,7 @@ Container toChar(Container x) {
 
 Container toInt(Container x) {
     if (x.label != Long) {
-        if (x.label != String || x.label != NotAType)
+        if (x.label != String)
             x.content.l = (x.label == Double) ? x.content.f : x.content.c;
         else
             assert(0 || "Error: wrong type");
@@ -278,7 +262,7 @@ Container toString(Container x) { // tentar implementar apenas quando aparece o 
             assert(0 || "Error: wrong type");
         x.label = String;
     }
-    return x;            
+    return x;
 }
 
 void troca3(Stack *stack) {
