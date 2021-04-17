@@ -9,3 +9,5 @@
  *
  */
  void parser(Stack*,char*,int*);
+
+ Container number_parse(char*,int*);

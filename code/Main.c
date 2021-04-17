@@ -9,7 +9,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-
 #define SIZE 8192
 
 /**
@@ -19,6 +18,7 @@
  */
 int main(void) {
     static int hashmap[256] = {
+        ['l'] = 1,
         [Either] = 1,
         [Soma] = 1,
         [Subtrai] = 1,

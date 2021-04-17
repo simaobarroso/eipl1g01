@@ -6,23 +6,27 @@
 /**
  * \brief Todos os tipos que vão ser usados na Stack
  */
-typedef enum { // ir acrescentando nos próximos guiões
+typedef enum {
     Long,
     Double,
     Char,
-    String
+    String,
+    Array,
+    Function
 } Label;
 
 /**
  * \brief Estrutura de um container, que controla o tipo dos elementos da stack
  */
-typedef struct { // idém ^^
+typedef struct Container {
     Label label;
     union {
         long l;
         double f;
         char c;
-        char* s;
+        char s[80];
+        struct Container* a; // para o Guião 4
+        void* func; // para o Guião 5
     } content;
 } Container;
 
@@ -31,7 +35,7 @@ typedef struct { // idém ^^
  */
 typedef struct {
     Container* arr;  // stack itself
-    int sizeofstack; // número de elemntos da stack
+    int sizeofstack; // número de elementos da stack
     int alloc;       // número alocado
 } Stack;
 
@@ -44,9 +48,10 @@ void initialize(Stack*);
 /**
  * \brief Inicializa um conteiner com a label indicada
  *
- * @param Container e uma label
+ * @param Container
+ * @param Label
  */
-void initializeContainer(Container*,Label);
+void relable_container(Container*,Label);
 /**
  * \brief Verifica se a stack a stack está vazia
  *
@@ -73,6 +78,7 @@ void push(Container, Stack*);
 /**
  * \brief Retira um valor no último índicie do array (topo da stack)
  *
+ * @param Container
  * @param Stack
  *
  * @returns Devolve o conteúdo desse índice

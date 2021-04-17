@@ -13,36 +13,37 @@ void parser(Stack* stack, char* line, int* hashmap) {
     Container toPush;
     while (line[i] != '\n' && line[i] != '\0') {
         // para nums
-        char num[15] = "";
-        if (isdigit(line[i]) || line[i] == '.') { // 30 = '0' e 39 = '9'
-            int sign = 1;
-            int isfloat = 0;
-
-            while (isdigit(line[i]) || line[i] == '.') {
-                if (i != 0 && line[i - 1] == '-') sign = -1;
-                if (line[i] == '.') isfloat = 1;
-                strncat(num,&line[i],1);
-                i++;
-            }
-            if (isfloat) {  // verifica se é float
-                initializeContainer(&toPush,Double);
-                toPush.content.f = (atof(num) * sign); // TODO(Mota): MUDAR ISTO!!!
-            }
-            else {  // acontece se for long
-                initializeContainer(&toPush,Long);
-                toPush.content.l = (atol(num) * sign); // TODO(Mota): idém^^
-            }
-            push(toPush,stack);
+        if (isdigit(line[i]) || line[i] == '.' || (line[i] == '-' && isdigit(line[i+1]))) {
+            toPush = number_parse(line, &i);
         }
-        // para strings/chars
-        else if (line[i-1] == '\'' || line[i-1] == '"') { // será que sim? --Mota
+        
+        // para char
+        else if (line[i] == '\'') {
+            relable_container(&toPush, Char);
+            toPush.content.c = line[++i];
+            i++;
+        }
+
+        // para strings/arrays
+        else if (line[i] == '[' || line[i] == '"') { // será que sim? --Mota
             // if (line[i-1] == '\'') {
-            initializeContainer(&toPush, Char);
-            toPush.content.c = line[i];
+            char string[80];
+            strcpy(toPush.content.s,"");
+            switch (line[i]) {
+                // case '[': parse_array(); break;
+                case '"':
+                    while(line[i] != '"') {
+                        strncat(string,&line[i++],1);
+                    }
+                    strcpy(toPush.content.s,string);
+                    break;
+                default: return;
+            }
             push(toPush,stack);
             // }
             // else string - próximos guiões
         }
+
         // para ops
         else if (hashmap[(int)line[i]]) {
             // operation(line[i], stack);
@@ -50,8 +51,7 @@ void parser(Stack* stack, char* line, int* hashmap) {
             else {                  // TODO(Mota): Simão, podes copiar isto para o operations.c para o l? ´^_^
                 char newline[SIZE];
                 assert(fgets(newline, SIZE, stdin) != NULL);
-                // parser(stack,newline,hashmap); // tentar meter de forma iterativa
-                assert(strncat(newline,&line[i],SIZE/2) != NULL); // não sei se isto funciona, falta testar, por isso não apagar isto^^ acima
+                strncat(newline,&line[i],SIZE/2); // TODO(Mota): isto come sempre o primeiro carater, acho que os endereços estão errados algures
                 line = newline;
             }
         }
@@ -59,4 +59,26 @@ void parser(Stack* stack, char* line, int* hashmap) {
             assert(0 || "Error: wrong input.");
         i++;
     }
+}
+
+Container number_parse(char* line, int* i) {
+    Container res;
+    int isfloat = 0;
+    char num[15] = "";
+    char* aux = num;
+
+    while (isdigit(line[*i]) || line[*i] == '.') {
+        if (line[*i] == '.') isfloat = 1;
+        strncat(num,&line[(*i)++],1);
+        aux++;
+    }
+    // TODO(Mota): estas condições aqui em baixo podem ser genéricas, certo era fixe se pudessemos separar isto
+    if (isfloat) {  // verifica se é float
+        relable_container(&res,Double);
+        res.content.f = strtof(num,&aux);
+    } else {  // acontece se for long
+        relable_container(&res,Long);
+        res.content.l = strtol(num,&aux,10);
+    }
+    return res;
 }

@@ -8,18 +8,16 @@
 #include <stdlib.h>
 #define SIZE 10
 
-void initializeContainer(Container* contains, Label l) {
+void relable_container(Container* contains, Label l) {
     contains->label = l;
     contains->content.l = 0;
 }
-
 
 void initialize(Stack* list) {
     list->sizeofstack = 0;
     list->arr = malloc(SIZE * sizeof(Container));
     list->alloc = SIZE;
 }
-
 
 int isEmpty(Stack* list) {
     return !list->sizeofstack;
@@ -54,6 +52,8 @@ void printstack(Stack* stack) {
             case Double: printf("%g", stack->arr[i].content.f); break;
             case Char: printf("%c", stack->arr[i].content.c); break;
             case String: printf("%s", stack->arr[i].content.s); break;
+            case Array: /*I predict shit here;*/ break;
+            default: return;
         }
     }
 }
