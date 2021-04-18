@@ -36,40 +36,18 @@ enum Operations {
     // acrescentar os próximos operadores aqui (próximos guiões)
 };
 
-enum Variaveis {
-    A,
-    B,
-    C,
-    D,
-    E,
-    F,
-    G,
-    H,
-    I,
-    J,
-    K,
-    L,
-    M,
-    N,
-    O,
-    P,
-    Q,
-    R,
-    S,
-    T,
-    U,
-    V,
-    W,
-    X,
-    Y,
-    Z
-};
+/**
+ * \brief Definição das variáveis
+ */
+enum Variaveis {A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z};
+
 /**
  * \brief Mesma função definida em cima
  *
  * É colocada aqui por preferência, de modo a tornar o código mais legível
  *
- * @param Stack e Input do terminal
+ * @param Stack 
+ * @param String (Char*) 
  *
  */
  void parser(Stack*,char*,int*,Container*);
@@ -77,9 +55,30 @@ enum Variaveis {
 /**
  * \brief Realiza as operações a serem executadas
  *
- * @param Operador e Stack
+ * @param Operador 
+ * @param Stack
  *
  */
 void operation(char*, Stack*, Container*, int*);
+
+/**
+ * \brief Dá parse a números 
+ *
+ * @param String (Char*)
+ * @param Int
+ *
+ * @returns Container
+ *
+ */
 Container number_parse(char*,int*);
+
+/**
+ * \brief Controla os valores das variáveis
+ *
+ * @param Stack
+ * @param Char
+ * @param Container
+ * @param Int
+ *
+ */
 void variavel(Stack*,char,Container*,int);

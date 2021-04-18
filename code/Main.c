@@ -9,8 +9,17 @@
 #include <stdlib.h>
 #include <string.h>
 
+/**
+ * \brief Variável estática
+ */
 #define SIZE 8192
 
+
+/**
+ * \brief Função que inicializa as variáveis
+ *
+ * @param Container
+ */
 void initialize_vars(Container*);
 
 /**
