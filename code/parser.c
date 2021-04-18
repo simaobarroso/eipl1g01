@@ -52,19 +52,7 @@ void parser(Stack* stack, char* line, int* hashmap, Container* vars) {
         }
 
         // para ops
-        else if (hashmap[(int)line[i]]) {
-            if (line[i] != 'l') operation(line, stack, vars, &i);
-            else {                  // TODO(Mota): Simão, podes copiar isto para o operations.c para o l? '^_^
-                char newline[SIZE];
-                assert(fgets(newline, SIZE, stdin) != NULL);
-                parser(stack,newline,hashmap,vars);
-                /*
-                strncat(newline,&line[i],SIZE/2);   // TODO(Mota): isto come sempre o primeiro carater, acho que os endereços estão errados algures
-                line[i-1] = '\0';                   // nope, nao estou orgulhoso disto --Mota
-                strncat(line,newline,SIZE/2);
-                */
-            }
-        }
+        else if (hashmap[(int)line[i]]) operation(line, stack, vars, hashmap, &i);
         else assert(0 || "Error: wrong input.");
         i++;
     }
@@ -100,10 +88,19 @@ Container number_parse(char* line, int* i) {
     return res;
 }
 
-void operation(char* line, Stack* stack, Container* vars, int* i) { // provavelmente vamos ter que dar um carater de controlo
+void operation(char* line, Stack* stack, Container* vars, int* hashmap, int* i) { // provavelmente vamos ter que dar um carater de controlo
     Container res;
     int control = 1;
+    char newline[SIZE];
     switch (line[*i]) {
+        case NewLine:
+            assert(fgets(newline, SIZE, stdin) != NULL);
+            parser(stack,newline,hashmap,vars);
+            /*
+            strncat(newline,&line[i],SIZE/2);   // TODO(Mota): isto come sempre o primeiro carater, acho que os endereços estão errados algures
+            line[i-1] = '\0';                   // nope, nao estou orgulhoso disto --Mota
+            strncat(line,newline,SIZE/2);
+            */
         case Either: /* *iterator++; */ break;
         case Soma:
             res = soma(pop(stack), pop(stack));

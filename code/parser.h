@@ -4,6 +4,7 @@
  * \brief Os vários operadores matemáticos
  */
 enum Operations {
+    NewLine = 'l',
     Either = 'e',   // isto vai criar condições consoante o carater seguinte
     Soma = '+',
     Subtrai = '-',
@@ -55,16 +56,21 @@ enum Variaveis {A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z};
 /**
  * \brief Realiza as operações a serem executadas
  *
- * @param Operador 
+ * @param String
  * @param Stack
+ * @param Container
+ * @param Hashmap
+ * @param Int
  *
  */
-void operation(char*, Stack*, Container*, int*);
+void operation(char*, Stack*, Container*, int*, int*);
 
 /**
  * \brief Dá parse a números 
  *
  * @param String (Char*)
+ * @param Stack
+ * @param Container
  * @param Int
  *
  * @returns Container

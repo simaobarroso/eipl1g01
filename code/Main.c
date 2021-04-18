@@ -29,7 +29,7 @@ void initialize_vars(Container*);
  */
 int main(void) { // TODO(Mota): mudar para o debugger
     static int hashmap[256] = {
-        ['l'] = 1,
+        [NewLine] = 1,
         [Either] = 1,
         [Soma] = 1,
         [Subtrai] = 1,
