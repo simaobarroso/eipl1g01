@@ -6,98 +6,12 @@
 #include <assert.h>
 #include <math.h>
 #include <stdio.h>
+#include <string.h>
+
 /**
  * \brief "Variavel global"
  */
 #define CALC 100
-
-void operation(char* calc, Stack* stack, int* iterator) { // provavelmente vamos ter que dar um carater de controlo
-    Container res;
-    switch (calc[*iterator]) {
-        case Either: *iterator++; break;
-        case Soma:
-            res = soma(pop(stack), pop(stack));
-            push(res, stack);
-            break;
-        case Subtrai:
-            res = subtrai(pop(stack), pop(stack));
-            push(res, stack);
-            break;
-        case Multiplica:
-            res = multiplica(pop(stack), pop(stack));
-            push(res, stack);
-            break;
-        case Divide:
-            res = divide(pop(stack), pop(stack));
-            push(res, stack);
-            break;
-        case Modulo:
-            res = modulo(pop(stack), pop(stack));
-            push(res, stack);
-            break;
-        case Potencia:
-            res = potencia(pop(stack), pop(stack));
-            push(res, stack);
-            break;
-        case Bitwiseand:
-            res = bitwiseand(pop(stack), pop(stack));
-            push(res, stack);
-            break;
-        case Bitwiseor:
-            res = bitwiseor(pop(stack), pop(stack));
-            push(res, stack);
-            break;
-        case Bitwisexor:
-            res = bitwisexor(pop(stack), pop(stack));
-            push(res, stack);
-            break;
-        case Incrementa:
-            res = incrementa(pop(stack));
-            push(res, stack);
-            break;
-        case Decrementa:
-            res = decrementa(pop(stack));
-            push(res, stack);
-            break;
-        case Bitwisenot:
-            res = bitwisenot(pop(stack));
-            push(res, stack);
-            break;
-        case ToChar:
-            res = toChar(pop(stack));
-            push(res, stack);
-            break;
-        case ToDouble:
-            res = toDouble(pop(stack));
-            push(res, stack);
-            break;
-        case ToInt:
-            res = toInt(pop(stack));
-            push(res, stack);
-            break;
-        case ToString:
-            res = toString(pop(stack));
-            push(res, stack);
-            break;  
-        case Troca3:
-            troca3(stack);
-            break;
-        case Inverte2:
-            inverte2(stack);
-            break;
-        case Duplica:
-            duplica(stack);
-            break;
-        case CopiaN:
-            copiaN(stack);
-            break;
-        case Pop:
-            pop(stack);
-            break;
-        default:
-            return;
-    }
-}
 
 /**
  * \brief Operacao com dois numeros, independentemente do tipo
@@ -249,15 +163,15 @@ Container toString(Container x) { // tentar implementar apenas quando aparece o 
     char str[CALC];
     if (x.label != String) {
         if (x.label == Long) {
-            sprintf(str,"%ld",x.content.l); 
-            x.content.s = str;
+            sprintf(str,"%ld",x.content.l);
+            x.content.s = strdup(str);
         } else if (x.label == Char) {
             sprintf(str,"%c",x.content.c);
-            x.content.s = str;
+            x.content.s = strdup(str);
         }
         else if (x.label == Double) {
             sprintf(str,"%g",x.content.f);
-            x.content.s = str;
+            x.content.s = strdup(str);
         } else 
             assert(0 || "Error: wrong type");
         x.label = String;

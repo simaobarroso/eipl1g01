@@ -24,7 +24,7 @@ typedef struct Container {
         long l;
         double f;
         char c;
-        char s[80];
+        char* s;
         struct Container* a; // para o Guião 4
         void* func; // para o Guião 5
     } content;

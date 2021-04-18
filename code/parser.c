@@ -8,7 +8,7 @@
 
 #define SIZE 8192
 
-void parser(Stack* stack, char* line, int* hashmap) {
+void parser(Stack* stack, char* line, int* hashmap, Container* vars) {
     int i = 0;
     Container toPush;
     relable_container(&toPush, String);
@@ -19,7 +19,7 @@ void parser(Stack* stack, char* line, int* hashmap) {
             toPush = number_parse(line, &i);
             push(toPush,stack);
         }
-        
+
         // para char
         else if (line[i] == '\'') {
             relable_container(&toPush, Char);
@@ -44,14 +44,20 @@ void parser(Stack* stack, char* line, int* hashmap) {
             }
         }
 
+        // para variáveis
+        else if (line[i] >= 'A' && line[i] <= 'Z') {
+            int control = 0;
+            variavel(stack,line[i],vars,control);
+            push(vars[line[i] - 'A'],stack);
+        }
+
         // para ops
         else if (hashmap[(int)line[i]]) {
-            // operation(line[i], stack);
-            if (line[i] != 'l') operation(line, stack, &i);
-            else {                  // TODO(Mota): Simão, podes copiar isto para o operations.c para o l? ´^_^
+            if (line[i] != 'l') operation(line, stack, vars, &i);
+            else {                  // TODO(Mota): Simão, podes copiar isto para o operations.c para o l? '^_^
                 char newline[SIZE];
                 assert(fgets(newline, SIZE, stdin) != NULL);
-                parser(stack,newline,hashmap);
+                parser(stack,newline,hashmap,vars);
                 /*
                 strncat(newline,&line[i],SIZE/2);   // TODO(Mota): isto come sempre o primeiro carater, acho que os endereços estão errados algures
                 line[i-1] = '\0';                   // nope, nao estou orgulhoso disto --Mota
@@ -76,9 +82,10 @@ Container number_parse(char* line, int* i) {
         (*i)++;
         aux++;
     }
-    if (line[(*i)+=2] == 's') {
+    if (line[(*i)+2] == 's') {
         res.label = String;
         res.content.s = strndup(num,80);
+        (*i) += 2;
     }
     // TODO(Mota): estas condições aqui em baixo podem ser genéricas, certo era fixe se pudessemos separar isto
     else {
@@ -91,4 +98,90 @@ Container number_parse(char* line, int* i) {
         }
     }
     return res;
+}
+
+void operation(char* line, Stack* stack, Container* vars, int* i) { // provavelmente vamos ter que dar um carater de controlo
+    Container res;
+    int control = 1;
+    switch (line[*i]) {
+        case Either: /* *iterator++; */ break;
+        case Soma:
+            res = soma(pop(stack), pop(stack));
+            push(res, stack);
+            break;
+        case Subtrai:
+            res = subtrai(pop(stack), pop(stack));
+            push(res, stack);
+            break;
+        case Multiplica:
+            res = multiplica(pop(stack), pop(stack));
+            push(res, stack);
+            break;
+        case Divide:
+            res = divide(pop(stack), pop(stack));
+            push(res, stack);
+            break;
+        case Modulo:
+            res = modulo(pop(stack), pop(stack));
+            push(res, stack);
+            break;
+        case Potencia:
+            res = potencia(pop(stack), pop(stack));
+            push(res, stack);
+            break;
+        case Bitwiseand:
+            res = bitwiseand(pop(stack), pop(stack));
+            push(res, stack);
+            break;
+        case Bitwiseor:
+            res = bitwiseor(pop(stack), pop(stack));
+            push(res, stack);
+            break;
+        case Bitwisexor:
+            res = bitwisexor(pop(stack), pop(stack));
+            push(res, stack);
+            break;
+        case Incrementa:
+            res = incrementa(pop(stack));
+            push(res, stack);
+            break;
+        case Decrementa:
+            res = decrementa(pop(stack));
+            push(res, stack);
+            break;
+        case Bitwisenot:
+            res = bitwisenot(pop(stack));
+            push(res, stack);
+            break;
+        case ToChar:
+            res = toChar(pop(stack));
+            push(res, stack);
+            break;
+        case ToDouble:
+            res = toDouble(pop(stack));
+            push(res, stack);
+            break;
+        case ToInt:
+            res = toInt(pop(stack));
+            push(res, stack);
+            break;
+        case ToString:
+            res = toString(pop(stack));
+            push(res, stack);
+            break;
+        case CopiaTopo:
+            (*i)++;
+            variavel(stack,line[*i],vars,control);
+            break;
+        case Troca3: troca3(stack); break;
+        case Inverte2: inverte2(stack); break;
+        case Duplica: duplica(stack); break;
+        case CopiaN: copiaN(stack); break;
+        case Pop: pop(stack); break;
+        default: return;
+    }
+}
+
+void variavel(Stack* s,char var,Container* vars, int control) {
+    vars[var - 'A'] = (control) ? s->arr[s->sizeofstack-1] : vars[var - 'A'];
 }

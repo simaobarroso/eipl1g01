@@ -5,62 +5,8 @@
 
 #include <math.h>
 
-/**
- * \brief Os vários operadores matemáticos
- */
-enum Operations {
-    Either = 'e',   // isto vai criar condições consoante o carater seguinte
-    Soma = '+',
-    Subtrai = '-',
-    Multiplica = '*',
-    Divide = '/',
-    Modulo = '%',
-    Potencia = '#',
-    Bitwiseand = '&',
-    Bitwiseor = '|',
-    Bitwisexor = '^',
-    Incrementa = ')',
-    Decrementa = '(',
-    Bitwisenot = '~',
-    ToChar = 'c',
-    ToInt = 'i',
-    ToString = 's',
-    ToDouble = 'f',
-    Troca3 = '@',
-    Inverte2 = '\\',
-    Duplica = '_',
-    CopiaN = '$',
-    Pop = ';',
-    Menor = '<',
-    Maior = '>',
-    Igual = '=',
-    Not = '!',
-    CopyTop = ':',
-    IfThenElse = '?',
-    A = 'A',
-    B = 'B',
-    C = 'C',
-    D = 'D',
-    E = 'E',
-    F = 'F',
-    NewLine = 'N',
-    S = 'S',
-    X = 'X',
-    Y = 'Y',
-    Z = 'Z'
-
-    // acrescentar os próximos operadores aqui (próximos guiões)
-};
-
 #define MATH_OPERATION_HEADER(func) Container func(Container, Container)
 
-/**
- * \brief Realiza as operações a serem executadas
- *
- * @param Operador e Stack
- *
- */
-void operation(char*, Stack*, int*);
 /**
  * \brief A soma de duas variáveis
  *
