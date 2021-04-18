@@ -53,6 +53,7 @@ void parser(Stack* stack, char* line, int* hashmap, Container* vars) {
 
         // para ops
         else if (hashmap[(int)line[i]]) operation(line, stack, vars, hashmap, &i);
+        
         else assert(0 || "Error: wrong input.");
         i++;
     }
