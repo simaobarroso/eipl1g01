@@ -52,7 +52,12 @@ int main(void) { // TODO(Mota): mudar para o debugger
         [Duplica] = 1,
         [CopiaN] = 1,
         [Pop] = 1,
-        [CopiaTopo] = 1
+        [CopiaTopo] = 1,
+        [Igual] = 1,
+        [Maior] = 1,
+        [Menor] = 1,
+        [Nao] = 1,
+        [Ifthenelse] = 1
 
         // acrescentar os próximos operadores aqui (próximos guiões)
     };

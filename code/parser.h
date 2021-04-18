@@ -30,9 +30,9 @@ enum Operations {
     Menor = '<',
     Maior = '>',
     Igual = '=',
-    Not = '!',
+    Nao = '!',
     CopiaTopo = ':',
-    IfThenElse = '?'
+    Ifthenelse = '?'
 
     // acrescentar os próximos operadores aqui (próximos guiões)
 };

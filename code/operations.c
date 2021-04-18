@@ -221,3 +221,226 @@ void copiaN(Stack *stack) {
     else
         assert(0 || "Error: wrong type");
 }
+
+Container igual (Stack *stack){
+	Container res;
+	Container x = pop(stack);
+	Container y = pop(stack);
+
+	if (x.label == y.label){ 
+		switch (x.label){
+			case Long:
+				 res.content.l = (x.content.l == y.content.l) ? 1 : 0;
+				 break;
+			case Double:
+				res.content.f = (x.content.f == y.content.f) ? 1 : 0;
+				break;
+			case Char:
+				res.content.c = (x.content.c == y.content.c) ? 1 : 0;
+				break;
+			case String:
+				res.content.s = strcmp(x.content.s,y.content.s) ? 1 : 0;
+				break;	
+		} 
+	return res;
+	}
+	
+	else assert(0 || "Error: wrong type");
+}
+
+// Menor .. 1 2 < ... 1
+Container menor (Stack *stack){
+	Container res;
+	Container x = pop(stack); // segundo
+	Container y = pop(stack); // primeiro
+
+	if (x.label == y.label){ 
+		switch (x.label){
+			case Long:
+				 res.content.l = (x.content.l > y.content.l) ? 1 : 0;
+				 break;
+			case Double:
+				res.content.f = (x.content.f > y.content.f) ? 1 : 0;
+				break;
+			case Char:
+				res.content.c = (x.content.c > y.content.c) ? 1 : 0;
+				break;
+			case String:
+				break;
+				// res = strcmp(x.content.s,y.content.s) ? 1 : 0;	
+		} 
+	return res;
+	}
+	
+	else (assert (0 || "Error: Wrong type"));
+}
+
+// Maior
+Container maior (Stack *stack){
+	Container res;
+	Container x = pop(stack); // segundo
+	Container y = pop(stack); // primeiro
+
+	if (x.label == y.label){ 
+		switch (x.label){
+			case Long:
+				 res.content.l = (x.content.l < y.content.l) ? 1 : 0;
+				 break;
+			case Double:
+				res.content.f = (x.content.f < y.content.f) ? 1 : 0;
+				break;
+			case Char:
+				res.content.c = (x.content.c < y.content.c) ? 1 : 0;
+				break;
+			case String:
+				break;
+				// res = strcmp(x.content.s,y.content.s) ? 1 : 0;	
+		} 
+	return res;
+	}
+	
+	else (assert (0 || "Error: Wrong type"));
+}
+
+
+// Não
+Container nao (Stack *stack){
+	Container res;
+
+	Container x = pop(stack);
+
+	switch (x.label){
+		case Long:
+			res.content.l = (x.content.l == 0) ? 1 : 0;
+		case Double:
+			res.content.f = (x.content.f == 0) ? 1 : 0;
+		case Char:
+			res.content.c = (x.content.c == 0) ? 1 : 0;
+		case String:
+			break;
+	}
+	return res;
+}
+
+// E  (com shortcut) 1 3 e& ... 3 
+
+Container elogic (Stack *stack){
+	Container res; 
+
+	Container x = pop(stack); // segundo
+	Container y = pop(stack); // primeiro
+
+		switch (x.label){
+			case Long:
+				res.content.l = (x.content.l == 0 || y.content.l == 0 ) ? 0 : x.content.l ;
+			case Double:
+				res.content.f = (x.content.f == 0 || y.content.f == 0 ) ? 0 : x.content.f ;
+			case Char:
+				res.content.c = (x.content.c == 0 || y.content.c == 0 ) ? 0 : x.content.c ;
+			case String:
+				break;
+			}
+		return res; 
+}
+
+
+// Ou (com shortcut)
+Container oulogic (Stack *stack){
+	Container res; 
+
+	Container x = pop(stack); // segundo
+	Container y = pop(stack); // primeiro
+
+		switch (x.label){
+			case Long:
+				res.content.l = (x.content.l == 1 || y.content.l == 1 ) ? 1 : x.content.l ;
+			case Double:
+				res.content.f = (x.content.f == 1 || y.content.f == 1 ) ? 1 : x.content.f ;
+			case Char:
+				res.content.c = (x.content.c == 1 || y.content.c == 1 ) ? 1 : x.content.c ;
+			case String:
+				break;
+			}
+		return res; 
+}
+
+// Coloca o menor dos 2 valores na stack
+Container compmenor (Stack *stack){
+    Container res;
+
+    Container x = pop(stack); // segundo
+	Container y = pop(stack); // primeiro
+
+		switch (x.label){
+			case Long:
+				 res.content.l = (x.content.l < y.content.l) ? x.content.l : y.content.l;
+				 break;
+			case Double:
+				res.content.f = (x.content.f < y.content.f) ? x.content.f : y.content.f;
+				break;
+			case Char:
+				res.content.c = (x.content.c < y.content.c) ? x.content.c : y.content.c;
+				break;
+			case String:
+				break;
+			default:
+			assert(0 || "Error: wrong type");
+		}
+		return res; 	
+}
+
+
+// Coloca o maior dos 2 valores na stack
+Container compmaior (Stack *stack){
+    Container res;
+
+    Container x = pop(stack); // segundo
+	Container y = pop(stack); // primeiro
+
+	switch (x.label){
+			case Long:
+				 res.content.l = (x.content.l < y.content.l) ? y.content.l : x.content.f ;
+				 break;
+			case Double:
+				res.content.f = (x.content.f < y.content.f) ? y.content.f: x.content.f;
+				break;
+			case Char:
+				res.content.c = (x.content.c < y.content.c) ? y.content.c : x.content.c;
+				break;
+			case String:
+				break;
+			default:
+			assert(0 || "Error: wrong type");
+		}
+		return res; 	
+}
+
+// If-Then-Else
+
+Container ifthenelse (Stack *stack){
+	Container res; 
+	Container z = pop(stack);
+	Container y = pop(stack);
+	Container x = pop(stack);
+	switch (x.label){	
+	 	 case Long:	
+	    	if (x.content.l != 0) res.content.l = y.content.l;
+  	 		else res.content.l = z.content.l;
+  			break;
+  		
+  		case Double:
+    		if (x.content.f != 0) res.content.f = y.content.f;
+   			else res.content.f = z.content.f;
+  			break;
+  		
+  		case Char:
+    		if (x.content.c != 0) res.content.c = y.content.c;
+    		else res.content.c = z.content.c;
+  			break;
+  		
+  		case String:
+ 			break;
+	}
+	return res;
+}
+

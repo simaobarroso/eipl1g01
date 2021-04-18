@@ -102,7 +102,29 @@ void operation(char* line, Stack* stack, Container* vars, int* hashmap, int* i) 
             line[i-1] = '\0';                   // nope, nao estou orgulhoso disto --Mota
             strncat(line,newline,SIZE/2);
             */
-        case Either: /* *iterator++; */ break;
+        case Either:
+            switch (line[(*i)+1])
+            {
+            case '&':
+                elogic(stack);
+                (*i)++;
+                break;
+            case '|':
+                oulogic(stack);
+                (*i)++;
+                break;
+            case '<':
+                compmenor(stack);
+                (*i)++;
+                break;
+            case '>':
+                compmaior(stack);
+                (*i)++;
+                break;
+            default:
+                break;
+            }
+            break;
         case Soma:
             res = soma(pop(stack), pop(stack));
             push(res, stack);
