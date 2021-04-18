@@ -410,10 +410,10 @@ Container ifthenelse(Stack* stack) {
 	switch (x.label) {														
 		case Long:													
 			res = x.content.l ? y : z; break;
-		case Char:													
-			res = x.content.f ? y : z; break;
+		case Char:		
+			res = x.content.c ? y : z; break;
 		default:													
-			assert (0 || "Error: Wrong type");						
+			assert (0 || "Error: Wrong type");
 	}
 	return res; 															
 }
