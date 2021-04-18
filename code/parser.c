@@ -23,14 +23,15 @@ void parser(Stack* stack, char* line, int* hashmap, Container* vars) {
         // para char
         else if (line[i] == '\'') {
             relable_container(&toPush, Char);
-            toPush.content.c = line[++i];
-            ++i;
+            toPush.content.c = line[i+1];
+            push(toPush,stack);
+            i+=2;
         }
 
         // para strings/arrays/blocos
         else if (line[i] == '[' || line[i] == '"' || line[i] == '{') {
             // if (line[i-1] == '\'') {
-            char* string = "";
+            char string[80] = "";
             switch (line[i]) {
                 // case '[': parse_array(); break;
                 case '"':
@@ -97,32 +98,36 @@ void operation(char* line, Stack* stack, Container* vars, int* hashmap, int* i) 
         case NewLine:
             assert(fgets(newline, SIZE, stdin) != NULL);
             parser(stack,newline,hashmap,vars);
+            break;
             /*
             strncat(newline,&line[i],SIZE/2);   // TODO(Mota): isto come sempre o primeiro carater, acho que os endereços estão errados algures
             line[i-1] = '\0';                   // nope, nao estou orgulhoso disto --Mota
             strncat(line,newline,SIZE/2);
             */
         case Either:
-            switch (line[(*i)+1])
-            {
+            switch (line[(*i)+1]) {
             case '&':
-                elogic(stack);
+                res = elogic(stack);
+                push(res,stack);
                 (*i)++;
                 break;
             case '|':
-                oulogic(stack);
+                res = oulogic(stack);
+                push(res,stack);
                 (*i)++;
                 break;
             case '<':
-                compmenor(stack);
+                res = compmenor(stack);
+                push(res,stack);
                 (*i)++;
                 break;
             case '>':
-                compmaior(stack);
+                res = compmaior(stack);
+                push(res,stack);
                 (*i)++;
                 break;
             default:
-                break;
+                return;
             }
             break;
         case Soma:
@@ -192,6 +197,26 @@ void operation(char* line, Stack* stack, Container* vars, int* hashmap, int* i) 
         case CopiaTopo:
             (*i)++;
             variavel(stack,line[*i],vars,control);
+            break;
+        case Ifthenelse:
+            res = ifthenelse(stack);
+            push(res,stack);
+            break;
+        case Igual:
+            res = igual(stack);
+            push(res,stack);
+            break;
+        case Menor:
+            res = menor(stack);
+            push(res,stack);
+            break;
+        case Maior:
+            res = menor(stack);
+            push(res,stack);
+            break;
+        case Nao:
+            res = nao(stack);
+            push(res,stack);
             break;
         case Troca3: troca3(stack); break;
         case Inverte2: inverte2(stack); break;

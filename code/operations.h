@@ -159,3 +159,21 @@ void duplica(Stack*);
  * @param Uma stack
  */
 void copiaN(Stack*);
+
+Container nao(Stack*);
+
+Container menor(Stack*);
+
+Container maior(Stack*);
+
+Container igual(Stack*);
+
+Container elogic(Stack*);
+
+Container oulogic(Stack*);
+
+Container compmaior(Stack*);
+
+Container compmenor(Stack*);
+
+Container ifthenelse(Stack*);

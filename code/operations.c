@@ -222,225 +222,198 @@ void copiaN(Stack *stack) {
         assert(0 || "Error: wrong type");
 }
 
-Container igual (Stack *stack){
-	Container res;
-	Container x = pop(stack);
-	Container y = pop(stack);
-
-	if (x.label == y.label){ 
-		switch (x.label){
-			case Long:
-				 res.content.l = (x.content.l == y.content.l) ? 1 : 0;
-				 break;
-			case Double:
-				res.content.f = (x.content.f == y.content.f) ? 1 : 0;
-				break;
-			case Char:
-				res.content.c = (x.content.c == y.content.c) ? 1 : 0;
-				break;
-			case String:
-				res.content.s = strcmp(x.content.s,y.content.s) ? 1 : 0;
-				break;	
-		} 
-	return res;
+// primeiro
+// segundo
+#define LOGIC_OPERATION(func,op) 															\
+	Container func(Stack* stack){															\
+		Container res; 																		\
+		Container x = pop(stack); 															\
+		Container y = pop(stack); 															\
+		res.label = Long;																	\
+		switch (x.label) {																	\
+			case Long:																		\
+				switch (y.label) {															\
+					case Long:																\
+						res.content.l = (y.content.l op x.content.l); break;				\
+					case Double:															\
+						res.content.l = (y.content.f op x.content.f); break;				\
+					case Char:																\
+						res.content.l = (y.content.l op x.content.c); break;				\
+					default:																\
+						assert (0 || "Error: Wrong type");									\
+				} break;																	\
+			case Double:																	\
+				switch (y.label) {															\
+					case Long:																\
+						res.content.l = (y.content.f op x.content.f); break;				\
+					case Double:															\
+						res.content.l = (y.content.f op x.content.f); break;				\
+					case Char:																\
+						res.content.l = (y.content.f op x.content.c); break;				\
+					default:																\
+						assert (0 || "Error: Wrong type");									\
+				} break;																	\
+			case Char:																		\
+				switch (y.label) {															\
+					case Long:																\
+						res.content.l = (y.content.c op x.content.l); break;				\
+					case Double:															\
+						res.content.l = (y.content.c op x.content.f); break;				\
+					case Char:																\
+						res.content.l = (y.content.c op x.content.c); break;				\
+					default:																\
+						assert (0 || "Error: Wrong type");									\
+				} break;																	\
+			default:																		\
+				assert (0 || "Error: Wrong type");											\
+		}																					\
+		return res; 																		\
 	}
-	
-	else assert(0 || "Error: wrong type");
-}
 
-// Menor .. 1 2 < ... 1
-Container menor (Stack *stack){
-	Container res;
-	Container x = pop(stack); // segundo
-	Container y = pop(stack); // primeiro
-
-	if (x.label == y.label){ 
-		switch (x.label){
-			case Long:
-				 res.content.l = (x.content.l > y.content.l) ? 1 : 0;
-				 break;
-			case Double:
-				res.content.f = (x.content.f > y.content.f) ? 1 : 0;
-				break;
-			case Char:
-				res.content.c = (x.content.c > y.content.c) ? 1 : 0;
-				break;
-			case String:
-				break;
-				// res = strcmp(x.content.s,y.content.s) ? 1 : 0;	
-		} 
-	return res;
-	}
-	
-	else (assert (0 || "Error: Wrong type"));
-}
-
-// Maior
-Container maior (Stack *stack){
-	Container res;
-	Container x = pop(stack); // segundo
-	Container y = pop(stack); // primeiro
-
-	if (x.label == y.label){ 
-		switch (x.label){
-			case Long:
-				 res.content.l = (x.content.l < y.content.l) ? 1 : 0;
-				 break;
-			case Double:
-				res.content.f = (x.content.f < y.content.f) ? 1 : 0;
-				break;
-			case Char:
-				res.content.c = (x.content.c < y.content.c) ? 1 : 0;
-				break;
-			case String:
-				break;
-				// res = strcmp(x.content.s,y.content.s) ? 1 : 0;	
-		} 
-	return res;
-	}
-	
-	else (assert (0 || "Error: Wrong type"));
-}
-
+LOGIC_OPERATION(igual,==)
+LOGIC_OPERATION(menor,<)
+LOGIC_OPERATION(maior,>)
 
 // Não
-Container nao (Stack *stack){
+Container nao(Stack *stack){
 	Container res;
 
 	Container x = pop(stack);
 
-	switch (x.label){
+	switch (x.label) {
 		case Long:
-			res.content.l = (x.content.l == 0) ? 1 : 0;
+			res.content.l = !x.content.l; break;
 		case Double:
-			res.content.f = (x.content.f == 0) ? 1 : 0;
+			res.content.f = !x.content.f; break;
 		case Char:
-			res.content.c = (x.content.c == 0) ? 1 : 0;
-		case String:
-			break;
+			res.content.c = !x.content.c; break;
+		default:
+			assert (0 || "Error: Wrong type");
 	}
 	return res;
 }
 
 // E  (com shortcut) 1 3 e& ... 3 
 
-Container elogic (Stack *stack){
-	Container res; 
-
-	Container x = pop(stack); // segundo
-	Container y = pop(stack); // primeiro
-
-		switch (x.label){
-			case Long:
-				res.content.l = (x.content.l == 0 || y.content.l == 0 ) ? 0 : x.content.l ;
-			case Double:
-				res.content.f = (x.content.f == 0 || y.content.f == 0 ) ? 0 : x.content.f ;
-			case Char:
-				res.content.c = (x.content.c == 0 || y.content.c == 0 ) ? 0 : x.content.c ;
-			case String:
-				break;
-			}
-		return res; 
-}
-
-
-// Ou (com shortcut)
-Container oulogic (Stack *stack){
-	Container res; 
-
-	Container x = pop(stack); // segundo
-	Container y = pop(stack); // primeiro
-
-		switch (x.label){
-			case Long:
-				res.content.l = (x.content.l == 1 || y.content.l == 1 ) ? 1 : x.content.l ;
-			case Double:
-				res.content.f = (x.content.f == 1 || y.content.f == 1 ) ? 1 : x.content.f ;
-			case Char:
-				res.content.c = (x.content.c == 1 || y.content.c == 1 ) ? 1 : x.content.c ;
-			case String:
-				break;
-			}
-		return res; 
-}
-
-// Coloca o menor dos 2 valores na stack
-Container compmenor (Stack *stack){
-    Container res;
-
-    Container x = pop(stack); // segundo
-	Container y = pop(stack); // primeiro
-
-		switch (x.label){
-			case Long:
-				 res.content.l = (x.content.l < y.content.l) ? x.content.l : y.content.l;
-				 break;
-			case Double:
-				res.content.f = (x.content.f < y.content.f) ? x.content.f : y.content.f;
-				break;
-			case Char:
-				res.content.c = (x.content.c < y.content.c) ? x.content.c : y.content.c;
-				break;
-			case String:
-				break;
-			default:
-			assert(0 || "Error: wrong type");
-		}
-		return res; 	
-}
-
-
-// Coloca o maior dos 2 valores na stack
-Container compmaior (Stack *stack){
-    Container res;
-
-    Container x = pop(stack); // segundo
-	Container y = pop(stack); // primeiro
-
-	switch (x.label){
-			case Long:
-				 res.content.l = (x.content.l < y.content.l) ? y.content.l : x.content.f ;
-				 break;
-			case Double:
-				res.content.f = (x.content.f < y.content.f) ? y.content.f: x.content.f;
-				break;
-			case Char:
-				res.content.c = (x.content.c < y.content.c) ? y.content.c : x.content.c;
-				break;
-			case String:
-				break;
-			default:
-			assert(0 || "Error: wrong type");
-		}
-		return res; 	
-}
-
-// If-Then-Else
-
-Container ifthenelse (Stack *stack){
-	Container res; 
-	Container z = pop(stack);
-	Container y = pop(stack);
-	Container x = pop(stack);
-	switch (x.label){	
-	 	 case Long:	
-	    	if (x.content.l != 0) res.content.l = y.content.l;
-  	 		else res.content.l = z.content.l;
-  			break;
-  		
-  		case Double:
-    		if (x.content.f != 0) res.content.f = y.content.f;
-   			else res.content.f = z.content.f;
-  			break;
-  		
-  		case Char:
-    		if (x.content.c != 0) res.content.c = y.content.c;
-    		else res.content.c = z.content.c;
-  			break;
-  		
-  		case String:
- 			break;
+// x segundo
+// y primeiro
+#define EITHER_OPERATION(func,op) 																	\
+	Container func(Stack* stack){																	\
+		Container res; 																				\
+		Container x = pop(stack); 																	\
+		Container y = pop(stack); 																	\
+		switch (x.label) {																			\
+			case Long:																				\
+				switch (y.label) {																	\
+					case Long:																		\
+						res.label = Long;															\
+						res.content.l = (x.content.l op y.content.l) ? x.content.l : 0; break;		\
+					case Double:																	\
+						res.label = Double;															\
+						res.content.f = (x.content.l op y.content.f) ? x.content.f : 0; break;		\
+					case Char:																		\
+						res.label = Char;															\
+						res.content.c = (x.content.l op y.content.c) ? x.content.c : 0; break;		\
+					default:																		\
+						assert (0 || "Error: Wrong type");											\
+				} break;																			\
+			case Double:																			\
+				switch (y.label) {																	\
+					case Long:																		\
+						res.label = Long;															\
+						res.content.l = (x.content.f op y.content.l) ? x.content.l : 0; break;		\
+					case Double:																	\
+						res.label = Double;															\
+						res.content.f = (x.content.f op y.content.f) ? x.content.f : 0; break;		\
+					case Char:																		\
+						res.label = Char;															\
+						res.content.c = (x.content.f op y.content.c) ? x.content.c : 0; break;		\
+					default:																		\
+						assert (0 || "Error: Wrong type");											\
+				} break;																			\
+			case Char:																				\
+				switch (y.label) {																	\
+					case Long:																		\
+						res.label = Long;															\
+						res.content.l = (x.content.c op y.content.l) ? x.content.l : 0; break;		\
+					case Double:																	\
+						res.label = Double;															\
+						res.content.f = (x.content.c op y.content.f) ? x.content.f : 0; break;		\
+					case Char:																		\
+						res.label = Char;															\
+						res.content.c = (x.content.c op y.content.c) ? x.content.c : 0; break;		\
+					default:																		\
+						assert (0 || "Error: Wrong type");											\
+				} break;																			\
+			default:																				\
+				assert (0 || "Error: Wrong type");													\
+		}																							\
+		return res; 																				\
 	}
-	return res;
-}
 
+EITHER_OPERATION(elogic,&&)
+EITHER_OPERATION(oulogic,||)
+
+#define EITHER_COMPARE_OPERATION(func,op) 										\
+	Container func(Stack* stack){												\
+		Container res; 															\
+		Container x = pop(stack); 												\
+		Container y = pop(stack); 												\
+		switch (x.label) {														\
+			case Long:															\
+				switch (y.label) {												\
+					case Long:													\
+						res = (x.content.l op y.content.l) ? x : y; break;		\
+					case Double:												\
+						res = (x.content.l op y.content.f) ? x : y; break;		\
+					case Char:													\
+						res = (x.content.l op y.content.c) ? x : y; break;		\
+					default:													\
+						assert (0 || "Error: Wrong type");						\
+				} break;														\
+			case Double:														\
+				switch (y.label) {												\
+					case Long:													\
+						res = (x.content.f op y.content.l) ? x : y; break;		\
+					case Double:												\
+						res = (x.content.f op y.content.f) ? x : y; break;		\
+					case Char:													\
+						res = (x.content.f op y.content.c) ? x : y; break;		\
+					default:													\
+						assert (0 || "Error: Wrong type");						\
+				} break;														\
+			case Char:															\
+				switch (y.label) {												\
+					case Long:													\
+						res = (x.content.c op y.content.l) ? x : y; break;		\
+					case Double:												\
+						res = (x.content.c op y.content.f) ? x : y; break;		\
+			case Char:															\
+						res = (x.content.c op y.content.c) ? x : y; break;		\
+					default:													\
+						assert (0 || "Error: Wrong type");						\
+				} break;														\
+			default:															\
+				assert (0 || "Error: Wrong type");								\
+		}																		\
+		return res; 															\
+	}
+
+EITHER_COMPARE_OPERATION(compmaior,>)
+EITHER_COMPARE_OPERATION(compmenor,<)
+
+Container ifthenelse(Stack* stack) {												
+	Container res; 															
+	Container z = pop(stack); // ultimo
+	Container y = pop(stack); // segundo
+	Container x = pop(stack); // primeiro												
+	switch (x.label) {														
+		case Long:													
+			res = x.content.l ? y : z; break;
+		case Char:													
+			res = x.content.f ? y : z; break;
+		default:													
+			assert (0 || "Error: Wrong type");						
+	}
+	return res; 															
+}

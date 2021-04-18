@@ -57,3 +57,15 @@ void printstack(Stack* stack) {
         }
     }
 }
+
+// debugging
+void printcontainer(Container* container) {
+    switch (container->label) {
+        case Long: printf("DEBUG: %ld\n", container->content.l); break;
+        case Double: printf("DEBUG: %g\n", container->content.f); break;
+        case Char: printf("DEBUG: %c\n", container->content.c); break;
+        case String: printf("DEBUG: %s\n", container->content.s); break;
+        case Array: /*I predict shit here;*/ break;
+        default: return;
+    }
+}

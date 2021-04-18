@@ -90,3 +90,5 @@ Container pop(Stack*);
  * @param Stack
  */
 void printstack(Stack*);
+
+void printcontainer(Container*);
