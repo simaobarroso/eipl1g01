@@ -183,13 +183,29 @@ Container maior(Stack*);
  * @param Stack
  */
 Container igual(Stack*);
-
+/**
+ * \brief Se os dois argumnetos forem diferentes de 0, retorna o segundo argumento. Caso contrario, retorna 0.
+ *
+ * @param Stack
+ */
 Container elogic(Stack*);
-
+/**
+ * \brief Se os dois argumnetos forem iguais a 0, retorna 0. Caso contrario, devolve o primeiro argumento se este for verdadeiro, ou o segundo, caso contrario.
+ *
+ * @param Stack
+ */
 Container oulogic(Stack*);
-
+/**
+ * \brief Retorna o maior dos dois agrumentos a Stack.
+ *
+ * @param Stack
+ */
 Container compmaior(Stack*);
-
+/**
+ * \brief Retorna o menor dos dois argumentos a Stack.
+ *
+ * @param Uma stack
+ */
 Container compmenor(Stack*);
 /**
  * \brief Necessita de três numeros, se o primeiro não for 0, devolve o segundo valor, se não, devolve o terceiro valor

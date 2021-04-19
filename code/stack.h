@@ -91,4 +91,4 @@ Container pop(Stack*);
  */
 void printstack(Stack*);
 
-void printcontainer(Container*);
+//void printcontainer(Container*);

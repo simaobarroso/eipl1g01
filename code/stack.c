@@ -59,6 +59,7 @@ void printstack(Stack* stack) {
 }
 
 // debugging
+/*
 void printcontainer(Container* container) {
     switch (container->label) {
         case Long: printf("DEBUG: %ld\n", container->content.l); break;
@@ -69,3 +70,4 @@ void printcontainer(Container* container) {
         default: return;
     }
 }
+*/
