@@ -211,7 +211,7 @@ void operation(char* line, Stack* stack, Container* vars, int* hashmap, int* i) 
             push(res,stack);
             break;
         case Maior:
-            res = menor(stack);
+            res = maior(stack);
             push(res,stack);
             break;
         case Nao:
