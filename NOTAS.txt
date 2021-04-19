@@ -1,0 +1,11 @@
+O que fazer ao código que já existe:
+
+    - Os either precisam de ser revistos para remover aqueles switch case dentro de switch case. (provavelmente passar tudo a Double)
+    - Agradeço a quem tiver a paciência de meter tudo dentro de cada case do que está no "void operation" em funções individuais
+
+O código para fazer:
+
+    - O parser eu trato --Mota
+    - O guião 5 vai doer
+
+*futuras notas aqui*
