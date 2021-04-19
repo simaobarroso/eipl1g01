@@ -138,34 +138,50 @@ Container toString(Container);
 /**
  * \brief Troca o 3º valor da stack para o topo
  *
- * @param Uma stack
+ * @param Stack
  */
 void troca3(Stack*);
 /**
  * \brief Mete o 2º valor da stack no topo
  *
- * @param Uma stack
+ * @param Stack
  */
 void inverte2(Stack*);
 /**
  * \brief Duplica o valor do topo da stack
  *
- * @param Uma stack
+ * @param Stack
  */
 void duplica(Stack*);
 /**
  * \brief Copia o n-ésimo valor da stack (o valor no topo da stack é 0) e mete esse valor no topo
  *
- * @param Uma stack
+ * @param Stack
  */
 void copiaN(Stack*);
-
+/**
+ * \brief Devolve o contrário do valor dado, por exemplo, se for 0, devolve 1, se for diferente de 0 devolve 0
+ *
+ * @param Stack
+ */
 Container nao(Stack*);
-
+/**
+ * \brief Vê se um valor é menor que outro, se for menor, devolve esse valor, se não devolve 0
+ *
+ * @param Stack
+ */
 Container menor(Stack*);
-
+/**
+ * \brief Vê se um valor é maior que outro, se for maior, devolve esse valor, se não devolve 0
+ *
+ * @param Um apontador para uma stack
+ */
 Container maior(Stack*);
-
+/**
+ * \brief Vê se um valor é igual ao outro, se for, devolve esse valor, se não devolve 0
+ *
+ * @param Stack
+ */
 Container igual(Stack*);
 
 Container elogic(Stack*);
@@ -175,5 +191,9 @@ Container oulogic(Stack*);
 Container compmaior(Stack*);
 
 Container compmenor(Stack*);
-
+/**
+ * \brief Necessita de três numeros, se o primeiro não for 0, devolve o segundo valor, se não, devolve o terceiro valor
+ *
+ * @param Stack
+ */
 Container ifthenelse(Stack*);
