@@ -1,11 +1,23 @@
 O que fazer ao código que já existe:
 
     - Os either precisam de ser revistos para remover aqueles switch case dentro de switch case. (provavelmente passar tudo a Double)
-    - Agradeço a quem tiver a paciência de meter tudo dentro de cada case do que está no "void operation" em funções individuais
+    - Agradeço a quem tiver a paciência de meter tudo dentro de cada case do que está no "void operation" em funções individuais porque:
+        - vamos usar um array de funções em vez do switch case
+        - como tal, o tipo de todas as funções passa a void (ou int, ainda vou verificar o debugger) e recebe uma stack
 
-O código para fazer:
+O código para ainda se fazer:
 
     - O parser eu trato --Mota
+        - ah ya, vou fazer o debugger então
+    
     - O guião 5 vai doer
+        - as funções são guardadas como string se nada existir a dizer que vão ser executadas, mas apenas se isto acontecer, pelo que é preciso verificar sempre o que vem a seguir (questões de otimização e tal)
+
+        - parte de uma ideia:
+            blocos de funções: recebem o valor do bloco e se devem manter o argumento à ação do outro lado ou não:
+
+            void bloco(int with_arg,void* func(stack)) {
+    
+            }
 
 *futuras notas aqui*
