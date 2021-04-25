@@ -28,15 +28,15 @@ typedef struct Container {
         double f;
         char c;
         char* s;
-        struct Container* a; // para o Guião 4
-        void* func; // para o Guião 5
+        struct Stack* a; // para o Guião 4
+        char* func; // para o Guião 5
     } content;
 } Container;
 
 /**
  * \brief Controla os elementos da stack
  */
-typedef struct {
+typedef struct Stack {
     Container* arr;  // stack itself
     int sizeofstack; // número de elementos da stack
     int alloc;       // número alocado

@@ -1,7 +1,7 @@
 O que fazer ao código que já existe:
 
     - Os either precisam de ser revistos para remover aqueles switch case dentro de switch case. (provavelmente passar tudo a Double)
-    - Agradeço a quem tiver a paciência de meter tudo dentro de cada case do que está no "void operation" em funções individuais porque:
+    - Agradeço a quem tiver a paciência de meter tudo o que está dentro de cada case do "operation" dentro das funções individuais porque:
         - vamos usar um array de funções em vez do switch case
         - como tal, o tipo de todas as funções passa a void (ou int, ainda vou verificar o debugger) e recebe uma stack
 
@@ -16,7 +16,7 @@ O código para ainda se fazer:
         - parte de uma ideia:
             blocos de funções: recebem o valor do bloco e se devem manter o argumento à ação do outro lado ou não:
 
-            void bloco(int with_arg,void* func(stack)) {
+            void bloco(int with_arg,void* func(stack)) { // função puramente sugestiva
     
             }
 

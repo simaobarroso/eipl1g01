@@ -11,7 +11,7 @@
 /**
  * \brief "Variavel global"
  */
-#define CALC 100
+#define SIZE 100
 
 Container toChar(Container x) {
     if (x.label != Char) {
@@ -51,7 +51,7 @@ Container toDouble(Container x) {
 }
 
 Container toString(Container x) { // tentar implementar apenas quando aparece o "l"
-    char str[CALC];
+    char str[SIZE];
     if (x.label != String) {
         if (x.label == Long) {
             sprintf(str,"%ld",x.content.l);

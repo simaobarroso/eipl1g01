@@ -1,0 +1,5 @@
+blocos de funções: recebem o valor do bloco e a função correspondente à ação do outro lado:
+
+void bloco(Container var_bloco,void* func(stack)) {
+    
+}
