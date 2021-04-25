@@ -13,6 +13,15 @@
  */
 #define SIZE 100
 
+void to_type(Label l, Container* x) {
+    switch (l) {
+        case Long: *x = toInt(*x); break;
+        case Double: *x = toDouble(*x); break;
+        case Char: *x = toChar(*x); break;
+        default: assert(0 || "Error: wrong type");
+    }
+}
+
 Container toChar(Container x) {
     if (x.label != Char) {
         if (x.label == Long) {
