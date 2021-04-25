@@ -56,6 +56,7 @@ void printstack(Stack* stack) {
             default: return;
         }
     }
+    putchar('\n');
 }
 
 // debugging
@@ -66,7 +67,7 @@ void printcontainer(Container* container) {
         case Double: printf("DEBUG: %g\n", container->content.f); break;
         case Char: printf("DEBUG: %c\n", container->content.c); break;
         case String: printf("DEBUG: %s\n", container->content.s); break;
-        case Array: /*I predict shit here;*/ break;
+        case Array: break;
         default: return;
     }
 }

@@ -1,3 +1,6 @@
+#ifndef STACK_H
+#define STACK_H
+
 /**
  * @file Ficheiro com as várias invocações às funções da Stack
  */
@@ -92,3 +95,5 @@ Container pop(Stack*);
 void printstack(Stack*);
 
 //void printcontainer(Container*);
+
+#endif /* STACK_H */
