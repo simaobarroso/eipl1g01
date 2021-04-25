@@ -22,52 +22,22 @@
  */
 void initialize_vars(Container*);
 
+void* initialize_hashmap(void);
+
 /**
  * \brief Função main (função principal do programa)
  *
  * @returns O valor 0
  */
 int main(void) { // TODO(Mota): mudar para o debugger
-    static int hashmap[256] = {
-        [NewLine] = 1,
-        [Either] = 1,
-        [Soma] = 1,
-        [Subtrai] = 1,
-        [Multiplica] = 1,
-        [Divide] = 1,
-        [Modulo] = 1,
-        [Potencia] = 1,
-        [Bitwiseand] = 1,
-        [Bitwiseor] = 1,
-        [Bitwisexor] = 1,
-        [Incrementa] = 1,
-        [Decrementa] = 1,
-        [Bitwisenot] = 1,
-        [ToChar] = 1,
-        [ToInt] = 1,
-        [ToString] = 1,
-        [ToDouble] = 1,
-        [Troca3] = 1,
-        [Inverte2] = 1,
-        [Duplica] = 1,
-        [CopiaN] = 1,
-        [Pop] = 1,
-        [CopiaTopo] = 1,
-        [Igual] = 1,
-        [Maior] = 1,
-        [Menor] = 1,
-        [Nao] = 1,
-        [Ifthenelse] = 1
 
-        // acrescentar os próximos operadores aqui (próximos guiões)
-    };
     static Container vars[26];
     initialize_vars(vars);
     Stack s;
     initialize(&s);
     char line[SIZE];
     assert(fgets(line,SIZE,stdin) != NULL);
-
+    void* hashmap = initialize_hashmap();
     parser(&s,line,hashmap,vars);
     printstack(&s);
     putchar('\n');
@@ -88,4 +58,41 @@ void initialize_vars(Container* vars) {
         vars[i2].label = Long;
         vars[i2].content.l = j2;
     }
+}
+
+void* initialize_hashmap(void) {
+    static void (*hashmap[128])(Stack*,int*) = {    // TODO(Mota): sim, todos os tipos das funções abaixo têm que ser estes...
+        [NewLine] = newline,                        // TODO(Mota): copiar esta parte do parser para uma função
+        [Either] = either,                          // TODO(Mota): criar esta função para selecionar que tipo de 'e' vai ser feito
+        [Soma] = soma,
+        [Subtrai] = subtrai,
+        [Multiplica] = multiplica,
+        [Divide] = divide,
+        [Modulo] = modulo,
+        [Potencia] = potencia,
+        [Bitwiseand] = bitwiseand,
+        [Bitwiseor] = bitwiseor,
+        [Bitwisexor] = bitwisexor,
+        [Incrementa] = incrementa,
+        [Decrementa] = decrementa,
+        [Bitwisenot] = bitwisenot,
+        [ToChar] = toChar,
+        [ToInt] = toInt,
+        [ToString] = toString,
+        [ToDouble] = toDouble,
+        [Troca3] = troca3,
+        [Inverte2] = inverte2,
+        [Duplica] = duplica,
+        [CopiaN] = copiaN,
+        [Pop] = pop,
+        [MudaVariavel] = variavel,
+        [Igual] = igual,
+        [Maior] = maior,
+        [Menor] = menor,
+        [Nao] = nao,
+        [Ifthenelse] = ifthenelse
+
+        // acrescentar os próximos operadores aqui (próximos guiões)
+    };
+    return hashmap;
 }
