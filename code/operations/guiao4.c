@@ -28,12 +28,11 @@ void TamnhoRange(){
 }
 
 /**
- * \brief Mesma função definida em cima
+ * \brief Devolve o valor do array com o indice indicado pelo o utilizador
  *
- * É colocada aqui por preferência, de modo a tornar o código mais legível
  *
- * @param Array 
- * @param Int (indice para o array dado) 
+ * @param Container (o array que vamos trabalhar com)
+ * @param Container (indice para o array dado) 
  *
  */
 Container Indice(Container array, Container indice) {
