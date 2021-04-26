@@ -12,7 +12,7 @@
  * \brief Coloca um array numa stack
  *
  * @param Stack 
- * @param Array 
+ * @param Container (O array dado) 
  *
  */
 void ColocarStack(Stack *stack, Container *array){
