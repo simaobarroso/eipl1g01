@@ -9,7 +9,7 @@
 
 #define SIZE 8192
 
-void parser(Stack* stack, char* line, int* hashmap, Container* vars) {
+void parser(Stack* stack, char* line, Container* vars) {
     int i = 0;
     Container toPush;
     relable_container(&toPush, String);
@@ -30,7 +30,7 @@ void parser(Stack* stack, char* line, int* hashmap, Container* vars) {
         }
 
         // para strings/arrays/blocos
-        else if (line[i] == '[' || line[i] == '"' || line[i] == '{') {
+        else if (line[i] == '[' || line[i] == '"') {
             // if (line[i-1] == '\'') {
             char string[80] = "";
             switch (line[i]) {
@@ -46,10 +46,14 @@ void parser(Stack* stack, char* line, int* hashmap, Container* vars) {
             }
         }
 
+        else if (line[i] == '{') {
+            fazer_bloco(stack,line,&i);
+        }
+
         // para variáveis
-        else if (line[i] >= 'A' && line[i] <= 'Z') {
+        else if (line[i] >= 'A' && line[i] <= 'Z' && line[i+1] != '/') {
             int control = 0;
-            variavel(stack,line[i],vars,control);
+            muda_variavel(stack,line[i],vars,control);
             push(vars[line[i] - 'A'],stack);
         }
 
@@ -91,14 +95,32 @@ Container number_parse(char* line, int* i) {
     return res;
 }
 
+void fazer_bloco(Stack* s,char* line,int* i) { // lembrar que isto não junta {} nem ' ' ao bloco
+    (*i) += 2;
+    char bloco[80] = "";
+    Container res = { .label = Block };
+
+    while(line[(*i)+1] != '}') {
+        strncat(bloco,&line[*i],1);
+        (*i)++;
+    }
+    (*i)++;
+    res.content.b = strdup(bloco);
+    push(res,s);
+}
+
+void newline(Stack* s,char* line,int* i) {
+    assert(fgets(newline, SIZE, stdin) != NULL);
+    parser(stack,newline,vars);                     // TODO(Mota): isto precisa de receber o vars dalguma forma sem ser pela função
+}
+
+// isto tem mesmo que desaparecer
 void operation(char* line, Stack* stack, Container* vars, int* hashmap, int* i) { // provavelmente vamos ter que dar um carater de controlo
     Container res;
     int control = 1;
     char newline[SIZE];
     switch (line[*i]) {
         case NewLine:
-            assert(fgets(newline, SIZE, stdin) != NULL);
-            parser(stack,newline,hashmap,vars);
             break;
             /*
             strncat(newline,&line[i],SIZE/2);   // TODO(Mota): isto come sempre o primeiro carater, acho que os endereços estão errados algures
@@ -197,7 +219,7 @@ void operation(char* line, Stack* stack, Container* vars, int* hashmap, int* i) 
             break;
         case MudaVariavel:
             (*i)++;
-            variavel(stack,line[*i],vars,control);
+            muda_variavel(stack,line[*i],vars,control);
             break;
         case Ifthenelse:
             res = ifthenelse(stack);

@@ -1,3 +1,5 @@
+#include "types.h"
+
 #ifndef STACK_H
 #define STACK_H
 
@@ -5,42 +7,6 @@
  * @file Ficheiro com as várias invocações às funções da Stack
  */
 /* expression.h */
-
-/**
- * \brief Todos os tipos que vão ser usados na Stack
- */
-typedef enum {
-    Long,
-    Double,
-    Char,
-    String,
-    Array,
-    Function
-} Label;
-
-/**
- * \brief Estrutura de um container, que controla o tipo dos elementos da stack
- */
-typedef struct Container {
-    Label label;
-    union {
-        long l;
-        double f;
-        char c;
-        char* s;
-        struct Stack* a; // para o Guião 4
-        char* func; // para o Guião 5
-    } content;
-} Container;
-
-/**
- * \brief Controla os elementos da stack
- */
-typedef struct Stack {
-    Container* arr;  // stack itself
-    int sizeofstack; // número de elementos da stack
-    int alloc;       // número alocado
-} Stack;
 
 /**
  * \brief Inicializa a Stack
