@@ -10,8 +10,6 @@
 
 void* initialize_hashmap(void);
 
-#define MATH_OPERATION_HEADER(func) Container func(Container, Container)
-
 /**
  * \brief A soma de duas variáveis
  *
@@ -27,7 +25,7 @@ Container soma(Container,Container);
  *
  * @returns O valor da subtração das variáveis
  */
-MATH_OPERATION_HEADER(subtrai);
+Container subtrai(Container,Container);
 /**
  * \brief A multiplicação de duas variáveis
  *
@@ -35,7 +33,7 @@ MATH_OPERATION_HEADER(subtrai);
  *
  * @returns O valor da multiplicação das variáveis
  */
-MATH_OPERATION_HEADER(multiplica);
+Container multiplica(Container,Container);
 /**
  * \brief A divisão de duas variáveis
  *
@@ -43,7 +41,7 @@ MATH_OPERATION_HEADER(multiplica);
  *
  * @returns O valor da divisão inteira das variáveis
  */
-MATH_OPERATION_HEADER(divide);
+Container divide(Container,Container);
 /**
  * \brief O modulo de duas variáveis
  *
@@ -51,7 +49,7 @@ MATH_OPERATION_HEADER(divide);
  *
  * @returns O valor do modulo das variáveis
  */
-MATH_OPERATION_HEADER(modulo);
+Container modulo(Container,Container);
 /**
  * \brief A potência de uma variável elevada à outra
  *
@@ -59,7 +57,7 @@ MATH_OPERATION_HEADER(modulo);
  *
  * @returns O valor da potência
  */
-MATH_OPERATION_HEADER(potencia);
+Container potencia(Container,Container);
 /**
  * \brief Forma um "e lógico" bitwise
  *
@@ -67,7 +65,7 @@ MATH_OPERATION_HEADER(potencia);
  *
  * @returns O valor do "e lógico"
  */
-MATH_OPERATION_HEADER(bitwiseand);
+Container bitwiseand(Container,Container);
 /**
  * \brief Forma um bitwiseor
  *
@@ -75,7 +73,7 @@ MATH_OPERATION_HEADER(bitwiseand);
  *
  * @returns O valor do bitwiseor
  */
-MATH_OPERATION_HEADER(bitwiseor);
+Container bitwiseor(Container,Container);
 /**
  * \brief Forma um bitwisexor
  *
@@ -83,7 +81,7 @@ MATH_OPERATION_HEADER(bitwiseor);
  *
  * @returns O valor do bitwisexor
  */
-MATH_OPERATION_HEADER(bitwisexor);
+Container bitwisexor(Container,Container);
 /**
  * \brief Incrementação de uma unidade a uma variável int
  *
