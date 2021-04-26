@@ -8,18 +8,18 @@
 enum Operations {
     NewLine = 'l',
     Either = 'e',   // isto vai criar condições consoante o carater seguinte
-    Soma = '+',
+    Soma_concat = '+',
     Subtrai = '-',
-    Multiplica = '*',
-    Divide = '/',
-    Modulo = '%',
-    Potencia = '#',
+    Multiplica_concatT_fold = '*',
+    Divide_separa = '/',
+    Modulo_map = '%',
+    Potencia_subsindex = '#',
     Bitwiseand = '&',
     Bitwiseor = '|',
     Bitwisexor = '^',
-    Incrementa = ')',
-    Decrementa = '(',
-    Bitwisenot = '~',
+    Incrementa_colocaStack = ')',
+    Decrementa_colocaStack = '(',
+    Bitwisenot_stackarr_exebloco = '~',
     ToChar = 'c',
     ToInt = 'i',
     ToString = 's',
@@ -27,14 +27,17 @@ enum Operations {
     Troca3 = '@',
     Inverte2 = '\\',
     Duplica = '_',
-    CopiaN = '$',
+    CopiaN_ordena = '$',
     Pop = ';',
-    Menor = '<',
-    Maior = '>',
-    Igual = '=',
+    Menor_eleminit = '<',
+    Maior_elemend = '>',
+    Igual_valindex = '=',
     Nao = '!',
     MudaVariavel = ':',
-    Ifthenelse = '?'
+    Ifthenelse = '?',
+    LerInput = 't',
+    Length_filter = ',',
+    ExecCondBloco = 'w'
 
     // acrescentar os próximos operadores aqui (próximos guiões)
 };
@@ -53,7 +56,7 @@ enum Variaveis {A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z};
  * @param String (Char*) 
  *
  */
- void parser(Stack*,char*,int*,Container*);
+ void parser(Stack*,char*,Container*);
 
 /**
  * \brief Realiza as operações a serem executadas
@@ -79,5 +82,9 @@ void operation(char*, Stack*, Container*, int*, int*);
  *
  */
 Container number_parse(char*,int*);
+
+void fazer_bloco(Stack*,char*,int*);
+
+void newline(Stack*,char*,int*);
 
 #endif /* PARSER_H */
