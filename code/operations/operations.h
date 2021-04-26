@@ -5,10 +5,42 @@
  * @file Ficheiro com as várias invocações às funções de operações
  */
 #include "../stack.h"
+#include "../parser/parser.h"
 
 #include <math.h>
 
-void* initialize_hashmap(void);
+void (*hashmap[128])(Foldable*,char*,int*) = {      // TODO(Mota): sim, todos os tipos das funções abaixo têm que ser estes... fazer uma função para o ´e´
+        [NewLine] = newline,
+        [Either] = either,
+        [Soma] = soma,
+        [Subtrai] = subtrai,
+        [Multiplica] = multiplica,
+        [Divide] = divide,
+        [Modulo] = modulo,
+        [Potencia] = potencia,
+        [Bitwiseand] = bitwiseand,
+        [Bitwiseor] = bitwiseor,
+        [Bitwisexor] = bitwisexor,
+        [Incrementa] = incrementa,
+        [Decrementa] = decrementa,
+        [Bitwisenot] = bitwisenot,
+        [ToChar] = toChar,
+        [ToInt] = toInt,
+        [ToString] = toString,
+        [ToDouble] = toDouble,
+        [Troca3] = troca3,
+        [Inverte2] = inverte2,
+        [Duplica] = duplica,
+        [CopiaN] = copiaN,
+        [Pop] = pop,
+        [MudaVariavel] = muda_variavel,
+        [Igual] = igual,
+        [Maior] = maior,
+        [Menor] = menor,
+        [Nao] = nao,
+        [Ifthenelse] = ifthenelse
+};
+// void* initialize_hashmap(void);
 
 #define MATH_OPERATION_HEADER(func) Container func(Container, Container)
 
@@ -234,5 +266,9 @@ Container* initialize_vars(void);
  *
  */
 void muda_variavel(Stack*,char,Container*,int);
+
+void fold(Stack*,char*,int*);
+
+void map(Stack*,char*,int*);
 
 #endif /* OPERATIONS_H */
