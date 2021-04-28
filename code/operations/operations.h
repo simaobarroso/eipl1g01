@@ -1,46 +1,12 @@
-#ifndef OPERATIONS_H
-#define OPERATIONS_H
-
 /**
  * @file Ficheiro com as várias invocações às funções de operações
  */
+#ifndef OPERATIONS_H
+#define OPERATIONS_H
+
 #include "../stack.h"
-#include "../parser/parser.h"
 
 #include <math.h>
-
-void (*hashmap[128])(Foldable*,char*,int*) = {      // TODO(Mota): sim, todos os tipos das funções abaixo têm que ser estes... fazer uma função para o ´e´
-        [NewLine] = newline,
-        [Either] = either,
-        [Soma] = soma,
-        [Subtrai] = subtrai,
-        [Multiplica] = multiplica,
-        [Divide] = divide,
-        [Modulo] = modulo,
-        [Potencia] = potencia,
-        [Bitwiseand] = bitwiseand,
-        [Bitwiseor] = bitwiseor,
-        [Bitwisexor] = bitwisexor,
-        [Incrementa] = incrementa,
-        [Decrementa] = decrementa,
-        [Bitwisenot] = bitwisenot,
-        [ToChar] = toChar,
-        [ToInt] = toInt,
-        [ToString] = toString,
-        [ToDouble] = toDouble,
-        [Troca3] = troca3,
-        [Inverte2] = inverte2,
-        [Duplica] = duplica,
-        [CopiaN] = copiaN,
-        [Pop] = pop,
-        [MudaVariavel] = muda_variavel,
-        [Igual] = igual,
-        [Maior] = maior,
-        [Menor] = menor,
-        [Nao] = nao,
-        [Ifthenelse] = ifthenelse
-};
-// void* initialize_hashmap(void);
 
 /**
  * \brief A soma de duas variáveis
@@ -49,7 +15,7 @@ void (*hashmap[128])(Foldable*,char*,int*) = {      // TODO(Mota): sim, todos os
  *
  * @returns O valor da soma das variáveis
  */
-Container soma(Container,Container);
+void soma(Container*,Container*,Stack);
 /**
  * \brief A subtração de duas variáveis
  *
@@ -57,7 +23,7 @@ Container soma(Container,Container);
  *
  * @returns O valor da subtração das variáveis
  */
-Container subtrai(Container,Container);
+void subtrai(Container*,Container*,Stack);
 /**
  * \brief A multiplicação de duas variáveis
  *
@@ -65,7 +31,7 @@ Container subtrai(Container,Container);
  *
  * @returns O valor da multiplicação das variáveis
  */
-Container multiplica(Container,Container);
+void multiplica(Container*,Container*,Stack);
 /**
  * \brief A divisão de duas variáveis
  *
@@ -73,7 +39,7 @@ Container multiplica(Container,Container);
  *
  * @returns O valor da divisão inteira das variáveis
  */
-Container divide(Container,Container);
+void divide(Container*,Container*,Stack);
 /**
  * \brief O modulo de duas variáveis
  *
@@ -81,7 +47,7 @@ Container divide(Container,Container);
  *
  * @returns O valor do modulo das variáveis
  */
-Container modulo(Container,Container);
+void modulo(Container*,Container*,Stack);
 /**
  * \brief A potência de uma variável elevada à outra
  *
@@ -89,7 +55,7 @@ Container modulo(Container,Container);
  *
  * @returns O valor da potência
  */
-Container potencia(Container,Container);
+void potencia(Container*,Container*,Stack);
 /**
  * \brief Forma um "e lógico" bitwise
  *
@@ -97,7 +63,7 @@ Container potencia(Container,Container);
  *
  * @returns O valor do "e lógico"
  */
-Container bitwiseand(Container,Container);
+void bitwiseand(Container*,Container*,Stack);
 /**
  * \brief Forma um bitwiseor
  *
@@ -105,7 +71,7 @@ Container bitwiseand(Container,Container);
  *
  * @returns O valor do bitwiseor
  */
-Container bitwiseor(Container,Container);
+void bitwiseor(Container*,Container*,Stack);
 /**
  * \brief Forma um bitwisexor
  *
@@ -113,7 +79,7 @@ Container bitwiseor(Container,Container);
  *
  * @returns O valor do bitwisexor
  */
-Container bitwisexor(Container,Container);
+void bitwisexor(Container*,Container*,Stack);
 /**
  * \brief Incrementação de uma unidade a uma variável int
  *
@@ -121,7 +87,7 @@ Container bitwisexor(Container,Container);
  *
  * @returns O valor da variável acrescido de um
  */
-Container incrementa(Container);
+void incrementa(Container*);
 /**
  * \brief Decrementação de uma unidade a uma variável int
  *
@@ -129,7 +95,7 @@ Container incrementa(Container);
  *
  * @returns O valor da variável decrescido de um
  */
-Container decrementa(Container);
+void decrementa(Container*);
 /**
  * \brief Forma um bitwisenot
  *
@@ -137,117 +103,95 @@ Container decrementa(Container);
  *
  * @returns O valor do bitwisenot
  */
-Container bitwisenot(Container);
-/**
- * \brief Converte para char
- *
- * @param Uma variável de qualquer tipo
- *
- * @returns O valor em Char
- */
-Container toChar(Container);
-/**
- * \brief Converte para Int
- *
- * @param Uma variável de qualquer tipo
- *
- * @returns O valor em Int
- */
-Container toInt(Container);
-/**
- * \brief Converte para Double
- *
- * @param Uma variável de qualquer tipo
- *
- * @returns O valor em Double
- */
-Container toDouble(Container);
-/**
- * \brief Converte para String
- *
- * @param Uma variável de qualquer tipo
- *
- * @returns O valor em String
- */
-Container toString(Container);
+void bitwisenot(Container*);
 /**
  * \brief Troca o 3º valor da stack para o topo
  *
  * @param Stack
  */
-void troca3(Stack*);
+void troca3(Stack);
 /**
  * \brief Mete o 2º valor da stack no topo
  *
  * @param Stack
  */
-void inverte2(Stack*);
+void inverte2(Stack);
 /**
  * \brief Duplica o valor do topo da stack
  *
  * @param Stack
  */
-void duplica(Stack*);
+void duplica(Stack);
 /**
  * \brief Copia o n-ésimo valor da stack (o valor no topo da stack é 0) e mete esse valor no topo
  *
  * @param Stack
  */
-void copiaN(Stack*);
+void copiaN(Stack);
+/**
+ * \brief Lê uma linha e insere-a como string na Stack
+ *
+ * @param Stack
+ */
+void newline(Stack);
 /**
  * \brief Devolve o contrário do valor dado, por exemplo, se for 0, devolve 1, se for diferente de 0 devolve 0
  *
  * @param Stack
  */
-Container nao(Stack*);
+void nao(Container*);
 /**
  * \brief Vê se um valor é menor que outro, se for menor, devolve esse valor, se não devolve 0
  *
  * @param Stack
  */
-Container menor(Stack*);
+void menor(Container*,Container*,Stack);
 /**
  * \brief Vê se um valor é maior que outro, se for maior, devolve esse valor, se não devolve 0
  *
  * @param Um apontador para uma stack
  */
-Container maior(Stack*);
+void maior(Container*,Container*,Stack);
 /**
  * \brief Vê se um valor é igual ao outro, se for, devolve esse valor, se não devolve 0
  *
  * @param Stack
  */
-Container igual(Stack*);
+void igual(Container*,Container*,Stack);
 /**
  * \brief Se os dois argumnetos forem diferentes de 0, retorna o segundo argumento. Caso contrario, retorna 0.
  *
  * @param Stack
  */
-Container elogic(Stack*);
+void elogic(Container*,Container*,Stack);
 /**
  * \brief Se os dois argumnetos forem iguais a 0, retorna 0. Caso contrario, devolve o primeiro argumento se este for verdadeiro, ou o segundo, caso contrario.
  *
  * @param Stack
  */
-Container oulogic(Stack*);
+Container oulogic(Stack);
 /**
  * \brief Retorna o maior dos dois agrumentos a Stack.
  *
+ * @param Container
+ * @param Container
  * @param Stack
  */
-Container compmaior(Stack*);
+void compmaior(Container*,Container*,Stack);
 /**
  * \brief Retorna o menor dos dois argumentos a Stack.
  *
- * @param Uma stack
+ * @param Container
+ * @param Container
+ * @param Stack
  */
-Container compmenor(Stack*);
+void compmenor(Container*,Container*,Stack);
 /**
  * \brief Necessita de três numeros, se o primeiro não for 0, devolve o segundo valor, se não, devolve o terceiro valor
  *
  * @param Stack
  */
-Container ifthenelse(Stack*);
+void ifthenelse(Container*,Container*,Container*,Stack);
 /**
  * \brief Função que inicializa as variáveis
  *
@@ -263,10 +207,38 @@ Container* initialize_vars(void);
  * @param Int
  *
  */
-void muda_variavel(Stack*,char,Container*,int);
+void muda_variavel(Stack,char,Container*,int);
 
-void fold(Stack*,char*,int*);
+/**
+ * \brief Coverte o topo da stack para o tipo especificado na função
+ *
+ * @param Stack
+ */
+void to_int_op(Stack);
 
-void map(Stack*,char*,int*);
+/**
+ * \brief Coverte o topo da stack para o tipo especificado na função
+ *
+ * @param Stack
+ */
+void to_char_op(Stack);
+
+/**
+ * \brief Coverte o topo da stack para o tipo especificado na função
+ *
+ * @param Stack
+ */
+void to_double_op(Stack);
+
+/**
+ * \brief Coverte o topo da stack para o tipo especificado na função
+ *
+ * @param Stack
+ */
+void to_string_op(Stack);
+
+void foldf(Stack,char*,int*);
+
+void map(Stack,char*,int*);
 
 #endif /* OPERATIONS_H */

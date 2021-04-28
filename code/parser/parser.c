@@ -1,5 +1,6 @@
 #include "parser.h"
 #include "../operations/operations.h"
+#include "../types.h"
 
 #include <ctype.h>
 #include <assert.h>
@@ -9,243 +10,117 @@
 
 #define SIZE 8192
 
-void parser(Stack* stack, char* line, Container* vars) {
-    int i = 0;
+void parser(Stack stack, char* line, OperatorFunction* hashmap, Container* vars) {
     Container toPush;
-    relable_container(&toPush, String);
-    while (line[i] != '\n' && line[i] != '\0') { // como o fgets apanha o '\n', verificamos para ambos, o '\0' 'e apenas standard verificar em C
+    initialize_container(&toPush, String);
+    while (*line != '\0') { // como o fgets apanha o '\n', verificamos para ambos, o '\0' 'e apenas standard verificar em C
         
         // para nums
-        if (isdigit(line[i]) || line[i] == '.' || (line[i] == '-' && isdigit(line[i+1]))) {
-            toPush = number_parse(line, &i);
-            push(toPush,stack);
-        }
-
-        // para char
-        else if (line[i] == '\'') {
-            relable_container(&toPush, Char);
-            toPush.content.c = line[i+1];
-            push(toPush,stack);
-            i+=2;
-        }
-
-        // para strings/arrays/blocos
-        else if (line[i] == '[' || line[i] == '"') {
-            // if (line[i-1] == '\'') {
-            char string[80] = "";
-            switch (line[i]) {
-                // case '[': parse_array(); break;
-                case '"':
-                    while(line[i] != '"' && line[i+1] == ' ') { // isto pode dar treta para depois do guião 3 --Mota
-                        strncat(string,&line[i++],1);
-                    }
-                    toPush.content.s = strndup(string,80);
-                    break;
-                default: return;
-            push(toPush,stack);
-            }
-        }
-
-        else if (line[i] == '{') {
-            fazer_bloco(stack,line,&i);
-        }
-
-        // para variáveis
-        else if (line[i] >= 'A' && line[i] <= 'Z' && line[i+1] != '/') {
-            int control = 0;
-            muda_variavel(stack,line[i],vars,control);
-            push(vars[line[i] - 'A'],stack);
-        }
-
-        // para ops
-        else if (hashmap[(int)line[i]]) operation(line, stack, vars, hashmap, &i);
+        if (isdigit(*line) || *line == '.' || (*line == '-' && isdigit(*(line+1))))
+            number_parse(stack,line);
         
-        else assert(0 || "Error: wrong input.");
-        i++;
+        // para char
+        else if (*line == '\'')
+            char_parse(stack,line);
+
+        // para var
+        else if (*line == ':')
+            var_control(stack,line,vars);               // TODO(Mota): esta função ainda não existe
+
+        // para string/array/bloco
+        else if (*line == '"' || *line == '[' || *line == '{')
+            structure_parse(stack,line,hashmap,vars);   // TODO(Mota): esta função ainda não existe
+
+        else 
+            parse_hashmap(stack,line,hashmap);          // TODO(Mota): esta função ainda não existe
+
+        line+=2; // passa o espaço ou o que for à frente
     }
 }
 
-Container number_parse(char* line, int* i) {
+void number_parse(Stack stack,char* line) {
     Container res;
     int isfloat = 0;
     char num[20] = "";
     char* aux = num;
 
-    while (isdigit(line[*i]) || line[*i] == '.' || (line[*i] == '-' && isdigit(line[*i+1]))) {
-        if (line[*i] == '.') isfloat = 1;
-        strncat(num,&line[*i],1);
-        (*i)++;
-        aux++;
+    while (isdigit(*line) || *line == '.' || (*line == '-' && isdigit(*(line+1)))) {
+        if (*line == '.') isfloat = 1;
+        strncat(num,line,1);
+        line++;
     }
-    if (line[(*i)+2] == 's') {
+    if (*(line+2) == 's') {
         res.label = String;
-        res.content.s = strndup(num,80);
-        (*i) += 2;
-    }
-    // TODO(Mota): estas condições aqui em baixo podem ser genéricas, certo era fixe se pudessemos separar isto
-    else {
+        res.STRING = strndup(num,80);
+        line += 2;
+    } else {
         if (isfloat) {  // verifica se é float
-            relable_container(&res,Double);
-            res.content.f = strtof(num,&aux);
+            initialize_container(&res,Double);
+            res.DOUBLE = strtof(num,&line);
         } else {  // acontece se for long
-            relable_container(&res,Long);
-            res.content.l = strtol(num,&aux,10);
+            initialize_container(&res,Long);
+            res.LONG = strtol(num,&line,10);
         }
     }
-    return res;
+    push(res,stack);
 }
 
-void fazer_bloco(Stack* s,char* line,int* i) { // lembrar que isto não junta {} nem ' ' ao bloco
-    (*i) += 2;
-    char bloco[80] = "";
-    Container res = { .label = Block };
+void char_parse(Stack stack, char* line) {
+    Container res;
+    res.CHAR = *(++line);
+    push(res,stack);
+    ++line;
+}
 
-    while(line[(*i)+1] != '}') {
-        strncat(bloco,&line[*i],1);
-        (*i)++;
+void var_control(Stack s,char* line,Container* vars) {
+    vars[*(++line) - 'A'] = pop(s);
+}
+
+void structure_parse(Stack stack,char* line,OperatorFunction* hashmap,Container* vars) {
+    switch(*line) {
+        case '[':
+            line+=2;
+            char array[SIZE];
+            while(*(line+2) != ']') {
+                strncat(array,line,1);
+                ++line;
+            }
+            Stack s = malloc(sizeof(Stack_plain));
+            parser(s,array,hashmap,vars);
+            Container res = { .label = Array, .ARRAY = s };
+            push(res,stack);
+            line+=2;
+            break;
+        case '{':
+            while(*(line+2) != ']') {
+                strncat(array,line,1);
+                ++line;
+            }
+            break;
+        case '"':
+        default: assert(0 || "Error: wrong type");
     }
-    (*i)++;
+}
+
+int hashkey(Stack s) {
+    Container *x = &s->arr[s->sizeofstack - 1];
+    Container *y = &s->arr[s->sizeofstack - 1];
+    Container cmp = (y->label > x->label) ? *y : *x;
+    return 128*(2 - (2*isNum(cmp)) + isFoldable(cmp));
+}
+
+void fazer_bloco(Stack s,char* line) {
+    char bloco[80] = "";
+    Container res = { .label = Lambda };
+
+    while(*(line+1) != '}') {
+        strncat(bloco,line,1);
+        line++;
+    }
     res.content.b = strdup(bloco);
     push(res,s);
 }
 
-void newline(Stack* s,char* line,int* i) {
-    assert(fgets(newline, SIZE, stdin) != NULL);
-    parser(stack,newline,vars);                     // TODO(Mota): isto precisa de receber o vars dalguma forma sem ser pela função
-}
-
-// isto tem mesmo que desaparecer
-void operation(char* line, Stack* stack, Container* vars, int* hashmap, int* i) { // provavelmente vamos ter que dar um carater de controlo
-    Container res;
-    int control = 1;
-    char newline[SIZE];
-    switch (line[*i]) {
-        case NewLine:
-            break;
-            /*
-            strncat(newline,&line[i],SIZE/2);   // TODO(Mota): isto come sempre o primeiro carater, acho que os endereços estão errados algures
-            line[i-1] = '\0';                   // nope, nao estou orgulhoso disto --Mota
-            strncat(line,newline,SIZE/2);
-            */
-        case Either:
-            switch (line[(*i)+1]) {
-            case '&':
-                res = elogic(stack);
-                push(res,stack);
-                (*i)++;
-                break;
-            case '|':
-                res = oulogic(stack);
-                push(res,stack);
-                (*i)++;
-                break;
-            case '<':
-                res = compmenor(stack);
-                push(res,stack);
-                (*i)++;
-                break;
-            case '>':
-                res = compmaior(stack);
-                push(res,stack);
-                (*i)++;
-                break;
-            default:
-                return;
-            }
-            break;
-        case Soma:
-            res = soma(pop(stack), pop(stack));
-            push(res, stack);
-            break;
-        case Subtrai:
-            res = subtrai(pop(stack), pop(stack));
-            push(res, stack);
-            break;
-        case Multiplica:
-            res = multiplica(pop(stack), pop(stack));
-            push(res, stack);
-            break;
-        case Divide:
-            res = divide(pop(stack), pop(stack));
-            push(res, stack);
-            break;
-        case Modulo:
-            res = modulo(pop(stack), pop(stack));
-            push(res, stack);
-            break;
-        case Potencia:
-            res = potencia(pop(stack), pop(stack));
-            push(res, stack);
-            break;
-        case Bitwiseand:
-            res = bitwiseand(pop(stack), pop(stack));
-            push(res, stack);
-            break;
-        case Bitwiseor:
-            res = bitwiseor(pop(stack), pop(stack));
-            push(res, stack);
-            break;
-        case Bitwisexor:
-            res = bitwisexor(pop(stack), pop(stack));
-            push(res, stack);
-            break;
-        case Incrementa:
-            res = incrementa(pop(stack));
-            push(res, stack);
-            break;
-        case Decrementa:
-            res = decrementa(pop(stack));
-            push(res, stack);
-            break;
-        case Bitwisenot:
-            res = bitwisenot(pop(stack));
-            push(res, stack);
-            break;
-        case ToChar:
-            res = toChar(pop(stack));
-            push(res, stack);
-            break;
-        case ToDouble:
-            res = toDouble(pop(stack));
-            push(res, stack);
-            break;
-        case ToInt:
-            res = toInt(pop(stack));
-            push(res, stack);
-            break;
-        case ToString:
-            res = toString(pop(stack));
-            push(res, stack);
-            break;
-        case MudaVariavel:
-            (*i)++;
-            muda_variavel(stack,line[*i],vars,control);
-            break;
-        case Ifthenelse:
-            res = ifthenelse(stack);
-            push(res,stack);
-            break;
-        case Igual:
-            res = igual(stack);
-            push(res,stack);
-            break;
-        case Menor:
-            res = menor(stack);
-            push(res,stack);
-            break;
-        case Maior:
-            res = maior(stack);
-            push(res,stack);
-            break;
-        case Nao:
-            res = nao(stack);
-            push(res,stack);
-            break;
-        case Troca3: troca3(stack); break;
-        case Inverte2: inverte2(stack); break;
-        case Duplica: duplica(stack); break;
-        case CopiaN: copiaN(stack); break;
-        case Pop: pop(stack); break;
-        default: return;
-    }
+void either(Stack s,char* line,) {
+	
 }

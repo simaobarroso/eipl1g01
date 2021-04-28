@@ -13,14 +13,14 @@
  *
  * @param Stack
  */
-void initialize(Stack*);
+Stack initialize_stack(void);
 /**
  * \brief Inicializa um conteiner com a label indicada
  *
  * @param Container
  * @param Label
  */
-void relable_container(Container*,Label);
+void initialize_container(Container*,Label);
 /**
  * \brief Verifica se a stack a stack está vazia
  *
@@ -28,7 +28,7 @@ void relable_container(Container*,Label);
  *
  * @returns Se está vazia retorna 1, caso contrário retorna 0
  */
-int isEmpty(Stack* list);
+int isEmpty(Stack);
 /**
  * \brief Verifica se uma stack está cheia
  *
@@ -36,29 +36,34 @@ int isEmpty(Stack* list);
  *
  * @returns Se está cheia retorna 1, caso contrário retorna 0
  */
-int isFull(Stack* list);
+int isFull(Stack);
 
 /**
  * \brief Coloca um valor no último índicie do array (topo da stack)
  *
  * @param Stack e um Int
  */
-void push(Container, Stack*);
+void push(Container, Stack);
 /**
  * \brief Retira um valor no último índicie do array (topo da stack)
  *
- * @param Container
  * @param Stack
  *
  * @returns Devolve o conteúdo desse índice
  */
-Container pop(Stack*);
+Container pop(Stack);
+/**
+ * \brief Mesmo que a pop, mas para ser usada no array de funções
+ *
+ * @param Stack
+ */
+void void_pop(Stack);
 /**
  * \brief Imprime a stack para o stdout.
  *
  * @param Stack
  */
-void printstack(Stack*);
+void printstack(Stack);
 
 //void printcontainer(Container*);
 

@@ -1,25 +1,58 @@
-#include "../stack.h"
 #ifndef PARSER_H
 #define PARSER_H
+
+#include "../stack.h"
+#include "../operations/operations.h"
+
+typedef enum { s, args_1, args_2, args_3 } Arguments;
+
+typedef void (*Args3Operation)(Container*,Container*,Container*,Stack);
+typedef void (*Args2Operation)(Container*,Container*,Stack);
+typedef void (*Args1Operation)(Container*);
+typedef void (*ArgsStackOperation)(Stack);
+
+#define ARGUMENTS(label) f.label
+
+typedef struct {
+    Arguments arg;
+    union {
+        ArgsStackOperation s;
+        Args1Operation args_1;
+        Args2Operation args_2;
+        Args3Operation args_3;
+    } f;
+} OperatorFunction;
 
 /**
  * \brief Os vários operadores matemáticos
  */
 enum Operations {
     NewLine = 'l',
-    Either = 'e',   // isto vai criar condições consoante o carater seguinte
-    Soma_concat = '+',
+    ReadInput = 't',
     Subtrai = '-',
-    Multiplica_concatT_fold = '*',
-    Divide_separa = '/',
-    Modulo_map = '%',
-    Potencia_subsindex = '#',
+    Soma = '+',
+    Concat = '+'+128,
+    Multiplica = '*',
+    ConcatTimes = '*'+128,
+    fold = '*'+128,
+    Divide = '/',
+    Separa = '/'+128,
+    Modulo = '%',
+    Map = '%'+256,
+    Potencia = '#',
+    SubsIndex = '#'+128,
     Bitwiseand = '&',
+    FromEitherE = '&'+128,
     Bitwiseor = '|',
+    FromEitherOu = '|'+128,
     Bitwisexor = '^',
-    Incrementa_colocaStack = ')',
-    Decrementa_colocaStack = '(',
-    Bitwisenot_stackarr_exebloco = '~',
+    Incrementa = ')',
+    ColocaStackM = ')'+128,
+    Decrementa = '(',
+    ColocaStackm = '('+128,
+    Bitwisenot = '~',
+    Stackarr = '~'+128,
+    ExecBloco = '~'+128,
     ToChar = 'c',
     ToInt = 'i',
     ToString = 's',
@@ -27,19 +60,52 @@ enum Operations {
     Troca3 = '@',
     Inverte2 = '\\',
     Duplica = '_',
-    CopiaN_ordena = '$',
+    CopiaN = '$',
+    Ordena = '$'+128,
     Pop = ';',
-    Menor_eleminit = '<',
-    Maior_elemend = '>',
-    Igual_valindex = '=',
+    Menor = '<',
+    ElemInit = '<'+128,
+    FromEitherMenor = '<'+128,    // como não é usado em blocos, índice do either
+    Maior = '>',
+    Elemend = '>'+128,
+    FromEitherMaior = '>'+128,    // idém^^
+    Igual = '=',
+    ValIndex = '='+128,
     Nao = '!',
     MudaVariavel = ':',
     Ifthenelse = '?',
-    LerInput = 't',
-    Length_filter = ',',
-    ExecCondBloco = 'w'
+    Range = ',',
+    Length = ','+128,
+    Filter = ','+256,
+    While = 'w'
+};
 
-    // acrescentar os próximos operadores aqui (próximos guiões)
+/*
+typedef void (*ParseString)(Stack,char*);
+
+typedef void (*ParseToOperation)(Stack,char*,OperatorFunction*);
+
+typedef enum { None, Normal, ToOperate, Variable, Error } ParseFunction;
+
+typedef struct {
+    ParseFunction f;
+    union {
+        Container var;
+        ParseFunction func;
+    } p;
+} Parser;
+*/
+
+enum Parsing {
+    Either = 'e',
+    MakeArray = '[',
+    MakeBlock = '{',
+    MakeString = '"',
+    MakeChar = '\'',
+    Negativo = '-',             // predefinição do parser
+    Space = ' ',                // dá "identation error"
+    Tab = '\t',                 // idem^^
+    Enter = '\n'                // idem^^
 };
 
 /**
@@ -48,15 +114,27 @@ enum Operations {
 enum Variaveis {A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z};
 
 /**
+ * \brief Determina se o operador é para ser feito como Num, Foldable ou Lambda
+ *
+ * @param Stack
+ *
+ * @returns int
+ */
+int hashkey(Stack);
+
+Container* variables(void);
+
+OperatorFunction* hashmap(void);
+
+/**
  * \brief Mesma função definida em cima
  *
  * É colocada aqui por preferência, de modo a tornar o código mais legível
  *
  * @param Stack 
- * @param String (Char*) 
- *
+ * @param String (Char*)
  */
- void parser(Stack*,char*,Container*);
+ void parser(Stack,char*,OperatorFunction*,Container*);
 
 /**
  * \brief Realiza as operações a serem executadas
@@ -68,7 +146,16 @@ enum Variaveis {A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z};
  * @param Int
  *
  */
-void operation(char*, Stack*, Container*, int*, int*);
+void operation(char*,Stack, Container*, int*, int*);
+
+/**
+ * \brief Controla que tipo de operador começado com 'e' vai ser usado
+ *
+ * @param Stack
+ * @param char
+ * @param int
+ */
+void either(Stack,char*);
 
 /**
  * \brief Dá parse a números 
@@ -81,10 +168,18 @@ void operation(char*, Stack*, Container*, int*, int*);
  * @returns Container
  *
  */
-Container number_parse(char*,int*);
+void number_parse(Stack,char*);
 
-void fazer_bloco(Stack*,char*,int*);
+void char_parse(Stack,char*);
 
-void newline(Stack*,char*,int*);
+void var_control(Stack,char*,Container*);
+
+void structure_parse(Stack,char*,OperatorFunction*,Container*);
+
+void fazer_bloco(Stack,char*);
+
+void newline(Stack,char*);
+
+void types_conversion(Container* x, char* line, int* i);
 
 #endif /* PARSER_H */

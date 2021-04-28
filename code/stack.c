@@ -6,53 +6,60 @@
 #include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
-#define SIZE 10
 
-void relable_container(Container* contains, Label l) {
+#define SIZE 20
+
+Stack initialize_stack(void) {
+    Stack s = malloc(sizeof(Stack_plain));
+    s->arr = malloc(SIZE * sizeof(Container));
+    s->sizeofstack = 0;
+    s->alloc = SIZE;
+    return s;
+}
+
+void initialize_container(Container* contains, Label l) {
     contains->label = l;
-    contains->content.l = 0;
+    contains->LONG = 0;
 }
 
-void initialize(Stack* list) {
-    list->sizeofstack = 0;
-    list->arr = malloc(SIZE * sizeof(Container));
-    list->alloc = SIZE;
+int isEmpty(Stack stack) {
+    return !stack->sizeofstack;
 }
 
-int isEmpty(Stack* list) {
-    return !list->sizeofstack;
+int isFull(Stack stack) {
+    return (stack->sizeofstack == stack->alloc);
 }
 
-int isFull(Stack* list) {
-    return (list->sizeofstack == list->alloc);
-}
-
-void push(Container x, Stack* list) {
-    if (isFull(list)) {
-        list->alloc *= 2;
-        Container* tmp = realloc(list->arr, list->alloc * sizeof(Container));
+void push(Container x, Stack stack) {
+    if (isFull(stack)) {
+        stack->alloc *= 2;
+        Container* tmp = realloc(stack->arr, stack->alloc * sizeof(Container));
         assert(tmp != NULL);
-        list->arr = tmp;
+        stack->arr = tmp;
     }
-    list->arr[list->sizeofstack++] = x;
+    stack->arr[stack->sizeofstack++] = x;
 }
 
-Container pop(Stack* list) {
-    if (isEmpty(list)) {
+Container pop(Stack stack) {
+    if (isEmpty(stack)) {
         putchar('\n');
         exit(EXIT_SUCCESS);
     }
-    return list->arr[--list->sizeofstack];
+    return stack->arr[--stack->sizeofstack];
 }
 
-void printstack(Stack* stack) {
+void void_pop(Stack stack) {
+    pop(stack);
+}
+
+void printstack(Stack stack) {
     for (int i = 0; i < stack->sizeofstack; i++) {
         switch (stack->arr[i].label) {
-            case Long: printf("%ld", stack->arr[i].content.l); break;
-            case Double: printf("%g", stack->arr[i].content.f); break;
-            case Char: printf("%c", stack->arr[i].content.c); break;
-            case String: printf("%s", stack->arr[i].content.s); break;
-            case Array: /*I predict shit here;*/ break;
+            case Long: printf("%ld", stack->arr[i].LONG); break;
+            case Double: printf("%g", stack->arr[i].DOUBLE); break;
+            case Char: printf("%c", stack->arr[i].CHAR); break;
+            case String: printf("%s", stack->arr[i].STRING); break;
+            case Array: printstack(stack->arr[i].ARRAY); break;
             default: return;
         }
     }

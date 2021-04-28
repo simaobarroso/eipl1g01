@@ -1,9 +1,10 @@
 /**
  * @file Ficheiro que contêm a função principal do programa
  */
-#include "stack.h"
-#include "parser/parser.h"
 #include "operations/operations.h"
+#include "parser/parser.h"
+#include "stack.h"
+#include "types.h"
 
 #include <assert.h>
 #include <stdio.h>
@@ -11,11 +12,9 @@
 #include <string.h>
 
 /**
- * \brief Variável estática
+ * \brief Tamanho máximo da linha a ser lida
  */
 #define SIZE 8192
-
-void* initialize_hashmap(void);
 
 /**
  * \brief Função main (função principal do programa)
@@ -24,12 +23,12 @@ void* initialize_hashmap(void);
  */
 int main(void) { // TODO(Mota): mudar para o debugger
 
-    Stack s;
-    initialize(s);
-    Container* vars = initialize_vars();
+    Stack s = initialize_stack();
     char line[SIZE];
     assert(fgets(line,SIZE,stdin) != NULL);
-    parser(s,line,vars);
+    OperatorFunction* hash = hashmap();
+    Container* vars = variables();
+    parser(s,line,hash,vars);
     printstack(s);
     free(s->arr);
     return 0;

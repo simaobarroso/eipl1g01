@@ -1,4 +1,5 @@
 #include "operations.h"
+#include "../types.h"
 #include <assert.h>
 
 /**
@@ -8,35 +9,14 @@
  * 
  * @returns Retorna uma funcao que faz operacao com dois numeros 
  */
-#define MATH_OPERATION(func, op)                            \
-    Container func(Foldable* t) {                           \
-        Container res = { .label = numReturn}    \
-        Container x = toDouble(pop(STACK(t,->));\
-        res.label = Double;                                 \
-        if (x.label == Double && y.label == Double) {       \
-            res.content.f = op(x.content.f, y.content.f);   \
-        } else if (x.label == Double && y.label == Long) {  \
-            res.content.f = op(x.content.f, y.content.l);   \
-        } else if (x.label == Long && y.label == Double) {  \
-            res.content.f = op(x.content.l, y.content.f);   \
-        } else if (x.label == Long && y.label == Long) {    \
-            res.content.l = op(x.content.l, y.content.l);   \
-            res.label = Long;                               \
-        } else                                              \
-            assert(0 || "Error: wrong type");               \
-        push(STACK(t,->),res);                              \
+#define MATH_OPERATION(func, op)                                    \
+    void func(Container* x,Container* y,Stack s) {                  \
+        Container res;                                              \
+        res.label = numReturn(x->label,y->label);                   \
+        res.DOUBLE = op(toDouble(*x).DOUBLE,toDouble(*y).DOUBLE);   \
+        to_num_type(res.label,&res);                                \
+        push(res,s);                                                \
     }
-
-void math_operation(Foldable* t) {
-    Container res;
-    Container x = pop(STACK(t,->));
-    Container y = pop(STACK(t,->));
-    res.label = numReturn(x.label,y.label);
-    res.FLOAT(res,.) = op(x.FLOAT(content,.),y.FLOAT(content,.));
-    to_type(res.label,&res);
-    push(res,STACK(t));
-}
-
 
 /**
  * \brief Soma dois numeros 
@@ -62,15 +42,15 @@ void math_operation(Foldable* t) {
  * 
  * @returns Retorna uma funcao que faz operacao com dois inteiros
  */
-#define INTEGER_OPERATION(func, op)                     \
-    Container func(Container x, Container y) {          \
-        Container res;                                  \
-        res.label = Long;                               \
-        if (x.label == Long && y.label == Long) {       \
-            res.content.l = x.content.l op y.content.l; \
-        } else                                          \
-            assert(0 || "Error: wrong type");           \
-        return res;                                     \
+#define INTEGER_OPERATION(func, op)                         \
+    void func(Container* x, Container* y, Stack s) {        \
+        Container res;                                      \
+        if (!(x->label || y->label))                        \
+            res.LONG = (*x).LONG op (*y).LONG;              \
+        else                                                \
+            assert(0 || "Error: wrong type");               \
+        res.label = Long;                                   \
+        push(res,s);                                        \
     }
 
 MATH_OPERATION(soma, SOMA)
@@ -83,41 +63,26 @@ INTEGER_OPERATION(bitwiseand, &)
 INTEGER_OPERATION(bitwiseor, |)
 INTEGER_OPERATION(bitwisexor, ^)
 
-Container incrementa(Container x) {
-    switch (x.label) {
-        case Double:
-            ++x.content.f;
-            break;
-        case Long:
-            ++x.content.l;
-            break;
-        case Char:
-            ++x.content.c;
-            break;
-        default:
-            assert(0 || "Error: wrong type");
-    }
-    return x;
-}
+#define _CREMENTOS(func,op)                         \
+    void func(Container* x) {                       \
+        switch (x->label) {                         \
+            case Double:                            \
+                op(*x).DOUBLE;                      \
+                break;                              \
+            case Long:                              \
+                op(*x).LONG;                        \
+                break;                              \
+            case Char:                              \
+                op(*x).CHAR;                        \
+                break;                              \
+            default:                                \
+                assert(0 || "Error: wrong type");   \
+        }                                           \
+    }                                               
 
-Container decrementa(Container x) {
-    switch (x.label) {
-        case Double:
-            --x.content.f;
-            break;
-        case Long:
-            --x.content.l;
-            break;
-        case Char:
-            --x.content.c;
-            break;
-        default:
-            assert(0 || "Error: wrong type");
-    }
-    return x;
-}
+_CREMENTOS(decrementa,--)
+_CREMENTOS(incrementa,++)
 
-Container bitwisenot(Container x) {
-    if (x.label == Long) x.content.l = ~x.content.l;
-    return x;
+void bitwisenot(Container* x) {
+    if (x->label == Long) (*x).LONG = ~(*x).LONG;
 }
