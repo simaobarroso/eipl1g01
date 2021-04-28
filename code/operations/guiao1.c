@@ -64,25 +64,27 @@ INTEGER_OPERATION(bitwiseor, |)
 INTEGER_OPERATION(bitwisexor, ^)
 
 #define _CREMENTOS(func,op)                         \
-    void func(Container* x) {                       \
+    void func(Container* x,Stack s) {               \
         switch (x->label) {                         \
             case Double:                            \
-                op(*x).DOUBLE;                      \
+                op (*x).DOUBLE;                     \
                 break;                              \
             case Long:                              \
-                op(*x).LONG;                        \
+                op (*x).LONG;                       \
                 break;                              \
             case Char:                              \
-                op(*x).CHAR;                        \
+                op (*x).CHAR;                       \
                 break;                              \
             default:                                \
                 assert(0 || "Error: wrong type");   \
         }                                           \
+    push(*x,s);                                     \
     }                                               
 
 _CREMENTOS(decrementa,--)
 _CREMENTOS(incrementa,++)
 
-void bitwisenot(Container* x) {
+void bitwisenot(Container* x,Stack) {
+    Container res;
     if (x->label == Long) (*x).LONG = ~(*x).LONG;
 }

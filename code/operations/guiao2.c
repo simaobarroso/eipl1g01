@@ -50,7 +50,7 @@ void copiaN(Stack stack) {
 
 void newline(Stack s) {
     char* newline = NULL;
-    assert (fgets(newline, SIZE, stdin) != NULL);
+    assert(fgets(newline, SIZE, stdin) != NULL);
     Container res = { .label = String, .STRING = strndup(newline, SIZE) }; // o meu linter queixa-se, é por causa do sítio do assert --Mota
     push(res,s);
 }

@@ -10,11 +10,9 @@
 
 #define SIZE 8192
 
+// ALGUEM QUE AVISE SE SOUBER UMA MELHOR MANEIRA QUE ESTAS CONDIÇÕES
 void parser(Stack stack, char* line, OperatorFunction* hashmap, Container* vars) {
-    Container toPush;
-    initialize_container(&toPush, String);
-    while (*line != '\0') { // como o fgets apanha o '\n', verificamos para ambos, o '\0' 'e apenas standard verificar em C
-        
+    while (*line) { // o meu linter dá um erro aqui que não sei porque acontece --Mota
         // para nums
         if (isdigit(*line) || *line == '.' || (*line == '-' && isdigit(*(line+1))))
             number_parse(stack,line);
@@ -25,14 +23,14 @@ void parser(Stack stack, char* line, OperatorFunction* hashmap, Container* vars)
 
         // para var
         else if (*line == ':')
-            var_control(stack,line,vars);               // TODO(Mota): esta função ainda não existe
+            var_control(stack,line,vars);
 
         // para string/array/bloco
         else if (*line == '"' || *line == '[' || *line == '{')
-            structure_parse(stack,line,hashmap,vars);   // TODO(Mota): esta função ainda não existe
+            structure_parse(stack,line,hashmap,vars);
 
         else 
-            parse_hashmap(stack,line,hashmap);          // TODO(Mota): esta função ainda não existe
+            parse_hash(stack,line,hashmap);
 
         line+=2; // passa o espaço ou o que for à frente
     }
@@ -42,17 +40,15 @@ void number_parse(Stack stack,char* line) {
     Container res;
     int isfloat = 0;
     char num[20] = "";
-    char* aux = num;
 
     while (isdigit(*line) || *line == '.' || (*line == '-' && isdigit(*(line+1)))) {
         if (*line == '.') isfloat = 1;
         strncat(num,line,1);
         line++;
     }
-    if (*(line+2) == 's') {
+    if (*(line+=2) == 's') {
         res.label = String;
         res.STRING = strndup(num,80);
-        line += 2;
     } else {
         if (isfloat) {  // verifica se é float
             initialize_container(&res,Double);
@@ -69,7 +65,7 @@ void char_parse(Stack stack, char* line) {
     Container res;
     res.CHAR = *(++line);
     push(res,stack);
-    ++line;
+    line++;
 }
 
 void var_control(Stack s,char* line,Container* vars) {
@@ -83,7 +79,7 @@ void structure_parse(Stack stack,char* line,OperatorFunction* hashmap,Container*
             char array[SIZE];
             while(*(line+2) != ']') {
                 strncat(array,line,1);
-                ++line;
+                line++;
             }
             Stack s = malloc(sizeof(Stack_plain));
             parser(s,array,hashmap,vars);
@@ -92,35 +88,57 @@ void structure_parse(Stack stack,char* line,OperatorFunction* hashmap,Container*
             line+=2;
             break;
         case '{':
-            while(*(line+2) != ']') {
+            line+=2;
+            while(*(line+2) != '}') {
                 strncat(array,line,1);
-                ++line;
+                line++;
             }
+            push(res,stack);
             break;
         case '"':
+            line++;
+            while(*line != '"') {
+                strncat(array,line,1);
+                line++;
+            }
+            push(res,stack);
+            break;
         default: assert(0 || "Error: wrong type");
     }
 }
 
-int hashkey(Stack s) {
-    Container *x = &s->arr[s->sizeofstack - 1];
-    Container *y = &s->arr[s->sizeofstack - 1];
-    Container cmp = (y->label > x->label) ? *y : *x;
-    return 128*(2 - (2*isNum(cmp)) + isFoldable(cmp));
-}
-
-void fazer_bloco(Stack s,char* line) {
-    char bloco[80] = "";
-    Container res = { .label = Lambda };
-
-    while(*(line+1) != '}') {
-        strncat(bloco,line,1);
+int hashkey(Stack s,char* line) {
+    Container x = s->arr[s->sizeofstack - 1];
+    Container y = s->arr[s->sizeofstack - 2];
+    Container cmp = (y.label > x.label) ? y : x;
+    if (*line != 'e') return 128*(2 - (2*isNum(cmp)) + isFoldable(cmp));
+    else {
         line++;
+        return 256;
     }
-    res.content.b = strdup(bloco);
-    push(res,s);
 }
 
-void either(Stack s,char* line,) {
-	
+void parse_hash(Stack s,char* line,OperatorFunction* hashtable) {
+    int index = (*line)*hashkey(s,line);
+    Container x, y, z;
+    switch(hashtable[index].arg) {
+        case args_s:
+            hashtable[index].f.args_s(s);
+            break;
+        case args_1: 
+            x = pop(s);
+            hashtable[index].f.args_1(&x,s);
+            break;
+        case args_2:
+            x = pop(s), y = pop(s);
+            hashtable[index].f.args_2(&x,&y,s);
+            break;
+        case args_3:
+            x = pop(s), y = pop(s), z = pop(s);
+            hashtable[index].f.args_3(&x,&y,&z,s);
+            break;
+        default: // deve acontecer se receber um \s \t \n - verificar
+            fputs("Wrong input, try to verify if identation is correct\n", stderr);
+            exit(EXIT_FAILURE);
+    }
 }

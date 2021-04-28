@@ -28,11 +28,14 @@ Container* variables(void) {
     return vars;
 }
 
+/**
+ * \brief Facilitador de inicialização da struct OperatorFunction
+ */
 #define HASH_CONTENT(label,func) .arg = label, .f.label = func
 
-OperatorFunction* hashmap(void) {
+OperatorFunction* hash(void) {
     static OperatorFunction hashmap[128*3] = {
-        [NewLine] =         { HASH_CONTENT(args_s,newline)}
+        [NewLine] =         { HASH_CONTENT(args_s,newline) },
         [Soma] =            { HASH_CONTENT(args_2,soma) },
         [Subtrai] =         { HASH_CONTENT(args_2,subtrai) },
         [Multiplica] =      { HASH_CONTENT(args_2,multiplica) },
@@ -45,15 +48,15 @@ OperatorFunction* hashmap(void) {
         [Incrementa] =      { HASH_CONTENT(args_1,incrementa) },
         [Decrementa] =      { HASH_CONTENT(args_1,decrementa) },
         [Bitwisenot] =      { HASH_CONTENT(args_1,bitwisenot) },
-        [ToInt] =           { HASH_CONTENT(s,to_int_op) },
-        [ToChar] =          { HASH_CONTENT(s,to_char_op) },
-        [ToDouble] =        { HASH_CONTENT(s,to_double_op) },
-        [ToString] =        { HASH_CONTENT(s,to_string_op) },
-        [Troca3] =          { HASH_CONTENT(s,troca3) },
-        [Inverte2] =        { HASH_CONTENT(s,inverte2) },
-        [Duplica] =         { HASH_CONTENT(s,duplica) },
-        [CopiaN] =          { HASH_CONTENT(s,copiaN) },
-        [Pop] =             { HASH_CONTENT(s,void_pop) },
+        [ToInt] =           { HASH_CONTENT(args_s,to_int_op) },
+        [ToChar] =          { HASH_CONTENT(args_s,to_char_op) },
+        [ToDouble] =        { HASH_CONTENT(args_s,to_double_op) },
+        [ToString] =        { HASH_CONTENT(args_s,to_string_op) },
+        [Troca3] =          { HASH_CONTENT(args_s,troca3) },
+        [Inverte2] =        { HASH_CONTENT(args_s,inverte2) },
+        [Duplica] =         { HASH_CONTENT(args_s,duplica) },
+        [CopiaN] =          { HASH_CONTENT(args_s,copiaN) },
+        [Pop] =             { HASH_CONTENT(args_s,void_pop) },
         // [MudaVariavel] =    { HASH_CONTENT(s,muda_variavel)}
         [Igual] =           { HASH_CONTENT(args_2,igual) },
         [Maior] =           { HASH_CONTENT(args_2,maior) },

@@ -4,11 +4,11 @@
 #include "../stack.h"
 #include "../operations/operations.h"
 
-typedef enum { s, args_1, args_2, args_3 } Arguments;
+typedef enum { args_s, args_1, args_2, args_3 } Arguments;
 
 typedef void (*Args3Operation)(Container*,Container*,Container*,Stack);
 typedef void (*Args2Operation)(Container*,Container*,Stack);
-typedef void (*Args1Operation)(Container*);
+typedef void (*Args1Operation)(Container*,Stack);
 typedef void (*ArgsStackOperation)(Stack);
 
 #define ARGUMENTS(label) f.label
@@ -16,7 +16,7 @@ typedef void (*ArgsStackOperation)(Stack);
 typedef struct {
     Arguments arg;
     union {
-        ArgsStackOperation s;
+        ArgsStackOperation args_s;
         Args1Operation args_1;
         Args2Operation args_2;
         Args3Operation args_3;
@@ -94,7 +94,6 @@ typedef struct {
         ParseFunction func;
     } p;
 } Parser;
-*/
 
 enum Parsing {
     Either = 'e',
@@ -107,6 +106,7 @@ enum Parsing {
     Tab = '\t',                 // idem^^
     Enter = '\n'                // idem^^
 };
+*/
 
 /**
  * \brief Definição das variáveis
@@ -120,11 +120,11 @@ enum Variaveis {A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z};
  *
  * @returns int
  */
-int hashkey(Stack);
+int hashkey(Stack,char*);
 
 Container* variables(void);
 
-OperatorFunction* hashmap(void);
+OperatorFunction* hash(void);
 
 /**
  * \brief Mesma função definida em cima
@@ -176,10 +176,6 @@ void var_control(Stack,char*,Container*);
 
 void structure_parse(Stack,char*,OperatorFunction*,Container*);
 
-void fazer_bloco(Stack,char*);
-
-void newline(Stack,char*);
-
-void types_conversion(Container* x, char* line, int* i);
+void parse_hash(Stack,char*,OperatorFunction*);
 
 #endif /* PARSER_H */

@@ -8,6 +8,8 @@
 
 #include <math.h>
 
+// GUIÃO 1
+
 /**
  * \brief A soma de duas variáveis
  *
@@ -87,7 +89,7 @@ void bitwisexor(Container*,Container*,Stack);
  *
  * @returns O valor da variável acrescido de um
  */
-void incrementa(Container*);
+void incrementa(Container*,Stack);
 /**
  * \brief Decrementação de uma unidade a uma variável int
  *
@@ -95,7 +97,7 @@ void incrementa(Container*);
  *
  * @returns O valor da variável decrescido de um
  */
-void decrementa(Container*);
+void decrementa(Container*,Stack);
 /**
  * \brief Forma um bitwisenot
  *
@@ -103,7 +105,10 @@ void decrementa(Container*);
  *
  * @returns O valor do bitwisenot
  */
-void bitwisenot(Container*);
+void bitwisenot(Container*,Stack);
+
+// GUIÃO 2
+
 /**
  * \brief Troca o 3º valor da stack para o topo
  *
@@ -134,6 +139,9 @@ void copiaN(Stack);
  * @param Stack
  */
 void newline(Stack);
+
+// GUIÃO 3
+
 /**
  * \brief Devolve o contrário do valor dado, por exemplo, se for 0, devolve 1, se for diferente de 0 devolve 0
  *
@@ -193,12 +201,6 @@ void compmenor(Container*,Container*,Stack);
  */
 void ifthenelse(Container*,Container*,Container*,Stack);
 /**
- * \brief Função que inicializa as variáveis
- *
- * @param Container
- */
-Container* initialize_vars(void);
-/**
  * \brief Controla os valores das variáveis
  *
  * @param Stack
@@ -236,6 +238,10 @@ void to_double_op(Stack);
  * @param Stack
  */
 void to_string_op(Stack);
+
+// GUIÃO 4
+
+// GUIÃO 5
 
 void foldf(Stack,char*,int*);
 
