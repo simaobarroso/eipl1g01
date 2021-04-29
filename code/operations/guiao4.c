@@ -65,4 +65,3 @@ void separar_space(Container* x) {
 void separar_lines(Container* x) {
 
 }
-

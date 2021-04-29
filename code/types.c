@@ -17,20 +17,21 @@ int isNum(Container c) {
 }
 
 Label foldType(Container c) {
-    return (c.label == Array) ? Array : String;
+    return Array - (c.label == String) + (c.label == String_A);
 }
 
 Label numReturn(Label x, Label y) {
     return (x > y) ? x : y;
 }
 
-void to_num_type(Label l, Container* x) {
+Container to_num_type(Label l, Container* x) {
     switch (l) {
         case Long: *x = toInt(*x); break;
         case Double: *x = toDouble(*x); break;
         case Char: *x = toChar(*x); break;
-        default: assert(0 || "Error: wrong type");
+        default: ERROR_1
     }
+    return *x;
 }
 
 Container toChar(Container x) {
@@ -42,7 +43,7 @@ Container toChar(Container x) {
             x.CHAR = toInt(x).LONG;
         }
         else
-            assert(0 || "Error: wrong type");
+            ERROR_1
         x.label = Char;
     }
     return x;
@@ -54,7 +55,7 @@ Container toInt(Container x) {
         case Char: x.LONG = x.CHAR; break;
         case Double: x.LONG = x.DOUBLE; break;
         case String: x.LONG = strtol(x.STRING,&x.STRING+strlen(x.STRING),10); break;
-        default: assert(0 || "Error: wrong type");
+        default: ERROR_1
     }
     x.label = Long;
     return x;
@@ -66,7 +67,7 @@ Container toDouble(Container x) {
         case Char: x.DOUBLE = x.CHAR; break;
         case Double: break;
         case String: x.LONG = strtod(x.STRING,&x.STRING+strlen(x.STRING)); break;
-        default: assert(0 || "Error: wrong type");
+        default: ERROR_1
     }
     x.label = Long;
     return x;
@@ -86,8 +87,19 @@ Container toString(Container x) { // tentar implementar apenas quando aparece o 
             sprintf(str,"%g",x.DOUBLE);
             x.STRING = strdup(str);
         } else 
-            assert(0 || "Error: wrong type");
+            ERROR_1
         x.label = String;
     }
     return x;
+}
+
+Container string_to_array(Container x) {
+    Container res = { .label = String_A, .ARRAY = initialize_stack() };
+    Container buffer = { .label = Char };
+    while(x.STRING) {
+        buffer.CHAR = *x.STRING;
+        push(buffer,res.ARRAY);
+        x.STRING++;
+    }
+    return res;
 }

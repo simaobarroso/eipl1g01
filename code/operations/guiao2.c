@@ -3,6 +3,9 @@
 #include <stdio.h>
 #include <string.h>
 
+/**
+ * \brief Variável global para tamanhos
+ */
 #define SIZE 8192
 
 void troca3(Stack stack) {

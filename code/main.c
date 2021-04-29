@@ -19,7 +19,7 @@
 /**
  * \brief Função main (função principal do programa)
  *
- * @returns O valor 0
+ * @returns int
  */
 int main(void) { // TODO(Mota): mudar para o debugger
 
@@ -31,6 +31,6 @@ int main(void) { // TODO(Mota): mudar para o debugger
     Container* vars = variables();
     parser(s,line,hashtable,vars);
     printstack(s);
-    free(s->arr);
+    free_stack(s);
     return 0;
 }

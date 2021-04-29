@@ -17,7 +17,7 @@
  *
  * @returns O valor da soma das variáveis
  */
-void soma(Container*,Container*,Stack);
+void soma(Stack,Container,Container);
 /**
  * \brief A subtração de duas variáveis
  *
@@ -25,7 +25,7 @@ void soma(Container*,Container*,Stack);
  *
  * @returns O valor da subtração das variáveis
  */
-void subtrai(Container*,Container*,Stack);
+void subtrai(Stack,Container,Container);
 /**
  * \brief A multiplicação de duas variáveis
  *
@@ -33,7 +33,7 @@ void subtrai(Container*,Container*,Stack);
  *
  * @returns O valor da multiplicação das variáveis
  */
-void multiplica(Container*,Container*,Stack);
+void multiplica(Stack,Container,Container);
 /**
  * \brief A divisão de duas variáveis
  *
@@ -41,7 +41,7 @@ void multiplica(Container*,Container*,Stack);
  *
  * @returns O valor da divisão inteira das variáveis
  */
-void divide(Container*,Container*,Stack);
+void divide(Stack,Container,Container);
 /**
  * \brief O modulo de duas variáveis
  *
@@ -49,7 +49,7 @@ void divide(Container*,Container*,Stack);
  *
  * @returns O valor do modulo das variáveis
  */
-void modulo(Container*,Container*,Stack);
+void modulo(Stack,Container,Container);
 /**
  * \brief A potência de uma variável elevada à outra
  *
@@ -57,7 +57,7 @@ void modulo(Container*,Container*,Stack);
  *
  * @returns O valor da potência
  */
-void potencia(Container*,Container*,Stack);
+void potencia(Stack,Container,Container);
 /**
  * \brief Forma um "e lógico" bitwise
  *
@@ -65,7 +65,7 @@ void potencia(Container*,Container*,Stack);
  *
  * @returns O valor do "e lógico"
  */
-void bitwiseand(Container*,Container*,Stack);
+void bitwiseand(Stack,Container,Container);
 /**
  * \brief Forma um bitwiseor
  *
@@ -73,7 +73,7 @@ void bitwiseand(Container*,Container*,Stack);
  *
  * @returns O valor do bitwiseor
  */
-void bitwiseor(Container*,Container*,Stack);
+void bitwiseor(Stack,Container,Container);
 /**
  * \brief Forma um bitwisexor
  *
@@ -81,7 +81,7 @@ void bitwiseor(Container*,Container*,Stack);
  *
  * @returns O valor do bitwisexor
  */
-void bitwisexor(Container*,Container*,Stack);
+void bitwisexor(Stack,Container,Container);
 /**
  * \brief Incrementação de uma unidade a uma variável int
  *
@@ -89,7 +89,7 @@ void bitwisexor(Container*,Container*,Stack);
  *
  * @returns O valor da variável acrescido de um
  */
-void incrementa(Container*,Stack);
+void incrementa(Stack,Container);
 /**
  * \brief Decrementação de uma unidade a uma variável int
  *
@@ -97,7 +97,7 @@ void incrementa(Container*,Stack);
  *
  * @returns O valor da variável decrescido de um
  */
-void decrementa(Container*,Stack);
+void decrementa(Stack,Container);
 /**
  * \brief Forma um bitwisenot
  *
@@ -105,7 +105,7 @@ void decrementa(Container*,Stack);
  *
  * @returns O valor do bitwisenot
  */
-void bitwisenot(Container*,Stack);
+void bitwisenot(Stack,Container);
 
 // GUIÃO 2
 
@@ -147,37 +147,37 @@ void newline(Stack);
  *
  * @param Stack
  */
-void nao(Container*);
+void nao(Stack,Container);
 /**
  * \brief Vê se um valor é menor que outro, se for menor, devolve esse valor, se não devolve 0
  *
  * @param Stack
  */
-void menor(Container*,Container*,Stack);
+void menor(Stack,Container,Container);
 /**
  * \brief Vê se um valor é maior que outro, se for maior, devolve esse valor, se não devolve 0
  *
  * @param Um apontador para uma stack
  */
-void maior(Container*,Container*,Stack);
+void maior(Stack,Container,Container);
 /**
  * \brief Vê se um valor é igual ao outro, se for, devolve esse valor, se não devolve 0
  *
  * @param Stack
  */
-void igual(Container*,Container*,Stack);
+void igual(Stack,Container,Container);
 /**
  * \brief Se os dois argumnetos forem diferentes de 0, retorna o segundo argumento. Caso contrario, retorna 0.
  *
  * @param Stack
  */
-void elogic(Container*,Container*,Stack);
+void elogic(Stack,Container,Container);
 /**
  * \brief Se os dois argumnetos forem iguais a 0, retorna 0. Caso contrario, devolve o primeiro argumento se este for verdadeiro, ou o segundo, caso contrario.
  *
  * @param Stack
  */
-Container oulogic(Stack);
+void oulogic(Stack,Container,Container);
 /**
  * \brief Retorna o maior dos dois agrumentos a Stack.
  *
@@ -185,7 +185,7 @@ Container oulogic(Stack);
  * @param Container
  * @param Stack
  */
-void compmaior(Container*,Container*,Stack);
+void compmaior(Stack,Container,Container);
 /**
  * \brief Retorna o menor dos dois argumentos a Stack.
  *
@@ -193,13 +193,15 @@ void compmaior(Container*,Container*,Stack);
  * @param Container
  * @param Stack
  */
-void compmenor(Container*,Container*,Stack);
+void compmenor(Stack,Container,Container);
+
 /**
  * \brief Necessita de três numeros, se o primeiro não for 0, devolve o segundo valor, se não, devolve o terceiro valor
  *
  * @param Stack
  */
-void ifthenelse(Container*,Container*,Container*,Stack);
+void ifthenelse(Stack,Container,Container,Container);
+
 /**
  * \brief Controla os valores das variáveis
  *
@@ -243,8 +245,8 @@ void to_string_op(Stack);
 
 // GUIÃO 5
 
-void foldf(Stack,char*,int*);
+// void foldf(Stack,char*);
 
-void map(Stack,char*,int*);
+// void map(Stack,char*);
 
 #endif /* OPERATIONS_H */

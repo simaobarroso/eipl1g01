@@ -1,12 +1,13 @@
+/**
+ * \brief Todos os tipos que vão ser usados na Stack
+ */
 #ifndef TYPES_H
 #define TYPES_H
 
 /**
- * \brief Todos os tipos que vão ser usados na Stack
+ * \brief Controla o tipo de cada container
  */
-typedef enum Label { Long, Char, Double, String, Array, Lambda } Label;
-
-// para escrever pointer basta fazer *STRING(s) ou *STACK(s)
+typedef enum Label { Long, Char, Double, String, String_A, Array, Lambda } Label;
 
 /**
  * \brief Controla os elementos da stack
@@ -15,7 +16,16 @@ typedef struct {
     struct Container* arr;  // stack itself
     int sizeofstack; // número de elementos da stack
     int alloc;       // número alocado
-} *Stack,Stack_plain;
+} *Stack, Stack_plain;
+
+/**
+ * \brief Erro de identação: deve ser mandado quando se inserem espaços/tabs/newline a mais
+ */
+#define ERROR_0 fputs("Error 0: wrong identation\n", stderr); exit(1);
+/**
+ * \brief Erro de tipos: deve ser mandado quando uma conversão de tipos corre mal, p. ex. Array para Double
+ */
+#define ERROR_1 fputs("Error 1: wrong type\n", stderr); exit(1);
 
 /**
  * \brief Introduz facilidades de controlo de tipos
@@ -71,6 +81,14 @@ typedef struct Container {
     } content;
 } Container;
 
+/**
+ * \brief Define qual o tipo de Num que certa função pode devolver através da "importância" do tipo no enum
+ *
+ * @param Label
+ * @param Label
+ *
+ * @returns Label
+ */
 Label numReturn(Label, Label);
 /**
  * \brief Converte para char
@@ -137,7 +155,18 @@ Label foldType(Container);
  *
  * @param Label
  * @param Container
+ *
+ * @returns Container
  */
-void to_num_type(Label,Container*);
+Container to_num_type(Label,Container*);
+
+/**
+ * \brief Por questões de melhor gestão de tipos, converte char* em Stack
+ *
+ * @param Container
+ *
+ * @returns Container
+ */
+Container string_to_array(Container x);
 
 #endif /* TYPES_H */
