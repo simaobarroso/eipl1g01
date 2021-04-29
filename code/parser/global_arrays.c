@@ -33,9 +33,15 @@ Container* variables(void) {
  */
 #define HASH_CONTENT(label,func) .arg = label, .f.label = func
 
+/*
+Este array tem 384 posições
+
+As primeiras 128 posições correspondem a quando o operador é para ser executado com Long, Char ou Double
+As segundas para quando é para ser executado com Array ou String
+As terceiras para quando é para ser executado com um bloco
+*/
 OperatorFunction* hash(void) {
     static OperatorFunction hashmap[128*3] = {
-        [NewLine] =         { HASH_CONTENT(args_s,newline) },
         [Soma] =            { HASH_CONTENT(args_2,soma) },
         [Subtrai] =         { HASH_CONTENT(args_2,subtrai) },
         [Multiplica] =      { HASH_CONTENT(args_2,multiplica) },
@@ -48,21 +54,29 @@ OperatorFunction* hash(void) {
         [Incrementa] =      { HASH_CONTENT(args_1,incrementa) },
         [Decrementa] =      { HASH_CONTENT(args_1,decrementa) },
         [Bitwisenot] =      { HASH_CONTENT(args_1,bitwisenot) },
+        [NewLine] =         { HASH_CONTENT(args_s,newline) },
+        [NewLine+128] =     { HASH_CONTENT(args_s,newline) },
+        [NewLine+256] =     { HASH_CONTENT(args_s,newline) },
         [ToInt] =           { HASH_CONTENT(args_s,to_int_op) },
         [ToChar] =          { HASH_CONTENT(args_s,to_char_op) },
         [ToDouble] =        { HASH_CONTENT(args_s,to_double_op) },
         [ToString] =        { HASH_CONTENT(args_s,to_string_op) },
         [Troca3] =          { HASH_CONTENT(args_s,troca3) },
+        [Troca3+128] =      { HASH_CONTENT(args_s,troca3) },
+        [Troca3+256] =      { HASH_CONTENT(args_s,troca3) },
         [Inverte2] =        { HASH_CONTENT(args_s,inverte2) },
         [Duplica] =         { HASH_CONTENT(args_s,duplica) },
         [CopiaN] =          { HASH_CONTENT(args_s,copiaN) },
         [Pop] =             { HASH_CONTENT(args_s,void_pop) },
-        // [MudaVariavel] =    { HASH_CONTENT(s,muda_variavel)}
-        [Igual] =           { HASH_CONTENT(args_2,igual) },
+        [Pop+128] =         { HASH_CONTENT(args_s,void_pop) },
+        [Pop+256] =         { HASH_CONTENT(args_s,void_pop) },
+        // [MudaVariavel] =    { HASH_CONTENT(args_1,muda_variavel)},
+        [Igual] =           { HASH_CONTENT(args_2,igual) }, // TODO: pode não ser usado só com Num
         [Maior] =           { HASH_CONTENT(args_2,maior) },
         [Menor] =           { HASH_CONTENT(args_2,menor) },
         [Nao] =             { HASH_CONTENT(args_1,nao) },
-        [Ifthenelse] =      { HASH_CONTENT(args_3,ifthenelse) }
+        [Ifthenelse] =      { HASH_CONTENT(args_3,ifthenelse) },
+        [Ifthenelse+128] =  { HASH_CONTENT(args_3,ifthenelse) }
     };
 return hashmap;
 }

@@ -15,6 +15,12 @@
  */
 Stack initialize_stack(void);
 /**
+ * \brief Liberta a Stack
+ *
+ * @param Stack
+ */
+void free_stack(Stack);
+/**
  * \brief Inicializa um conteiner com a label indicada
  *
  * @param Container

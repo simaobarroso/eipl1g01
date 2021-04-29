@@ -17,6 +17,11 @@ Stack initialize_stack(void) {
     return s;
 }
 
+void free_stack(Stack s) {
+    free(s->arr);
+    free(s);
+}
+
 void initialize_container(Container* contains, Label l) {
     contains->label = l;
     contains->LONG = 0;

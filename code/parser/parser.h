@@ -4,15 +4,31 @@
 #include "../stack.h"
 #include "../operations/operations.h"
 
+/*
+ * \brief 
+ */
 typedef enum { args_s, args_1, args_2, args_3 } Arguments;
 
-typedef void (*Args3Operation)(Container*,Container*,Container*,Stack);
-typedef void (*Args2Operation)(Container*,Container*,Stack);
-typedef void (*Args1Operation)(Container*,Stack);
+/*
+ * \brief Tipo de função com 3 Container
+ */
+typedef void (*Args3Operation)(Stack,Container,Container,Container);
+/*
+ * \brief Tipo de função com 2 Container
+ */
+typedef void (*Args2Operation)(Stack,Container,Container);
+/*
+ * \brief Tipo de função com 1 Container
+ */
+typedef void (*Args1Operation)(Stack,Container);
+/*
+ * \brief Tipo de função sem Container
+ */
 typedef void (*ArgsStackOperation)(Stack);
 
-#define ARGUMENTS(label) f.label
-
+/*
+ * \brief Tipo de cada elemento do array que gere funções
+ */
 typedef struct {
     Arguments arg;
     union {
@@ -52,7 +68,7 @@ enum Operations {
     ColocaStackm = '('+128,
     Bitwisenot = '~',
     Stackarr = '~'+128,
-    ExecBloco = '~'+128,
+    ExecBloco = '~'+256,
     ToChar = 'c',
     ToInt = 'i',
     ToString = 's',
@@ -65,10 +81,10 @@ enum Operations {
     Pop = ';',
     Menor = '<',
     ElemInit = '<'+128,
-    FromEitherMenor = '<'+128,    // como não é usado em blocos, índice do either
+    FromEitherMenor = '<'+256,    // como não é usado em blocos, índice do either
     Maior = '>',
     Elemend = '>'+128,
-    FromEitherMaior = '>'+128,    // idém^^
+    FromEitherMaior = '>'+256,    // idém^^
     Igual = '=',
     ValIndex = '='+128,
     Nao = '!',
@@ -80,50 +96,32 @@ enum Operations {
     While = 'w'
 };
 
-/*
-typedef void (*ParseString)(Stack,char*);
-
-typedef void (*ParseToOperation)(Stack,char*,OperatorFunction*);
-
-typedef enum { None, Normal, ToOperate, Variable, Error } ParseFunction;
-
-typedef struct {
-    ParseFunction f;
-    union {
-        Container var;
-        ParseFunction func;
-    } p;
-} Parser;
-
-enum Parsing {
-    Either = 'e',
-    MakeArray = '[',
-    MakeBlock = '{',
-    MakeString = '"',
-    MakeChar = '\'',
-    Negativo = '-',             // predefinição do parser
-    Space = ' ',                // dá "identation error"
-    Tab = '\t',                 // idem^^
-    Enter = '\n'                // idem^^
-};
-*/
-
 /**
  * \brief Definição das variáveis
  */
 enum Variaveis {A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z};
 
 /**
- * \brief Determina se o operador é para ser feito como Num, Foldable ou Lambda
+ * \brief Determina se o operador é para ser feito como Num, Foldable ou Lambda, dependendo do número de parâmetros de cada função
  *
  * @param Stack
  *
  * @returns int
  */
-int hashkey(Stack,char*);
+int hashkey(Stack,char**,OperatorFunction*);
 
+/**
+ * \brief Inicializa todas as variáveis de A-Z
+ *
+ * @returns Container
+ */
 Container* variables(void);
 
+/**
+ * \brief É o cérebro de toda a operação que organiza e distribui os operadores para as respetivas funções
+ *
+ * @returns OperatorFunction
+ */
 OperatorFunction* hash(void);
 
 /**
@@ -137,25 +135,13 @@ OperatorFunction* hash(void);
  void parser(Stack,char*,OperatorFunction*,Container*);
 
 /**
- * \brief Realiza as operações a serem executadas
- *
- * @param String
- * @param Stack
- * @param Container
- * @param Hashmap
- * @param Int
- *
- */
-void operation(char*,Stack, Container*, int*, int*);
-
-/**
  * \brief Controla que tipo de operador começado com 'e' vai ser usado
  *
  * @param Stack
  * @param char
  * @param int
  */
-void either(Stack,char*);
+char* either(Stack,char*);
 
 /**
  * \brief Dá parse a números 
@@ -165,17 +151,51 @@ void either(Stack,char*);
  * @param Container
  * @param Int
  *
- * @returns Container
- *
+ * @returns char*
  */
-void number_parse(Stack,char*);
+char* number_parse(Stack,char*);
 
-void char_parse(Stack,char*);
+/**
+ * \brief Dá parse a char
+ *
+ * @param Stack
+ * @param String
+ *
+ * @returns char*
+ */
+char* char_parse(Stack,char*);
 
-void var_control(Stack,char*,Container*);
+/**
+ * \brief Dá parse a char
+ *
+ * @param Stack
+ * @param String
+ * @param Container
+ *
+ * @returns char*
+ */
+char* var_control(Stack,char*,Container*);
 
-void structure_parse(Stack,char*,OperatorFunction*,Container*);
+/**
+ * \brief Dá parse a todo o tipo de estruturas
+ *
+ * @param Stack
+ * @param String
+ * @param OperatorFuncion
+ * @param Container
+ *
+ * @returns char*
+ */
+char* structure_parse(Stack,char*,OperatorFunction*,Container*);
 
-void parse_hash(Stack,char*,OperatorFunction*);
+/**
+ * \brief Dá parse a funções
+ *
+ * @param Stack
+ * @param String
+ *
+ * @returns char*
+ */
+char* parse_hash(Stack,char*,OperatorFunction*);
 
 #endif /* PARSER_H */

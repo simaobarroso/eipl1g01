@@ -10,10 +10,10 @@
  * @returns Retorna uma funcao que faz operacao com dois numeros 
  */
 #define MATH_OPERATION(func, op)                                    \
-    void func(Container* x,Container* y,Stack s) {                  \
+    void func(Stack s, Container x,Container y) {                   \
         Container res;                                              \
-        res.label = numReturn(x->label,y->label);                   \
-        res.DOUBLE = op(toDouble(*x).DOUBLE,toDouble(*y).DOUBLE);   \
+        res.label = numReturn(x.label,y.label);                     \
+        res.DOUBLE = op(toDouble(x).DOUBLE,toDouble(y).DOUBLE);     \
         to_num_type(res.label,&res);                                \
         push(res,s);                                                \
     }
@@ -43,10 +43,10 @@
  * @returns Retorna uma funcao que faz operacao com dois inteiros
  */
 #define INTEGER_OPERATION(func, op)                         \
-    void func(Container* x, Container* y, Stack s) {        \
+    void func(Stack s,Container x, Container y) {           \
         Container res;                                      \
-        if (!(x->label || y->label))                        \
-            res.LONG = (*x).LONG op (*y).LONG;              \
+        if (!(x.label || y.label))                          \
+            res.LONG = x.LONG op y.LONG;                    \
         else                                                \
             assert(0 || "Error: wrong type");               \
         res.label = Long;                                   \
@@ -63,28 +63,31 @@ INTEGER_OPERATION(bitwiseand, &)
 INTEGER_OPERATION(bitwiseor, |)
 INTEGER_OPERATION(bitwisexor, ^)
 
+/**
+ * \brief Facilitador de escrita das operações incrementa e decrementa
+ */
 #define _CREMENTOS(func,op)                         \
-    void func(Container* x,Stack s) {               \
-        switch (x->label) {                         \
+    void func(Stack s,Container x) {                \
+        switch (x.label) {                          \
             case Double:                            \
-                op (*x).DOUBLE;                     \
+                op x.DOUBLE;                        \
                 break;                              \
             case Long:                              \
-                op (*x).LONG;                       \
+                op x.LONG;                          \
                 break;                              \
             case Char:                              \
-                op (*x).CHAR;                       \
+                op x.CHAR;                          \
                 break;                              \
             default:                                \
                 assert(0 || "Error: wrong type");   \
         }                                           \
-    push(*x,s);                                     \
+    push(x,s);                                      \
     }                                               
 
 _CREMENTOS(decrementa,--)
 _CREMENTOS(incrementa,++)
 
-void bitwisenot(Container* x,Stack) {
+void bitwisenot(Stack s,Container x) {
     Container res;
-    if (x->label == Long) (*x).LONG = ~(*x).LONG;
+    if (x.label == Long) x.LONG = ~x.LONG;
 }
