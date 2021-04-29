@@ -19,6 +19,13 @@ void colocar_stack(Container* array, Stack stack){
     for(int n= 0;n < array->ARRAY->sizeofstack;n++) push(array->ARRAY->arr[n], stack);
 }
 
+/**
+ * \brief Coloca um array numa stack
+ *
+ * @param Container (Um array, uma String ou um enum)
+ * @param Container (Um array, uma String ou um enum)
+ *
+ */
 void concatenar_sa(Container* x,Container* y,Stack stack){
     if(x->label == Array && y->label == Array){
         for (int i= 0; i < y.ARRAY->sizeofstack;i++) push(*y.ARRAY->arr[i], stack);
@@ -28,17 +35,31 @@ void concatenar_sa(Container* x,Container* y,Stack stack){
     if((x->label == Array && y->label == String) || (x->label == Array && isNum(y))) append(x,y);
     }
 
-void range(Stack s) {
+/**
+ * \brief Coloca um array numa stack
+ *
+ * @param Container (Um array, uma String ou um enum)
+ * @param Container (Um array, uma String ou um enum)
+ *
+ */
+void range(Container x,Stack s) {
     for (int i = 0; i < s->arr->content; i++)
     {
         push(i, stack);
     }
 }
 
-void tamanho(Stack s) {
-    int n = s->sizeofstack
-    push(n, stack);
+/**
+ * \brief Devolve o tamanho de uma string ou array
+ *
+ * @param Container (Um array, ou uma string)
+ *
+ */
+void tamanho(Container x,Stack s) {
+    Container n = { .label = Long, .LONG = (x.label != String) ? x.ARRAY->sizeofstack : strlen(x.STRING) };
+    push(n, s);
 }
+
 /**
  * \brief Devolve o valor do array com o indice indicado pelo o utilizador
  *
@@ -51,8 +72,13 @@ void indice(Container* array, Container* indice, Stack s) {
     push(array->ARRAY->arr[indice->LONG],s);
 }
 
-void buscarXINICIO() {
 
+void buscarXINICIO(Stack s, Container x) {
+    for (int i = 0; i < x-1; i++)
+    {
+        pop(s);
+    }
+    
 }
 
 void buscarXFIM() {
