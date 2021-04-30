@@ -74,23 +74,51 @@ void indice(Container* array, Container* indice, Stack s) {
 
 
 void buscarXINICIO(Stack s, Container x) {
-    for (int i = 0; i < x-1; i++)
+    Label ofres = stack.label;
+    Stack new = initialize_stack();
+    
+    for (int i = 0; i < x.LONG; i++)
     {
-        pop(s);
+        push(s->arr[i],new);
     }
     
+    Container res = { .label = stack.label, .ARRAY = new };
+    free(stack.ARRAY);
+    push(res,s);
 }
 
-void buscarXFIM() {
-
+//push dos x ultimos elementos do array
+void buscarXFIM(Container x, Stack s, Container stack){
+    Label ofres = stack.label;
+    Stack new = initialize_stack();
+    
+    for (int i = s->sizeofstack - x.LONG; i < s->sizeofstack; i++)
+    {
+        push(s->arr[i],new);
+    }
+    
+    Container res = { .label = stack.label, .ARRAY = new };
+    free(stack.ARRAY);
+    push(res,s);
 }
 
-void removerINICIO() {
-
+void removerINICIO(Container x, Stack s, Container stack) {
+    Label ofres = stack.label;
+    Stack new = initialize_stack();
+    for (int i = 1; i < s->sizeofstack; i++)
+    {
+        push(s->arr[i],new);
+    }
+    
+    Container res = { .label = stack.label, .ARRAY = new };
+    free(stack.ARRAY);
+    push(res,s);
 }
 
-void removerFIM() {
+void removerFIM(Stack s, Container stack) {  
 
+    pop(stack.ARRAY);
+    push(stack,s);
 }
 
 void substring() {
