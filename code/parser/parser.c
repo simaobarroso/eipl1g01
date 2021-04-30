@@ -15,7 +15,7 @@
 
 // ALGUEM QUE AVISE SE SOUBER UMA MELHOR MANEIRA QUE ESTAS CONDIÇÕES --Mota
 void parser(Stack stack, char* line, OperatorFunction* hashtable, Container* vars) {
-    while (*line) { // o meu linter dá um erro aqui que não sei porque acontece --Mota
+    while (*line || line[1] == ']') { // o meu linter dá um erro aqui que não sei porque acontece --Mota
         // para nums
         if (isdigit(*line) || *line == '.' || (*line == '-' && isdigit(line[1])))
             line = number_parse(stack,line);
@@ -41,26 +41,21 @@ void parser(Stack stack, char* line, OperatorFunction* hashtable, Container* var
 
 char* number_parse(Stack stack,char* line) {
     Container res;
-    int isfloat = 0;
     char num[20] = "";
-    char* aux;
-    while (*line != ' ' && *line != '\n' && *line != '\t') {
-        if (*line == '.') isfloat = 1;
-        strncat(num,line,1);
-        aux = line;
-        line++;
-    }
+    char* end;
+    int is_float = number_string(num,line,&end);
+    
     if (line[1] == 's') {
         res.label = String;
         res.STRING = strdup(num);
         line++;     // em line[1] é s, logo *line é \s, pelo que passa para o s
     } else {
-        if (isfloat) {  // verifica se é float
-            initialize_container(&res,Double);
-            res.DOUBLE = strtof(num,&aux);
+        if (is_float) {  // verifica se é float
+            res.label = Double;
+            res.DOUBLE = strtof(num,&end);
         } else {  // acontece se for long
-            initialize_container(&res,Long);
-            res.LONG = strtol(num,&aux,10);
+            res.label = Long;
+            res.LONG = strtol(num,&end,10);
         }
     }
     push(res,stack);
@@ -100,6 +95,7 @@ char* structure_parse(Stack stack,char* line,OperatorFunction* hashmap,Container
                 strncat(array,line,1);
                 line++;
             }
+            Container res = { .label = Lambda, .STRING};
             push(res,stack);
             break;
         case '"':
@@ -123,7 +119,7 @@ char* structure_parse(Stack stack,char* line,OperatorFunction* hashmap,Container
 int hashkey(Stack s,char** line,OperatorFunction* hashtable) {
     Container x = s->arr[s->sizeofstack - 1], y;
     int res = HASHKEY(x);
-    if (s->sizeofstack) y = s->arr[s->sizeofstack - 2];
+    if (s->sizeofstack > 1) y = s->arr[s->sizeofstack - 2];
     else return res;
     if (hashtable[res].arg > 1 && x.label < y.label) res = HASHKEY(y);
     return (**line != 'e') ? res : 256 + *(*++line);

@@ -1,0 +1,39 @@
+map:
+
+Haskell: map (+1) [1,2,3,-1] = [2,3,4,0]
+
+[ 1 2 3 ] { 1 + } %
+
+map_parse(Stack s, Container* x,OperatorFunction* hashtable) {
+    Stack buffer = initialize_stack();
+
+    for(int i = 0; i < s->sizeofstack; i++) {
+        ...
+        else if (operator)
+            for(int j = buffer->sizeofstack; j <= hashtable[hashkey(buffer,x.BLOCO,hashtable)]->args); j++)
+                push(pop(s),buffer);
+    }
+}
+
+## criar uma hashkey para blocos - não há de ser muito diferente, a macro deve servir
+
+Haskell: foldl (+) 0 [1,2,3,-1] = 5
+
+[ 1 2 3 ] { + } *
+
+Haskell: filter (<2) [1,2,3,-1] = [1,-1]
+
+[ 1 2 3 ] { 2 < } ,
+
+Haskell: sortOn (<2) [1,2,3,-1] = [2,3,1,-1]
+
+[ 1 2 3 ] { 2 < } $
+
+C:
+int c[4] = {1,2,3,-1}, c2[4];
+int i = 0;
+while(c[i] > 0) c2[i] = c[i];
+_____________________________
+*c2 = {1,2,3};
+
+[ 1 2 3 -1 ] { 0 > } w

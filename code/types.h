@@ -167,4 +167,14 @@ Container to_num_type(Label,Container*);
  */
 Container string_to_array(Container x);
 
+/**
+ * \brief Função que dá parse a uma string para ser transformada em número, a ser usada juntamente com strtol e strtod
+ *
+ * @param String
+ * @param String
+ *
+ * @returns Se o número é float ou não
+ */
+int number_string(char*,char*,char**);
+
 #endif /* TYPES_H */
