@@ -35,16 +35,13 @@ Container to_num_type(Label l, Container* x) {
 }
 
 Container toChar(Container x) {
-    if (x.label != Char) {
-        if (x.label == Long) {
-            x.CHAR = x.LONG;
-            x.label = Char;
-        } else if (x.label == Double) {
-            x.CHAR = toInt(x).LONG;
-        }
-        else ERROR_1
-        x.label = Char;
+    switch (x.label) {
+        case Long: x.CHAR = x.LONG; break;
+        case Char: break;
+        case Double: x.CHAR = toInt(x).LONG; break;
+        default: ERROR_1
     }
+    x.label = Char;
     return x;
 }
 
@@ -53,7 +50,7 @@ Container toInt(Container x) {
         case Long: break;
         case Char: x.LONG = x.CHAR; break;
         case Double: x.LONG = x.DOUBLE; break;
-        case String: x.LONG = strtol(x.STRING,&x.STRING+strlen(x.STRING),10); break;
+        case String: x.LONG = strtol(x.STRING,&x.STRING +strlen(x.STRING) - 1,10); break;
         default: ERROR_1
     }
     x.label = Long;
@@ -65,16 +62,16 @@ Container toDouble(Container x) {
         case Long: x.DOUBLE = x.LONG; break;
         case Char: x.DOUBLE = x.CHAR; break;
         case Double: break;
-        case String: x.LONG = strtod(x.STRING,&x.STRING+strlen(x.STRING)); break;
+        case String: x.DOUBLE = strtod(x.STRING,&x.STRING+strlen(x.STRING) - 1); break;
         default: ERROR_1
     }
-    x.label = Long;
+    x.label = Double;
     return x;
 }
 
 Container toString(Container x) { // tentar implementar apenas quando aparece o "l"
     char str[SIZE];
-    if (x.label != String) {
+    if (x.label != String && x.label != String_A) {
         if (x.label == Long) {
             sprintf(str,"%ld",x.LONG);
             x.STRING = strdup(str);

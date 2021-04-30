@@ -45,7 +45,7 @@ char* number_parse(Stack stack,char* line) {
     char num[20] = "";
     char* aux;
     while (*line != ' ' && *line != '\n' && *line != '\t') {
-        isfloat = (*line == '.');
+        if (*line == '.') isfloat = 1;
         strncat(num,line,1);
         aux = line;
         line++;
@@ -78,17 +78,17 @@ char* var_control(Stack s,char* line,Container* vars) {
     return line;
 }
 
+// TODO(Mota): dividir isto em funções individuais
 char* structure_parse(Stack stack,char* line,OperatorFunction* hashmap,Container* vars) { // I don't like this --Mota
     switch(*line) {
         case '[':
             line+=2;
             char array[SIZE];
-            while(*(line+2) != ']') {
+            while(*(line+1) != ']') {
                 strncat(array,line,1);
                 line++;
             }
-            Stack s = malloc(sizeof(Stack_plain));
-            assert(s != NULL);
+            Stack s = initialize_stack();
             parser(s,array,hashmap,vars);
             Container res = { .label = Array, .ARRAY = s };
             push(res,stack);
@@ -121,9 +121,10 @@ char* structure_parse(Stack stack,char* line,OperatorFunction* hashmap,Container
 #define HASHKEY(container) 128*(2 - (2*isNum(container)) + isFoldable(container)) + **line
 
 int hashkey(Stack s,char** line,OperatorFunction* hashtable) {
-    Container x = s->arr[s->sizeofstack - 1];
-    Container y = s->arr[s->sizeofstack - 2];
+    Container x = s->arr[s->sizeofstack - 1], y;
     int res = HASHKEY(x);
+    if (s->sizeofstack) y = s->arr[s->sizeofstack - 2];
+    else return res;
     if (hashtable[res].arg > 1 && x.label < y.label) res = HASHKEY(y);
     return (**line != 'e') ? res : 256 + *(*++line);
 }

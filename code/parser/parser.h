@@ -1,32 +1,38 @@
+/**
+ * \brief Ficheiro com os tipos e funções do parser
+ */
 #ifndef PARSER_H
 #define PARSER_H
 
 #include "../stack.h"
 #include "../operations/operations.h"
 
-/*
- * \brief 
+/**
+ * \brief Número de argumentos em cada função
  */
 typedef enum { args_s, args_1, args_2, args_3 } Arguments;
 
-/*
+/**
  * \brief Tipo de função com 3 Container
  */
 typedef void (*Args3Operation)(Stack,Container,Container,Container);
-/*
+
+/**
  * \brief Tipo de função com 2 Container
  */
 typedef void (*Args2Operation)(Stack,Container,Container);
-/*
+
+/**
  * \brief Tipo de função com 1 Container
  */
 typedef void (*Args1Operation)(Stack,Container);
-/*
+
+/**
  * \brief Tipo de função sem Container
  */
 typedef void (*ArgsStackOperation)(Stack);
 
-/*
+/**
  * \brief Tipo de cada elemento do array que gere funções
  */
 typedef struct {
