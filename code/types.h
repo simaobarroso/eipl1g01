@@ -21,11 +21,11 @@ typedef struct {
 /**
  * \brief Erro de identação: deve ser mandado quando se inserem espaços/tabs/newline a mais
  */
-#define ERROR_0 fputs("Error 0: wrong identation\n", stderr); exit(1);
+#define ERROR_0 { fputs("Error 0: wrong identation\n", stderr); exit(1); }
 /**
  * \brief Erro de tipos: deve ser mandado quando uma conversão de tipos corre mal, p. ex. Array para Double
  */
-#define ERROR_1 fputs("Error 1: wrong type\n", stderr); exit(1);
+#define ERROR_1 { fputs("Error 1: wrong type\n", stderr); exit(1); }
 
 /**
  * \brief Introduz facilidades de controlo de tipos
@@ -155,8 +155,6 @@ Label foldType(Container);
  *
  * @param Label
  * @param Container
- *
- * @returns Container
  */
 Container to_num_type(Label,Container*);
 

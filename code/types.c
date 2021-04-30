@@ -21,7 +21,7 @@ Label foldType(Container c) {
 }
 
 Label numReturn(Label x, Label y) {
-    return (x > y) ? x : y;
+    return (x >= y) ? x : y;
 }
 
 Container to_num_type(Label l, Container* x) {
@@ -42,8 +42,7 @@ Container toChar(Container x) {
         } else if (x.label == Double) {
             x.CHAR = toInt(x).LONG;
         }
-        else
-            ERROR_1
+        else ERROR_1
         x.label = Char;
     }
     return x;

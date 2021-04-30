@@ -11,10 +11,9 @@
  */
 #define MATH_OPERATION(func, op)                                    \
     void func(Stack s, Container x,Container y) {                   \
-        Container res;                                              \
-        res.label = numReturn(x.label,y.label);                     \
+        Container res = { .label = numReturn(x.label,y.label) };    \
         res.DOUBLE = op(toDouble(x).DOUBLE,toDouble(y).DOUBLE);     \
-        to_num_type(res.label,&res);                                \
+        res = to_num_type(res.label,&res);                          \
         push(res,s);                                                \
     }
 
@@ -88,6 +87,6 @@ _CREMENTOS(decrementa,--)
 _CREMENTOS(incrementa,++)
 
 void bitwisenot(Stack s,Container x) {
-    Container res;
     if (x.label == Long) x.LONG = ~x.LONG;
+    push(x,s);
 }

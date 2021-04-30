@@ -17,7 +17,7 @@
 void parser(Stack stack, char* line, OperatorFunction* hashtable, Container* vars) {
     while (*line) { // o meu linter dá um erro aqui que não sei porque acontece --Mota
         // para nums
-        if (isdigit(*line) || *line == '.' || (*line == '-' && isdigit(*(line+1))))
+        if (isdigit(*line) || *line == '.' || (*line == '-' && isdigit(line[1])))
             line = number_parse(stack,line);
         
         // para char
@@ -35,7 +35,7 @@ void parser(Stack stack, char* line, OperatorFunction* hashtable, Container* var
         else 
             line = parse_hash(stack,line,hashtable);
 
-        line += (line[1] != '\n' || line[1] != '\t' || line[1] != ' ') + 1;
+        line += (line[1] == '\n' || line[1] == '\t' || line[1] == ' ') + 1;
     }
 }
 
@@ -43,23 +43,24 @@ char* number_parse(Stack stack,char* line) {
     Container res;
     int isfloat = 0;
     char num[20] = "";
-
-    while (*line != ' ') {
-        if (*line == '.') isfloat = 1;
+    char* aux;
+    while (*line != ' ' && *line != '\n' && *line != '\t') {
+        isfloat = (*line == '.');
         strncat(num,line,1);
+        aux = line;
         line++;
     }
-    if (line[2] == 's') {
+    if (line[1] == 's') {
         res.label = String;
-        res.STRING = strndup(num,80);
-        line+=2;
+        res.STRING = strdup(num);
+        line++;     // em line[1] é s, logo *line é \s, pelo que passa para o s
     } else {
         if (isfloat) {  // verifica se é float
             initialize_container(&res,Double);
-            res.DOUBLE = strtof(num,&line);
+            res.DOUBLE = strtof(num,&aux);
         } else {  // acontece se for long
             initialize_container(&res,Long);
-            res.LONG = strtol(num,&line,10);
+            res.LONG = strtol(num,&aux,10);
         }
     }
     push(res,stack);
@@ -67,8 +68,7 @@ char* number_parse(Stack stack,char* line) {
 }
 
 char* char_parse(Stack stack, char* line) {
-    Container res = { .label = Char };
-    res.CHAR = *(++line);
+    Container res = { .label = Char, .CHAR = *(++line) };
     push(res,stack);
     return ++line;
 }
@@ -124,8 +124,8 @@ int hashkey(Stack s,char** line,OperatorFunction* hashtable) {
     Container x = s->arr[s->sizeofstack - 1];
     Container y = s->arr[s->sizeofstack - 2];
     int res = HASHKEY(x);
-    if (hashtable[HASHKEY(x)].arg > 1 && x.label < y.label) res = HASHKEY(y);
-    return (**line != 'e') ? res : 256+ *(*++line);
+    if (hashtable[res].arg > 1 && x.label < y.label) res = HASHKEY(y);
+    return (**line != 'e') ? res : 256 + *(*++line);
 }
 
 char* parse_hash(Stack s,char* line,OperatorFunction* hashtable) {
