@@ -31,9 +31,9 @@ void concatenar_sa(Container* x,Container* y,Stack stack){
         for (int i= 0; i < y.ARRAY->sizeofstack;i++) push(*y.ARRAY->arr[i], stack);
     }
     if((x->label == String && y->label == String) ||(isNum(x) && y->label == String) ||(x->label == String && isNum(y)) ) strcat(x, y);
-    if((x->label == String && y->label == Array) || (isNum(x) && y->label == Array)) prepend(x,y);
-    if((x->label == Array && y->label == String) || (x->label == Array && isNum(y))) append(x,y);
-    }
+    else if((x->label == String && y->label == Array) || (isNum(x) && y->label == Array)) prepend(x,y);
+    else if((x->label == Array && y->label == String) || (x->label == Array && isNum(y))) append(x,y);
+}
 
 /**
  * \brief Coloca um array numa stack
@@ -42,10 +42,10 @@ void concatenar_sa(Container* x,Container* y,Stack stack){
  * @param Container (Um array, uma String ou um enum)
  *
  */
-void range(Container x,Stack s) {
+void range(Container x,Stack s) { // ok, esta definitivamente precisa de ser revista...
     for (int i = 0; i < s->arr->content; i++)
     {
-        push(i, stack);
+        push(i, s);
     }
 }
 

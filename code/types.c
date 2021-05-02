@@ -35,25 +35,26 @@ Container to_num_type(Label l, Container* x) {
 }
 
 Container toChar(Container x) {
-    if (x.label != Char) {
-        if (x.label == Long) {
-            x.CHAR = x.LONG;
-            x.label = Char;
-        } else if (x.label == Double) {
-            x.CHAR = toInt(x).LONG;
-        }
-        else ERROR_1
-        x.label = Char;
+    switch (x.label) {
+        case Long: x.CHAR = x.LONG; break;
+        case Char: break;
+        case Double: x.CHAR = toInt(x).LONG; break;
+        default: ERROR_1
     }
+    x.label = Char;
     return x;
 }
 
 Container toInt(Container x) {
+    char* end;
+    char result[20];
     switch (x.label) {
         case Long: break;
         case Char: x.LONG = x.CHAR; break;
         case Double: x.LONG = x.DOUBLE; break;
-        case String: x.LONG = strtol(x.STRING,&x.STRING+strlen(x.STRING),10); break;
+        case String: 
+            number_string(x.STRING, result, &end);
+            x.LONG = strtol(x.STRING,&x.STRING +strlen(x.STRING) - 1,10); break;
         default: ERROR_1
     }
     x.label = Long;
@@ -61,20 +62,24 @@ Container toInt(Container x) {
 }
 
 Container toDouble(Container x) {
+    char* end;
+    char result[20];
     switch (x.label) {
         case Long: x.DOUBLE = x.LONG; break;
         case Char: x.DOUBLE = x.CHAR; break;
         case Double: break;
-        case String: x.LONG = strtod(x.STRING,&x.STRING+strlen(x.STRING)); break;
+        case String: 
+            number_string(x.STRING, result, &end);
+            x.DOUBLE = strtod(result,&end); break;
         default: ERROR_1
     }
-    x.label = Long;
+    x.label = Double;
     return x;
 }
 
 Container toString(Container x) { // tentar implementar apenas quando aparece o "l"
     char str[SIZE];
-    if (x.label != String) {
+    if (x.label != String && x.label != String_A) {
         if (x.label == Long) {
             sprintf(str,"%ld",x.LONG);
             x.STRING = strdup(str);
@@ -101,4 +106,15 @@ Container string_to_array(Container x) {
         x.STRING++;
     }
     return res;
+}
+
+int number_string(char* s, char* result, char** end) {
+    int is_float = 0;
+    while (*s != ' ' && *s != '\n' && *s != '\t') {
+        if (*s == '.') is_float = 1;
+        strncat(result,s,1);
+        *end = s;
+        s++;
+    }
+    return is_float;
 }

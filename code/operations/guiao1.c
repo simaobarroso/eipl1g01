@@ -11,9 +11,9 @@
  */
 #define MATH_OPERATION(func, op)                                    \
     void func(Stack s, Container x,Container y) {                   \
-        Container res = { .label = numReturn(x.label,y.label) };    \
+        Container res = { .label = Double };                        \
         res.DOUBLE = op(toDouble(x).DOUBLE,toDouble(y).DOUBLE);     \
-        res = to_num_type(res.label,&res);                          \
+        res = to_num_type(numReturn(x.label,y.label),&res);         \
         push(res,s);                                                \
     }
 
