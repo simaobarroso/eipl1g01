@@ -121,11 +121,16 @@ void removerFIM(Stack s, Container stack) {
     push(stack,s);
 }
 
-void substring() {
+void substring(Stack s, Container string, Container substring) {
 
+    char* aux = string.STRING;
+    long a = strtok(string.STRING,substring.STRING) - aux;
+    Container res = { .label = Long, .LONG = a };
+    push(res,s);
 }
 
-void separar_sub(Stack s) { // pegar no último e dar push das substrings
+
+void separar_sub(Stack s, Container string, Container substring) { // pegar no último e dar push das substrings
 
 }
 
