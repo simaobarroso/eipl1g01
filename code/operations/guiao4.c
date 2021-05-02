@@ -102,7 +102,7 @@ void buscarXFIM(Container x, Stack s, Container stack){
     push(res,s);
 }
 
-void removerINICIO(Container x, Stack s, Container stack) {
+void removerINICIO(Stack s, Container stack) {
     Label ofres = stack.label;
     Stack new = initialize_stack();
     for (int i = 1; i < s->sizeofstack; i++)
