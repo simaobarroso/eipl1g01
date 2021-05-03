@@ -7,6 +7,27 @@
 #include "../parser/parser.h"
 #include "operations.h"
 
+/**
+ * \brief Variável global para tamanho
+ */
+#define SIZE 10240
+
+/**
+ * \brief lê todo o input do terminal
+ *
+ * @param Container
+ */
+void ler_input(Stack s) {
+    char* string;
+    assert(fgets(string,SIZE,stdin) != NULL);
+    while (strchr(string,'\0')) {
+        char* add;
+        assert(fgets(add,SIZE,stdin) != NULL);
+        strcat(string,add);
+    }
+    Container res = { .label = String, .STRING = strdup(string) };
+    push(res,s);
+}
 
 /**
  * \brief Coloca um array numa stack
@@ -26,7 +47,7 @@ void colocar_stack(Container* array, Stack stack){
  * @param Container (Um array, uma String ou um enum)
  *
  */
-void concatenar_sa(Container* x,Container* y,Stack stack){
+void concatenar_sa(Container* x,Container* y,Stack stack) { // TODO(Mota): algo de errado não está certo
     if(x->label == Array && y->label == Array){
         for (int i= 0; i < y.ARRAY->sizeofstack;i++) push(*y.ARRAY->arr[i], stack);
     }
@@ -43,9 +64,10 @@ void concatenar_sa(Container* x,Container* y,Stack stack){
  *
  */
 void range(Container x,Stack s) { // ok, esta definitivamente precisa de ser revista...
-    for (int i = 0; i < s->arr->content; i++)
-    {
-        push(i, s);
+    Container res = { .label = Long };
+    for (int i = 0; i < x.LONG; i++) {
+        res.LONG = i;
+        push(res,s);
     }
 }
 
@@ -55,7 +77,7 @@ void range(Container x,Stack s) { // ok, esta definitivamente precisa de ser rev
  * @param Container (Um array, ou uma string)
  *
  */
-void tamanho(Container x,Stack s) {
+void tamanho(Stack s,Container x) {
     Container n = { .label = Long, .LONG = (x.label != String) ? x.ARRAY->sizeofstack : strlen(x.STRING) };
     push(n, s);
 }
@@ -68,13 +90,14 @@ void tamanho(Container x,Stack s) {
  * @param Container (indice para o array dado) 
  *
  */
-void indice(Container* array, Container* indice, Stack s) {
-    push(array->ARRAY->arr[indice->LONG],s);
+void indice(Stack s, Container array, Container indice) {
+    push(array.ARRAY->arr[indice.LONG],s);
 }
 
 
 void buscarXINICIO(Stack s, Container x) {
-    Label ofres = stack.label;
+    Label ofres = x.label;
+    if (ofres == String) string_to_array(x);
     Stack new = initialize_stack();
     
     for (int i = 0; i < x.LONG; i++)
@@ -82,8 +105,8 @@ void buscarXINICIO(Stack s, Container x) {
         push(s->arr[i],new);
     }
     
-    Container res = { .label = stack.label, .ARRAY = new };
-    free(stack.ARRAY);
+    Container res = { .label = ofres, .ARRAY = new };
+    free(x.ARRAY);
     push(res,s);
 }
 
@@ -115,14 +138,12 @@ void removerINICIO(Stack s, Container stack) {
     push(res,s);
 }
 
-void removerFIM(Stack s, Container stack) {  
-
+void removerFIM(Stack s, Container stack) {
     pop(stack.ARRAY);
     push(stack,s);
 }
 
 void substring(Stack s, Container string, Container substring) {
-
     char* aux = string.STRING;
     long a = strtok(string.STRING,substring.STRING) - aux;
     Container res = { .label = Long, .LONG = a };
@@ -141,13 +162,16 @@ void separar_space(Container* x) {
 void separar_lines(Container* x) {
 
 }
+
 //----------FUNÇÕES AUXILIARES----------
+
 /**
  * \brief Função auxiliar para concatenar uma string com um array
  *
  * @param Container (A String)
  * @param Container (O Array) 
  *
+ * @returns Container
  */
 Container prepend(Container x, Container y) {
     Container res = { .label = Array, .ARRAY = initialize_stack() };
@@ -163,6 +187,7 @@ Container prepend(Container x, Container y) {
  * @param Container (O Array)
  * @param Container (A String) 
  *
+ * @returns Container
  */
 Container append(Container x, Container y) {
     push(y,x.ARRAY);

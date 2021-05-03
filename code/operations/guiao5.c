@@ -62,6 +62,7 @@ void filter(Stack s, Container x, Container y, OperatorFunction* hashtable, Cont
     push(res,s);
 }
 
-void ordenar() {
-
+void ordenar(Stack s, Container x, Container y, OperatorFunction* hashtable, Container* vars) {
+    Stack sort = initialize_stack();
+    if (x.label == String) string_to_array(x);
 }

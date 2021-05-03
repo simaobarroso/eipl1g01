@@ -89,7 +89,9 @@ typedef struct Container {
  *
  * @returns Label
  */
-Label numReturn(Label, Label);
+// Label numReturn(Label, Label);
+#define NUM_RETURN(x,y) x >= y ? x : y
+
 /**
  * \brief Converte para char
  *
@@ -123,6 +125,10 @@ Container toDouble(Container);
  */
 Container toString(Container);
 
+
+// ---------------- VERIFICAR SE AS MACROS FUNCIONAM EM CASA!!!! ------------
+
+
 /**
  * \brief Verifica ser pertence à classe Foldable
  *
@@ -130,7 +136,8 @@ Container toString(Container);
  *
  * @returns bool
  */
-int isFoldable(Container);
+// int isFoldable(Container);
+#define IS_FOLDABLE(c) c.label >= String && !Lambda
 
 /**
  * \brief Verifica ser pertence à classe Num
@@ -139,7 +146,8 @@ int isFoldable(Container);
  *
  * @returns bool
  */
-int isNum(Container);
+// int isNum(Container);
+#define IS_NUM(c) c.label <= Char
 
 /**
  * \brief Verifica se é String ou Array
@@ -148,7 +156,8 @@ int isNum(Container);
  *
  * @returns Label
  */
-Label foldType(Container);
+// Label foldType(Container);
+#define FOLD_TYPE(c) Array - (c.label == String) + (c.label == String_A)
 
 /**
  * \brief Converte qualquer container numérico para a Label indicada

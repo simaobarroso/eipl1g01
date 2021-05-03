@@ -2,27 +2,40 @@
 #include "operations/operations.h"
 
 #include <assert.h>
+#include <ctype.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 
 #define SIZE 100
 
+#define IS_FOLDABLE(c) c.label >= String && !Lambda
+/*
 int isFoldable(Container c) {
     return (c.label >= String && !Lambda);
 }
+*/
 
+#define IS_NUM(c) c.label <= Char
+/*
 int isNum(Container c) {
     return (c.label <= Char);
 }
+*/
 
+#define FOLD_TYPE(c) Array - (c.label == String) + (c.label == String_A)
+/*
 Label foldType(Container c) {
     return Array - (c.label == String) + (c.label == String_A);
 }
+*/
 
+#define NUM_RETURN(x,y) x >= y ? x : y
+/*
 Label numReturn(Label x, Label y) {
     return (x >= y) ? x : y;
 }
+*/
 
 Container to_num_type(Label l, Container* x) {
     switch (l) {
@@ -97,6 +110,7 @@ Container toString(Container x) { // tentar implementar apenas quando aparece o 
     return x;
 }
 
+// eu espero bem que isto deixe de ser necessário --Mota
 Container string_to_array(Container x) {
     Container res = { .label = String_A, .ARRAY = initialize_stack() };
     Container buffer = { .label = Char };
@@ -109,12 +123,7 @@ Container string_to_array(Container x) {
 }
 
 int number_string(char* s, char* result, char** end) {
-    int is_float = 0;
-    while (*s != ' ' && *s != '\n' && *s != '\t') {
-        if (*s == '.') is_float = 1;
-        strncat(result,s,1);
-        *end = s;
-        s++;
-    }
-    return is_float;
+    size_t buff = strcspn(s,".-0123456789");
+    result = strndup(s, buff);
+    return strchr(result,'.') != NULL;
 }

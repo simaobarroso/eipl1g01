@@ -35,7 +35,7 @@ void parser(Stack stack, char* line, OperatorFunction* hashtable, Container* var
         else 
             line = parse_hash(stack,line,hashtable);
 
-        line += (line[1] == '\n' || line[1] == '\t' || line[1] == ' ') + 1;
+        line += isspace(line[1]) + 1;
     }
 }
 
@@ -144,4 +144,12 @@ char* parse_hash(Stack s,char* line,OperatorFunction* hashtable) {
            ERROR_0
     }
     return ++line;
+}
+
+Container* num_args(Stack s, OperatorFunction* f) {
+    Container* res = malloc(f->arg * sizeof(Container));
+    for(int i = 0; i <= f->arg; i++) {
+        res[i] = pop(s);
+    }
+    return res;
 }
