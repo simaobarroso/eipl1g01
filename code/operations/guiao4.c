@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <ctype.h>
 #include "../stack.h"
 #include "../parser/parser.h"
 #include "operations.h"
@@ -121,10 +122,10 @@ void removerFIM(Stack s, Container stack) {
     push(stack,s);
 }
 
-void substring(Stack s, Container string, Container substring) {
+void substring(Stack s, Container x, Container y) {
 
-    char* aux = string.STRING;
-    long a = strtok(string.STRING,substring.STRING) - aux;
+    char* aux = x.STRING;
+    long a = strtok(x.STRING,y.STRING) - aux;
     Container res = { .label = Long, .LONG = a };
     push(res,s);
 }
@@ -134,12 +135,43 @@ void separar_sub(Stack s, Container string, Container substring) { // pegar no �
 
 }
 
-void separar_space(Container* x) {
+void separar_space(Stack s, Container x) {
 
+    Stack of_res = initialize_stack();
+    Container res = { .label = Array, .ARRAY = of_res };
+    Container buffer = { .label = String };
+    char* to_push;
+    int i = 0, o = 0;
+    while (x.STRING != NULL)
+    {
+        if (isspace(x.STRING[i]) != 0) o++;
+        else {
+            buffer.STRING = strdup(x.STRING,o);
+            x.STRING += o + 1;
+            push(buffer,res.ARRAY);
+        }
+        i++;
+    }
+    push(res,s);
 }
 
-void separar_lines(Container* x) {
-
+void separar_lines(tack s, Container x) {
+Stack of_res = initialize_stack();
+    Container res = { .label = Array, .ARRAY = of_res };
+    Container buffer = { .label = String };
+    char* to_push;
+    int i = 0, o = 0;
+    while (x.STRING != NULL)
+    {
+        if ((x.STRING[i]) != '\n') o++;
+        else {
+            buffer.STRING = strdup(x.STRING,o);
+            x.STRING += o + 1;
+            push(buffer,res.ARRAY);
+        }
+        i++;
+    }
+    push(res,s);
 }
 //----------FUNÇÕES AUXILIARES----------
 /**
