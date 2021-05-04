@@ -171,12 +171,12 @@ void separar_sub(Stack s, Container str, Container substr) {
     {
         n = strspn(str.STRING,substr.STRING);
 
-        if (n != 0) (buffer.STRING = strdup(x.STRING,n));
-        else buffer.STRING = x.STRING;
+        if (n != 0) (buffer.STRING = strndup(str.STRING,n));
+        else buffer.STRING = str.STRING;
 
         push(buffer,res.ARRAY);
 
-        x.STRING += (n != 0) ? n + 1 : strlen(x.STRING);
+        str.STRING += (n != 0) ? n + 1 : strlen(str.STRING);
 
     }
     
