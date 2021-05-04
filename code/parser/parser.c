@@ -30,7 +30,7 @@ void parser(Stack stack, char* line, OperatorFunction* hashtable, Container* var
             line = char_parse(stack,line);
 
         // para var
-        else if (*line == ':')
+        else if (isupper(*line) || *line == ':')
             line = var_control(stack,line,vars);
 
         // para string/array/bloco
@@ -75,8 +75,9 @@ char* char_parse(Stack stack, char* line) {
 }
 
 char* var_control(Stack s,char* line,Container* vars) {
-    vars[*(++line) - 'A'] = s->arr[s->sizeofstack - 1];
-    return line;
+    if (isupper(*line)) push(vars[*line++ - 'A'],s);
+    else vars[*(++line) - 'A'] = s->arr[s->sizeofstack - 1];
+    return ++line;
 }
 
 char* structure_parse(Stack stack,char* line,OperatorFunction* hashtable,Container* vars) { // I don't like this --Mota
@@ -89,71 +90,67 @@ char* structure_parse(Stack stack,char* line,OperatorFunction* hashtable,Contain
     return line;
 }
 
-
-// VER A PARTIR DAQUI PARA AMANHÃ
 char* array_parse(Stack stack, char* line, OperatorFunction* hashtable, Container* vars) {
     int arr = 1;
     char* save = line+=2;
-    char *aux = line;
 
     while(arr) {
-        line = strchr(++line,'[');
-        aux = strchr(++aux,']');
-        arr += (line < aux) ? 1 : -1;
+        if (*line == '[') arr++;
+        if (*line == ']') arr--;
+        line++;
     }
 
     Container res = { .label = Array, .ARRAY = initialize_stack() };
-    save = strndup(save,aux-save-1);
+    save = strndup(save,line - save - 2);
     parser(res.ARRAY,save,hashtable,vars);
     push(res,stack);
+    free(save);
     
-    PARSE_SPACE;
+    PARSE_SPACE
     return line;
 }
 
 char* block_parse(Stack stack, char* line) {
-    PARSE_SPACE;
-
-    char* save = line;
     int bloco = 1;
-    char *aux = line;
+    char* save = line+=2;
 
     while(bloco) {
-        if (line < aux) aux = line;
-        bloco += (strchr(line,'{') < strchr(aux,'}')) ? 1 : -1;
+        if (*line == '{') bloco++;
+        if (*line == '}') bloco--;
+        line++;
     }
-    Container res = { .label = Lambda, .STRING = strndup(save,(line > aux ? line : aux) - save) };
-    
-    PARSE_SPACE;
+    Container res = { .label = Lambda, .STRING = strndup(save,line - save - 2) };
     push(res,stack);
-
+    
+    PARSE_SPACE
     return line;
 }
 
 char* string_parse(Stack stack, char* line) {
-    char* aux = ++line;
-    line = strchr(aux,'"');
-    Container res = { .label = String, .STRING = strndup(aux,line - aux) };
+    char* save = ++line;
+    line = strchr(save,'"');
+    Container res = { .label = String, .STRING = strndup(save,line - save) };
     push(res,stack);
-    return line;
+    return ++line;
 }
 
 /**
  * \brief Parâmetro que define o índice do array de funções em função do tipo de container
  */
-#define HASHKEY(container) 128 * (2 - (2 * IS_NUM(container)) + IS_FOLDABLE(container)) + **line
+#define HASHKEY(container) 128 * (2 - ((2 * IS_NUM(container))) + IS_FOLDABLE(container)) + **line
 
 int hashkey(Stack s,char** line,OperatorFunction* hashtable) {
     Container x = s->arr[s->sizeofstack - 1], y;
     int res = HASHKEY(x);
     if (s->sizeofstack > 1) y = s->arr[s->sizeofstack - 2];
     else return res;
-    if (hashtable[res].arg > 1 && x.label < y.label) res = HASHKEY(y);
+    if (hashtable[res].arg > 1 && IS_FOLDABLE(x) < IS_FOLDABLE(y)) res = HASHKEY(y);
     return (**line != 'e') ? res : 256 + *(++(*line));
 }
 
 char* parse_hash(Stack s,char* line,OperatorFunction* hashtable) {
     int index = hashkey(s,&line,hashtable);
+    if (isspace(*line)) ERROR_0;
     switch(hashtable[index].arg) {
         case args_s:
             hashtable[index].f.args_s(s);

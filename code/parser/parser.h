@@ -33,7 +33,7 @@ typedef void (*Args1Operation)(Stack,Container);
  */
 typedef void (*ArgsStackOperation)(Stack);
 
-/* COMING SOON TO YOUR HOME CINEMA:
+/* COMING SOON TO YOUR HOME THEATRE:
 
 typedef void (*StackOperation)(Stack);
 

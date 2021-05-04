@@ -31,6 +31,7 @@ int main(void) { // TODO(Mota): mudar para o debugger
     Container* vars = variables();
     parser(s,to_parse,hashtable,vars);
     printstack(s);
+    putchar('\n');
     free(to_parse);
     free_stack(s);
     return 0;

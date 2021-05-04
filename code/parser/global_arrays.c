@@ -3,24 +3,15 @@
 #include "../operations/operations.h"
 
 Container* variables(void) {
-    static Container vars[128] = {
+    static Container vars[26] = {
         [A] = { .label = Long, .LONG = 10 },
         [B] = { .label = Long, .LONG = 11 },
         [C] = { .label = Long, .LONG = 12 },
         [D] = { .label = Long, .LONG = 13 },
         [E] = { .label = Long, .LONG = 14 },
         [F] = { .label = Long, .LONG = 15 },
-        [G] = { .label = Long, .LONG = 0 },
-        [H] = { .label = Long, .LONG = 0 },
-        [I] = { .label = Long, .LONG = 0 },
-        [J] = { .label = Long, .LONG = 0 },
-        [K] = { .label = Long, .LONG = 0 },
-        [L] = { .label = Long, .LONG = 0 },
-        [M] = { .label = Long, .LONG = 0 },
         [N] = { .label = Char, .CHAR = '\n'},
-        // meter o resto
         [S] = { .label = Char, .CHAR = ' '},
-        // meter o resto
         [X] = { .label = Long, .LONG = 0 },
         [Y] = { .label = Long, .LONG = 1 },
         [Z] = { .label = Long, .LONG = 2 }
@@ -87,11 +78,13 @@ OperatorFunction* hash(void) {
         [Nao] =             { HASH_CONTENT(args_1,nao) },
         [Ifthenelse] =      { HASH_CONTENT(args_3,ifthenelse) },
         [Ifthenelse+128] =  { HASH_CONTENT(args_3,ifthenelse) },
-        [Ifthenelse+256] =  { HASH_CONTENT(args_3,ifthenelse) } //,
+        [Ifthenelse+256] =  { HASH_CONTENT(args_3,ifthenelse) },
         // GUIÃO 4
-        // [Range] =        { HASH_CONTENT(args_1,range) },
-        // [Length] =       { HASH_CONTENT(args_1,length) },
-        // [ReadInput] =    { HASH_CONTENT(args_s,read_input) },
+        [Range] =           { HASH_CONTENT(args_1,range) },
+        [Length] =          { HASH_CONTENT(args_1,length) },
+        [ReadInput] =       { HASH_CONTENT(args_s,ler_input) },
+        [ValIndex] =        { HASH_CONTENT(args_2,indice) },
+        [ElemInit] =        { HASH_CONTENT(args_2,buscarXINICIO) }
         // [ReadInput+128] ={ HASH_CONTENT(args_s,read_input) },
         // [ReadInput+256] ={ HASH_CONTENT(args_s,read_input) },
         // [Concat] =       { HASH_CONTENT(args_2,concat) },
@@ -101,9 +94,7 @@ OperatorFunction* hash(void) {
         // [ColocaStackM] = { HASH_CONTENT(args_1,removerINICIO) },
         // [ColocaStackm] = { HASH_CONTENT(args_1,removerFIM) },
         // [FromArrToStack] =  { HASH_CONTENT(args_1,colocar_stack) },
-        // [ElemIniti] =    { HASH_CONTENT(args_2,) },
         // [ElemEnd] =      { HASH_CONTENT(args_2,) },
-        // [ValIndex] =     { HASH_CONTENT(args_2,) },
         // GUIÃO 5
         // [ExecBloco] =    { HASH_CONTENT(args_1,exec_bloco) },
         // [Map] =          { HASH_CONTENT(args_1,map) },

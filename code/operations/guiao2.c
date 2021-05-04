@@ -1,6 +1,7 @@
 #include "operations.h"
 #include <assert.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 /**
@@ -47,29 +48,28 @@ void copiaN(Stack stack) {
         n = copy.LONG; // o indice tem que ser long
         push(stack->arr[stack->sizeofstack - n - 1], stack); // dá push do elemento no indice no topo
     }
-    else
-        assert(0 || "Error: wrong type");
+    else ERROR_1
 }
 
 void newline(Stack s) {
     char newline[SIZE];
     assert(fgets(newline, SIZE, stdin) != NULL);
-    Container res = { .label = String, .STRING = strndup(newline, strlen(newline) - 1) }; // o meu linter queixa-se, é por causa do sítio do assert --Mota
+    Container res = { .label = String, .STRING = strndup(newline, strlen(newline) - 1) };
     push(res,s);
 }
 
 void to_int_op(Stack s) {
-    toInt(s->arr[s->sizeofstack - 1]);
+    s->arr[s->sizeofstack - 1] = toInt(s->arr[s->sizeofstack - 1]);
 }
 
 void to_char_op(Stack s) {
-    toChar(s->arr[s->sizeofstack - 1]);
+    s->arr[s->sizeofstack - 1] = toChar(s->arr[s->sizeofstack - 1]);
 }
 
 void to_double_op(Stack s) {
-    toDouble(s->arr[s->sizeofstack - 1]);
+    s->arr[s->sizeofstack - 1] = toDouble(s->arr[s->sizeofstack - 1]);
 }
 
 void to_string_op(Stack s) {
-    toString(s->arr[s->sizeofstack - 1]);
+    s->arr[s->sizeofstack - 1] = toString(s->arr[s->sizeofstack - 1]);
 }

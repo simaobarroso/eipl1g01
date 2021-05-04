@@ -7,7 +7,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#define SIZE 100
+#define SIZE 8192
 
 Container to_num_type(Label l, Container* x) {
     switch (l) {
@@ -21,41 +21,34 @@ Container to_num_type(Label l, Container* x) {
 
 Container toChar(Container x) {
     switch (x.label) {
-        case Long: x.CHAR = x.LONG; break;
+        case Long: x.CHAR = x.LONG; x.label = Char; break;
         case Char: break;
-        case Double: x.CHAR = toInt(x).LONG; break;
+        case Double: x.CHAR = toInt(x).LONG; x.label = Char; break;
+        case String: x.CHAR = *x.STRING; x.label = Char; break;
         default: ERROR_1
     }
-    x.label = Char;
     return x;
 }
 
 Container toInt(Container x) {
-    char* end;
-    char* result;
+    //char* end;
     switch (x.label) {
         case Long: break;
-        case Char: x.LONG = x.CHAR; break;
-        case Double: x.LONG = x.DOUBLE; break;
-        case String: 
-            number_string(&x.STRING, &result, &end);
-            x.LONG = strtol(result,&end,10); break;
+        case Char: x.LONG = x.CHAR; x.label = Long; break;
+        case Double: x.LONG = x.DOUBLE; x.label = Long; break;
+        case String: x.LONG = strtol(x.STRING,NULL,10); x.label = Long; break;
         default: ERROR_1
     }
-    x.label = Long;
     return x;
 }
 
 Container toDouble(Container x) {
-    char* end;
-    char* result;
+    //char* end;
     switch (x.label) {
         case Long: x.DOUBLE = x.LONG; break;
         case Char: x.DOUBLE = x.CHAR; break;
         case Double: break;
-        case String: 
-            number_string(&x.STRING,&result,&end);
-            x.DOUBLE = strtod(result,&end); break;
+        case String: x.DOUBLE = strtod(x.STRING,NULL); break;
         default: ERROR_1
     }
     x.label = Double;

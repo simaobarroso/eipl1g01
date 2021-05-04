@@ -243,6 +243,29 @@ void to_string_op(Stack);
 
 // GUIÃO 4
 
+/**
+ * \brief Lê o input até encontrar o carater nulo
+ *
+ * @param Stack
+ */
+void ler_input(Stack);
+
+/**
+ * \brief Constrói um array do 0 até ao número dado
+ *
+ * @param Stack
+ * @param Container
+ */
+void range(Stack,Container);
+
+void length(Stack,Container);
+
+void indice(Stack,Container,Container);
+
+void buscarXINICIO(Stack,Container,Container);
+
+char* buscarXINICIO_string(Container,Container);
+
 // GUIÃO 5
 
 // void foldf(Stack,char*);

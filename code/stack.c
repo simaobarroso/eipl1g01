@@ -60,15 +60,29 @@ void void_pop(Stack stack) {
 void printstack(Stack stack) {
     for (int i = 0; i < stack->sizeofstack; i++) {
         switch (stack->arr[i].label) {
-            case Long: printf("%ld", stack->arr[i].LONG); break;
-            case Double: printf("%g", stack->arr[i].DOUBLE); break;
-            case Char: printf("%c", stack->arr[i].CHAR); break;
-            case String: printf("%s", stack->arr[i].STRING); break;
-            case Array: printstack(stack->arr[i].ARRAY); break;
-            default: return;
+            case Long:
+                printf("%ld", stack->arr[i].LONG);
+                break;
+            case Double:
+                printf("%g", stack->arr[i].DOUBLE);
+                break;
+            case Char: 
+                printf("%c", stack->arr[i].CHAR);
+                break;
+            case String: 
+                printf("%s", stack->arr[i].STRING);
+                free(stack->arr[i].STRING);
+                break;
+            case Array:
+                printstack(stack->arr[i].ARRAY);
+                break;
+            case Lambda:
+                printf("{ %s }", stack->arr[i].LAMBDA);
+                free(stack->arr[i].LAMBDA);
+                break;
+            default: ERROR_0
         }
     }
-    putchar('\n');
 }
 
 // debugging

@@ -83,14 +83,38 @@ typedef struct Container {
 
 /**
  * \brief Define qual o tipo de Num que certa função pode devolver através da "importância" do tipo no enum
- *
- * @param Label
- * @param Label
- *
- * @returns Label
  */
-// Label numReturn(Label, Label);
-#define NUM_RETURN(x,y) x >= y ? x : y
+#define NUM_RETURN(x,y) (x >= y ? x : y)
+
+/**
+ * \brief Verifica ser pertence à classe Foldable
+ */
+#define IS_FOLDABLE(c) (c.label >= String && c.label <= Lambda)
+
+/**
+ * \brief Verifica ser pertence à classe Num
+ */
+#define IS_NUM(c) (c.label <= Char)
+
+/**
+ * \brief Verifica se é String ou Array
+ */
+#define FOLD_TYPE(c) (Array - (c.label == String) + (c.label == String_A))
+
+/**
+ * \brief Devolve o máximo entre dois números
+ */
+#define MAX(a,b) ((a > b) ? a : b)
+
+/**
+ * \brief Calcula o comprimento dum long
+ */
+#define LONG_LENGTH(s) strspn(s,"-1234567890")
+
+/**
+ * \brief Calcula o comprimento dum double
+ */
+#define DOUBLE_LENGTH(s) strspn(s,".-1234567890")
 
 /**
  * \brief Converte para char
@@ -124,26 +148,6 @@ Container toDouble(Container);
  * @returns O valor em String
  */
 Container toString(Container);
-
-/**
- * \brief Verifica ser pertence à classe Foldable
- */
-#define IS_FOLDABLE(c) c.label >= String && !Lambda
-
-/**
- * \brief Verifica ser pertence à classe Num
- */
-#define IS_NUM(c) c.label <= Char
-
-/**
- * \brief Verifica se é String ou Array
- */
-#define FOLD_TYPE(c) Array - (c.label == String) + (c.label == String_A)
-
-/**
- * \brief Devolve o máximo entre dois números
- */
-#define MAX(a,b) (a > b) ? a : b
 
 /**
  * \brief Converte qualquer container numérico para a Label indicada

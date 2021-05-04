@@ -1,6 +1,6 @@
 CC=gcc
 CFLAGS=-Wall -Wextra
-run: Main.c stack.c types.c operations/operations.h parser/parser.h
-	$(CC) -o exec -g *.c */*.c -lm $< $(CFLAGS)
+run: types.c stack.c operations/operations.h parser/parser.h
+	$(CC) $(CFLAGS) -o exec -g *.c operations/*.c parser/*.c -lm
 rem: exec
 	rm exec
