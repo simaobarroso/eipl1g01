@@ -10,7 +10,8 @@
 /**
  * \brief Número de argumentos em cada função
  */
-typedef enum { args_s, args_1, args_2, args_3 } Arguments;
+typedef enum { /**Enum com tipo Arguments **/
+    args_s, args_1, args_2, args_3 } Arguments;
 
 /**
  * \brief Tipo de função com 3 Container
@@ -35,7 +36,7 @@ typedef void (*ArgsStackOperation)(Stack);
 /**
  * \brief Tipo de cada elemento do array que gere funções
  */
-typedef struct {
+typedef struct { /**Struct com tipo OperatorFunction **/
     Arguments arg;
     union {
         ArgsStackOperation args_s;
@@ -48,58 +49,63 @@ typedef struct {
 /**
  * \brief Os vários operadores matemáticos
  */
-enum Operations {
-    NewLine = 'l',
-    ReadInput = 't',
-    Subtrai = '-',
+enum Operations { /**Enum com tipo Operations **/
+    // GUIÃO 1
     Soma = '+',
-    Concat = '+'+128,
+    Subtrai = '-',
     Multiplica = '*',
-    ConcatTimes = '*'+128,
-    Fold = '*'+256,
     Divide = '/',
-    Separa = '/'+128,
     Modulo = '%',
-    Map = '%'+256,
     Potencia = '#',
-    SubsIndex = '#'+128,
     Bitwiseand = '&',
-    FromEitherE = '&'+128,
     Bitwiseor = '|',
-    FromEitherOu = '|'+128,
     Bitwisexor = '^',
     Incrementa = ')',
-    ColocaStackM = ')'+128,
     Decrementa = '(',
-    ColocaStackm = '('+128,
     Bitwisenot = '~',
-    Stackarr = '~'+128,
-    ExecBloco = '~'+256,
-    ToChar = 'c',
+    // GUIÃO 2
+    NewLine = 'l',
     ToInt = 'i',
-    ToString = 's',
+    ToChar = 'c',
     ToDouble = 'f',
+    ToString = 's',
     Troca3 = '@',
     Inverte2 = '\\',
     Duplica = '_',
     CopiaN = '$',
-    Ordena = '$'+256,
     Pop = ';',
+    // GUIÃO 3
+    FromEitherE = '&'+256,
+    FromEitherOu = '|'+256,
     Menor = '<',
-    ElemInit = '<'+128,
-    FromEitherMenor = '<'+256,    // como não é usado em blocos, índice do either
     Maior = '>',
-    Elemend = '>'+128,
+    FromEitherMenor = '<'+256,    // como não é usado em blocos, índice do either
     FromEitherMaior = '>'+256,    // idém^^
     Igual = '=',
-    ValIndex = '='+128,
     Nao = '!',
-    MudaVariavel = ':',
     Ifthenelse = '?',
+    MudaVariavel = ':',
+    // GUIÃO 4
     Range = ',',
     Length = ','+128,
+    ReadInput = 't',
+    Concat = '+'+128,
+    ConcatTimes = '*'+128,
+    Separa = '/'+128,
+    SubstringIndex = '#'+128,
+    ColocaStackM = ')'+128,
+    ColocaStackm = '('+128,
+    FromArrToStack = '~'+128,
+    ElemInit = '<'+128,
+    ElemEnd = '>'+128,
+    ValIndex = '='+128,
+    // GUIÃO 5
+    ExecBloco = '~'+256,
+    Map = '%'+256,
+    Fold = '*'+256,
     Filter = ','+256,
-    While = 'w'
+    Sort = '$'+256,
+    While = 'w'+256
 };
 
 /**
@@ -183,7 +189,7 @@ char* char_parse(Stack,char*);
 char* var_control(Stack,char*,Container*);
 
 /**
- * \brief Dá parse a todo o tipo de estruturas
+ * \brief Inicia o parse de qualquer estrutura
  *
  * @param Stack
  * @param String
@@ -193,6 +199,38 @@ char* var_control(Stack,char*,Container*);
  * @returns char*
  */
 char* structure_parse(Stack,char*,OperatorFunction*,Container*);
+
+/**
+ * \brief Dá parse a arrays
+ *
+ * @param Stack
+ * @param String
+ * @param OperatorFuncion
+ * @param Container
+ *
+ * @returns char*
+ */
+char* array_parse(Stack,char*,OperatorFunction*,Container*);
+
+/**
+ * \brief Dá parse a blocos
+ *
+ * @param Stack
+ * @param String
+ *
+ * @returns char*
+ */
+char* block_parse(Stack,char*);
+
+/**
+ * \brief Dá parse a strings
+ *
+ * @param Stack
+ * @param String
+ *
+ * @returns char*
+ */
+char* string_parse(Stack stack, char* line);
 
 /**
  * \brief Dá parse a funções

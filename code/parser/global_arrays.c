@@ -42,6 +42,7 @@ As terceiras para quando é para ser executado com um bloco
 */
 OperatorFunction* hash(void) {
     static OperatorFunction hashmap[128*3] = {
+        // GUIÃO 1
         [Soma] =            { HASH_CONTENT(args_2,soma) },
         [Subtrai] =         { HASH_CONTENT(args_2,subtrai) },
         [Multiplica] =      { HASH_CONTENT(args_2,multiplica) },
@@ -54,6 +55,7 @@ OperatorFunction* hash(void) {
         [Incrementa] =      { HASH_CONTENT(args_1,incrementa) },
         [Decrementa] =      { HASH_CONTENT(args_1,decrementa) },
         [Bitwisenot] =      { HASH_CONTENT(args_1,bitwisenot) },
+        // GUIÃO 2
         [NewLine] =         { HASH_CONTENT(args_s,newline) },
         [NewLine+128] =     { HASH_CONTENT(args_s,newline) },
         [NewLine+256] =     { HASH_CONTENT(args_s,newline) },
@@ -74,12 +76,41 @@ OperatorFunction* hash(void) {
         [Pop] =             { HASH_CONTENT(args_s,void_pop) },
         [Pop+128] =         { HASH_CONTENT(args_s,void_pop) },
         [Pop+256] =         { HASH_CONTENT(args_s,void_pop) },
-        [Igual] =           { HASH_CONTENT(args_2,igual) }, // TODO: pode não ser usado só com Num
+        // GUIÃO 3
+        [FromEitherE] =     { HASH_CONTENT(args_2,elogic) },
+        [FromEitherOu] =    { HASH_CONTENT(args_2,oulogic) },
+        [Igual] =           { HASH_CONTENT(args_2,igual) },
         [Maior] =           { HASH_CONTENT(args_2,maior) },
         [Menor] =           { HASH_CONTENT(args_2,menor) },
+        [FromEitherMaior] = { HASH_CONTENT(args_2,compmaior) },
+        [FromEitherMenor] = { HASH_CONTENT(args_2,compmenor) },
         [Nao] =             { HASH_CONTENT(args_1,nao) },
         [Ifthenelse] =      { HASH_CONTENT(args_3,ifthenelse) },
-        [Ifthenelse+128] =  { HASH_CONTENT(args_3,ifthenelse) }
+        [Ifthenelse+128] =  { HASH_CONTENT(args_3,ifthenelse) },
+        [Ifthenelse+256] =  { HASH_CONTENT(args_3,ifthenelse) } //,
+        // GUIÃO 4
+        // [Range] =        { HASH_CONTENT(args_1,range) },
+        // [Length] =       { HASH_CONTENT(args_1,length) },
+        // [ReadInput] =    { HASH_CONTENT(args_s,read_input) },
+        // [ReadInput+128] ={ HASH_CONTENT(args_s,read_input) },
+        // [ReadInput+256] ={ HASH_CONTENT(args_s,read_input) },
+        // [Concat] =       { HASH_CONTENT(args_2,concat) },
+        // [ConcatTimes] =  { HASH_CONTENT(args_2,concat_times) },
+        // [Separa] =       { HASH_CONTENT(args_1,separa) },
+        // [SubstringIndex] =  { HASH_CONTENT(args_2,substring_index) },
+        // [ColocaStackM] = { HASH_CONTENT(args_1,removerINICIO) },
+        // [ColocaStackm] = { HASH_CONTENT(args_1,removerFIM) },
+        // [FromArrToStack] =  { HASH_CONTENT(args_1,colocar_stack) },
+        // [ElemIniti] =    { HASH_CONTENT(args_2,) },
+        // [ElemEnd] =      { HASH_CONTENT(args_2,) },
+        // [ValIndex] =     { HASH_CONTENT(args_2,) },
+        // GUIÃO 5
+        // [ExecBloco] =    { HASH_CONTENT(args_1,exec_bloco) },
+        // [Map] =          { HASH_CONTENT(args_1,map) },
+        // [Fold] =         { HASH_CONTENT(args_1,fold) },
+        // [Filter] =       { HASH_CONTENT(args_1,filter) },
+        // [Sort] =         { HASH_CONTENT(args_1,sort) },
+        // [While] =        { HASH_CONTENT(args_1,while_bloco) }
     };
 return hashmap;
 }

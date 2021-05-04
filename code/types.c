@@ -9,34 +9,6 @@
 
 #define SIZE 100
 
-#define IS_FOLDABLE(c) c.label >= String && !Lambda
-/*
-int isFoldable(Container c) {
-    return (c.label >= String && !Lambda);
-}
-*/
-
-#define IS_NUM(c) c.label <= Char
-/*
-int isNum(Container c) {
-    return (c.label <= Char);
-}
-*/
-
-#define FOLD_TYPE(c) Array - (c.label == String) + (c.label == String_A)
-/*
-Label foldType(Container c) {
-    return Array - (c.label == String) + (c.label == String_A);
-}
-*/
-
-#define NUM_RETURN(x,y) x >= y ? x : y
-/*
-Label numReturn(Label x, Label y) {
-    return (x >= y) ? x : y;
-}
-*/
-
 Container to_num_type(Label l, Container* x) {
     switch (l) {
         case Long: *x = toInt(*x); break;
@@ -60,14 +32,14 @@ Container toChar(Container x) {
 
 Container toInt(Container x) {
     char* end;
-    char result[20];
+    char* result;
     switch (x.label) {
         case Long: break;
         case Char: x.LONG = x.CHAR; break;
         case Double: x.LONG = x.DOUBLE; break;
         case String: 
-            number_string(x.STRING, result, &end);
-            x.LONG = strtol(x.STRING,&x.STRING +strlen(x.STRING) - 1,10); break;
+            number_string(&x.STRING, &result, &end);
+            x.LONG = strtol(result,&end,10); break;
         default: ERROR_1
     }
     x.label = Long;
@@ -76,13 +48,13 @@ Container toInt(Container x) {
 
 Container toDouble(Container x) {
     char* end;
-    char result[20];
+    char* result;
     switch (x.label) {
         case Long: x.DOUBLE = x.LONG; break;
         case Char: x.DOUBLE = x.CHAR; break;
         case Double: break;
         case String: 
-            number_string(x.STRING, result, &end);
+            number_string(&x.STRING,&result,&end);
             x.DOUBLE = strtod(result,&end); break;
         default: ERROR_1
     }
@@ -122,8 +94,9 @@ Container string_to_array(Container x) {
     return res;
 }
 
-int number_string(char* s, char* result, char** end) {
-    size_t buff = strcspn(s,".-0123456789");
-    result = strndup(s, buff);
-    return strchr(result,'.') != NULL;
+int number_string(char** line, char** num, char** end) {
+    size_t buff = strspn(*line,".-0123456789");
+    *end = *line + buff;
+    *num = strndup(*line, buff);
+    return strchr(*num,'.') != NULL;
 }

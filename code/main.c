@@ -26,11 +26,12 @@ int main(void) { // TODO(Mota): mudar para o debugger
     Stack s = initialize_stack();
     char line[SIZE];
     fgets(line,SIZE,stdin);
-    assert(line != NULL);
+    char* to_parse = strdup(line);
     OperatorFunction* hashtable = hash();
     Container* vars = variables();
-    parser(s,line,hashtable,vars);
+    parser(s,to_parse,hashtable,vars);
     printstack(s);
+    free(to_parse);
     free_stack(s);
     return 0;
 }

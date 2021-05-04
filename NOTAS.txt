@@ -1,3 +1,13 @@
+NOTAS IMPORTANTES!!!
+
+    Tipos das funções:
+        func_s(Stack);
+        func_1(Stack,Container);
+        func_2(Stack,Container,Container);
+        func_3(Stack,Container,Container,Container);
+
+        chamada: func_example(Stack,pop(s));
+
 O que fazer ao código que já existe:
 
     - Os either precisam de ser revistos para remover aqueles switch case dentro de switch case. (provavelmente passar tudo a Double)
@@ -7,17 +17,18 @@ O que fazer ao código que já existe:
 
 O código para ainda se fazer:
 
-    - O parser eu trato --Mota
-        - ah ya, vou fazer o debugger então
-    
-    - O guião 5 vai doer
-        - as funções são guardadas como string se nada existir a dizer que vão ser executadas, mas apenas se isto acontecer, pelo que é preciso verificar sempre o que vem a seguir (questões de otimização e tal)
+    - Acabar o guião 4
+    - O guião 5 vai continuar a doer
 
-        - parte de uma ideia:
-            blocos de funções: recebem o valor do bloco e se devem manter o argumento à ação do outro lado ou não:
+Better parser (se der tempo):
 
-            void bloco(int with_arg,void* func(stack)) { // função puramente sugestiva
-    
-            }
+    - Algo parecido com a strtok, mas mais poderoso:
+        - better_strtok(char const* read, char const* ignore, char const* read_until_closing)
+            - exemplos: better_strtok(line," \n\t","[{\"")
+
+                procura por line[2] = ']' ou line[2] = '}'
+                se for array dá parse, se for bloco lê como string
+                se char const* read for um bloco, lê como parse
+                podemos usar strchr(line,}), strchr(line,])-1, strchr(line,")
 
 *futuras notas aqui*

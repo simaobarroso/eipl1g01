@@ -19,7 +19,7 @@ LOGIC_OPERATION(maior,>)
 
 void nao(Stack s,Container x){
 	toInt(x);
-	x.LONG = ~x.LONG;
+	x.LONG = !x.LONG;
 	push(x,s);
 }
 
@@ -35,10 +35,12 @@ void oulogic(Stack stack, Container x, Container y) {
 	Container res;
 	Label x_l = x.label;
 	Label y_l = y.label;
-	res = (toDouble(x).DOUBLE && (x.DOUBLE || toDouble(y).DOUBLE) && x.DOUBLE > y.DOUBLE)
+	x = toDouble(x);
+	y = toDouble(y);
+	res = (x.DOUBLE && (x.DOUBLE || y.DOUBLE) && x.DOUBLE > y.DOUBLE)
 		? to_num_type(x_l,&x)
 		: to_num_type(y_l,&y);
-	push(res,stack); 																		
+	push(res,stack);
 }
 
 // x segundo

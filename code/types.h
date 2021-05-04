@@ -125,39 +125,25 @@ Container toDouble(Container);
  */
 Container toString(Container);
 
-
-// ---------------- VERIFICAR SE AS MACROS FUNCIONAM EM CASA!!!! ------------
-
-
 /**
  * \brief Verifica ser pertence à classe Foldable
- *
- * @param Container
- *
- * @returns bool
  */
-// int isFoldable(Container);
 #define IS_FOLDABLE(c) c.label >= String && !Lambda
 
 /**
  * \brief Verifica ser pertence à classe Num
- *
- * @param Container
- *
- * @returns bool
  */
-// int isNum(Container);
 #define IS_NUM(c) c.label <= Char
 
 /**
  * \brief Verifica se é String ou Array
- *
- * @param Container
- *
- * @returns Label
  */
-// Label foldType(Container);
 #define FOLD_TYPE(c) Array - (c.label == String) + (c.label == String_A)
+
+/**
+ * \brief Devolve o máximo entre dois números
+ */
+#define MAX(a,b) (a > b) ? a : b
 
 /**
  * \brief Converte qualquer container numérico para a Label indicada
@@ -184,6 +170,6 @@ Container string_to_array(Container x);
  *
  * @returns Se o número é float ou não
  */
-int number_string(char*,char*,char**);
+int number_string(char** line,char** num,char** end);
 
-#endif /* TYPES_H */
+#endif /* TYPES_H */ 
