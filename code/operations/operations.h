@@ -266,6 +266,10 @@ void buscarXINICIO(Stack,Container,Container);
 
 char* buscarXINICIO_string(Container,Container);
 
+// void removerFIM(Stack,Container);
+// 
+// char* removerFIM_string(Stack,char*);
+
 // GUIÃO 5
 
 // void foldf(Stack,char*);

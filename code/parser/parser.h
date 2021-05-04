@@ -104,7 +104,7 @@ enum Operations { /**Enum com tipo Operations **/
     Separa = '/'+128,
     SubstringIndex = '#'+128,
     ColocaStackM = ')'+128,
-    ColocaStackm = '('+128,
+    RemoveFim = '('+128,
     FromArrToStack = '~'+128,
     ElemInit = '<'+128,
     ElemEnd = '>'+128,

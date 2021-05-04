@@ -137,7 +137,7 @@ char* string_parse(Stack stack, char* line) {
 /**
  * \brief Parâmetro que define o índice do array de funções em função do tipo de container
  */
-#define HASHKEY(container) 128 * (2 - ((2 * IS_NUM(container))) + IS_FOLDABLE(container)) + **line
+#define HASHKEY(container) 128 * (2 - (2 * (IS_NUM(container)) + IS_FOLDABLE(container))) + **line
 
 int hashkey(Stack s,char** line,OperatorFunction* hashtable) {
     Container x = s->arr[s->sizeofstack - 1], y;

@@ -31,7 +31,6 @@ Container toChar(Container x) {
 }
 
 Container toInt(Container x) {
-    //char* end;
     switch (x.label) {
         case Long: break;
         case Char: x.LONG = x.CHAR; x.label = Long; break;
@@ -43,7 +42,6 @@ Container toInt(Container x) {
 }
 
 Container toDouble(Container x) {
-    //char* end;
     switch (x.label) {
         case Long: x.DOUBLE = x.LONG; break;
         case Char: x.DOUBLE = x.CHAR; break;

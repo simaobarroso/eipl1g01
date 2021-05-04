@@ -83,16 +83,16 @@ OperatorFunction* hash(void) {
         [Range] =           { HASH_CONTENT(args_1,range) },
         [Length] =          { HASH_CONTENT(args_1,length) },
         [ReadInput] =       { HASH_CONTENT(args_s,ler_input) },
+        [ReadInput+128] =   { HASH_CONTENT(args_s,ler_input) },
+        [ReadInput+256] =   { HASH_CONTENT(args_s,ler_input) },
         [ValIndex] =        { HASH_CONTENT(args_2,indice) },
-        [ElemInit] =        { HASH_CONTENT(args_2,buscarXINICIO) }
-        // [ReadInput+128] ={ HASH_CONTENT(args_s,read_input) },
-        // [ReadInput+256] ={ HASH_CONTENT(args_s,read_input) },
+        [ElemInit] =        { HASH_CONTENT(args_2,buscarXINICIO) },
         // [Concat] =       { HASH_CONTENT(args_2,concat) },
         // [ConcatTimes] =  { HASH_CONTENT(args_2,concat_times) },
         // [Separa] =       { HASH_CONTENT(args_1,separa) },
         // [SubstringIndex] =  { HASH_CONTENT(args_2,substring_index) },
         // [ColocaStackM] = { HASH_CONTENT(args_1,removerINICIO) },
-        // [ColocaStackm] = { HASH_CONTENT(args_1,removerFIM) },
+        // [RemoveFim] =       { HASH_CONTENT(args_1,removerFIM) }
         // [FromArrToStack] =  { HASH_CONTENT(args_1,colocar_stack) },
         // [ElemEnd] =      { HASH_CONTENT(args_2,) },
         // GUIÃO 5
