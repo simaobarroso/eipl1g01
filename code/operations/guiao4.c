@@ -144,19 +144,63 @@ void removerFIM(Stack s, Container stack) {
     push(stack,s);
 }
 
-void substring(Stack s, Container x, Container y) {
+/**
+ * \brief Devolve o valor do indice da primeira ocurrencia de uma substring numa dada string
+ *
+ *
+ * @param Stack
+ * @param Container (string a verificar)
+ * @param Container (subtring a procurar)  
+ *
+ */
+void substring(Stack s, Container str, Container substr) {
 
-    char* aux = x.STRING;
-    long a = strtok(x.STRING,y.STRING) - aux;
+    char* aux = str.STRING;
+    long a = strtok(str.STRING,substr.STRING) - aux;
     Container res = { .label = Long, .LONG = a };
     push(res,s);
 }
 
+/**
+ * \brief Separa uma string em elementos de um array pelas as ocurrencias de uma determinada substring
+ *
+ *
+ * @param Stack
+ * @param Container (string a separar)
+ * @param Container (subtring a usar como separadora)  
+ *
+ */
+void separar_sub(Stack s, Container str, Container substr) {
+    
+    int n;
+    Container buffer = { .label = String };
+    Container res = { .label = Array, .ARRAY = initialize_stack()};
+   
+    while (str.STRING != NULL)
+    {
+        n = strspn(str.STRING,substr.STRING);
 
-void separar_sub(Stack s, Container string, Container substring) { // pegar no último e dar push das substrings
+        if (n != 0) (buffer.STRING = strdup(x.STRING,n));
+        else buffer.STRING = x.STRING;
 
+        push(buffer,res.ARRAY);
+
+        x.STRING += (n != 0) ? n + 1 : strlen(x.STRING);
+
+    }
+    
+    push(res,s);
+    
 }
 
+/**
+ * \brief Separa uma string em elementos de um array pelas as ocurrencias de whitespace
+ *
+ *
+ * @param Stack
+ * @param Container (string a separar) 
+ *
+ */
 void separar_space(Stack s, Container x) {
 
     Stack of_res = initialize_stack();
@@ -177,7 +221,15 @@ void separar_space(Stack s, Container x) {
     push(res,s);
 }
 
-void separar_lines(tack s, Container x) {
+/**
+ * \brief Separa uma string em elementos de um array pelas as ocurrencias de newlines
+ *
+ *
+ * @param Stack
+ * @param Container (string a separar) 
+ *
+ */
+void separar_lines(Stack s, Container x) {
     Stack of_res = initialize_stack();
     Container res = { .label = Array, .ARRAY = of_res };
     Container buffer = { .label = String };
