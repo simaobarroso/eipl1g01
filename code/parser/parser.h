@@ -33,6 +33,16 @@ typedef void (*Args1Operation)(Stack,Container);
  */
 typedef void (*ArgsStackOperation)(Stack);
 
+/* COMING SOON TO YOUR HOME CINEMA:
+
+typedef void (*StackOperation)(Stack);
+
+typedef void (*NormalOperation)(Stack,Container*);
+
+typedef void (*BlockOperation)(Stack,Container*,OperatorFunction*);
+
+*/
+
 /**
  * \brief Tipo de cada elemento do array que gere funções
  */
