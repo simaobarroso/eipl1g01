@@ -129,118 +129,142 @@ char* buscarXINICIO_string(Container string, Container index) {
     for(int i = 0; i < index.LONG; i++) buffer[i] = string.STRING[i];
     return buffer;
 }
-// 
-// //push dos x ultimos elementos do array
-// void buscarXFIM(Container x, Stack s, Container stack){
-//     Label ofres = stack.label;
-//     Stack new = initialize_stack();
-//     
-//     for (int i = s->sizeofstack - x.LONG; i < s->sizeofstack; i++)
-//     {
-//         push(s->arr[i],new);
-//     }
-//     
-//     Container res = { .label = stack.label, .ARRAY = new };
-//     free(stack.ARRAY);
-//     push(res,s);
-// }
-// 
-// void removerINICIO(Stack s, Container stack) {
-//     Label ofres = stack.label;
-//     Stack new = initialize_stack();
-//     for (int i = 1; i < s->sizeofstack; i++)
-//     {
-//         push(s->arr[i],new);
-//     }
-//     
-//     Container res = { .label = stack.label, .ARRAY = new };
-//     free(stack.ARRAY);
-//     push(res,s);
-// }
-// 
-// void removerFIM(Stack s, Container stack) {
-//     pop(stack.ARRAY);
-//     push(stack,s);
-// }
-// 
-// void substring(Stack s, Container x, Container y) {
-// 
-//     char* aux = x.STRING;
-//     long a = strtok(x.STRING,y.STRING) - aux;
-//     Container res = { .label = Long, .LONG = a };
-//     push(res,s);
-// }
-// 
-// 
-// void separar_sub(Stack s, Container string, Container substring) { // pegar no último e dar push das substrings
-// 
-// }
-// 
-// void separar_space(Stack s, Container x) {
-// 
-//     Stack of_res = initialize_stack();
-//     Container res = { .label = Array, .ARRAY = of_res };
-//     Container buffer = { .label = String };
-//     char* to_push;
-//     int i = 0, o = 0;
-//     while (x.STRING != NULL)
-//     {
-//         if (isspace(x.STRING[i]) != 0) o++;
-//         else {
-//             buffer.STRING = strdup(x.STRING,o);
-//             x.STRING += o + 1;
-//             push(buffer,res.ARRAY);
-//         }
-//         i++;
-//     }
-//     push(res,s);
-// }
-// 
-// void separar_lines(tack s, Container x) {
-//     Stack of_res = initialize_stack();
-//     Container res = { .label = Array, .ARRAY = of_res };
-//     Container buffer = { .label = String };
-//     char* to_push;
-//     int i = 0, o = 0;
-//     while (x.STRING != NULL)
-//     {
-//         if ((x.STRING[i]) != '\n') o++;
-//         else {
-//             buffer.STRING = strdup(x.STRING,o);
-//             x.STRING += o + 1;
-//             push(buffer,res.ARRAY);
-//         }
-//         i++;
-//     }
-//     push(res,s);
-// }
-// 
-// //----------FUNÇÕES AUXILIARES----------
-// 
-// /**
-//  * \brief Função auxiliar para concatenar uma string com um array
-//  *
-//  * @param Container (A String)
-//  * @param Container (O Array) 
-//  *
-//  * @returns Container
-//  */
-// Container prepend(Container x, Container y) {
-//     Container res = { .label = Array, .ARRAY = initialize_stack() };
-//     res.ARRAY->arr[0] = x;
-//     for(int i = 0; i < y.ARRAY->sizeofstack; i++) push(pop(y.ARRAY),res.ARRAY);
-//     free(y.ARRAY);
-//     return res;
-// }
-// 
-// /**
-//  * \brief Função auxiliar para concatenar um array com uma string
-//  *
-//  * @param Container (O Array)
-//  * @param Container (A String) 
-//  *
-//  * @returns Container
-//  */
-// Container append(Container x, Container y) {
-//     push(y,x.ARRAY);
-// }
+
+void removerFIM(Stack s, Container stack) {
+    pop(stack.ARRAY);
+    push(stack,s);
+}
+
+/**
+ * \brief Devolve o valor do indice da primeira ocurrencia de uma substring numa dada string
+ *
+ *
+ * @param Stack
+ * @param Container (string a verificar)
+ * @param Container (subtring a procurar)  
+ *
+ */
+void substring(Stack s, Container str, Container substr) {
+
+    char* aux = str.STRING;
+    long a = strtok(str.STRING,substr.STRING) - aux;
+    Container res = { .label = Long, .LONG = a };
+    push(res,s);
+}
+
+/**
+ * \brief Separa uma string em elementos de um array pelas as ocurrencias de uma determinada substring
+ *
+ *
+ * @param Stack
+ * @param Container (string a separar)
+ * @param Container (subtring a usar como separadora)  
+ *
+ */
+void separar_sub(Stack s, Container str, Container substr) {
+    
+    int n;
+    Container buffer = { .label = String };
+    Container res = { .label = Array, .ARRAY = initialize_stack()};
+   
+    while (str.STRING != NULL)
+    {
+        n = strspn(str.STRING,substr.STRING);
+
+        if (n != 0) (buffer.STRING = strdup(x.STRING,n));
+        else buffer.STRING = x.STRING;
+
+        push(buffer,res.ARRAY);
+
+        x.STRING += (n != 0) ? n + 1 : strlen(x.STRING);
+
+    }
+    
+    push(res,s);
+    
+}
+
+/**
+ * \brief Separa uma string em elementos de um array pelas as ocurrencias de whitespace
+ *
+ *
+ * @param Stack
+ * @param Container (string a separar) 
+ *
+ */
+void separar_space(Stack s, Container x) {
+
+    Stack of_res = initialize_stack();
+    Container res = { .label = Array, .ARRAY = of_res };
+    Container buffer = { .label = String };
+    char* to_push;
+    int i = 0, o = 0;
+    while (x.STRING != NULL)
+    {
+        if (isspace(x.STRING[i]) != 0) o++;
+        else {
+            buffer.STRING = strdup(x.STRING,o);
+            x.STRING += o + 1;
+            push(buffer,res.ARRAY);
+        }
+        i++;
+    }
+    push(res,s);
+}
+
+/**
+ * \brief Separa uma string em elementos de um array pelas as ocurrencias de newlines
+ *
+ *
+ * @param Stack
+ * @param Container (string a separar) 
+ *
+ */
+void separar_lines(Stack s, Container x) {
+    Stack of_res = initialize_stack();
+    Container res = { .label = Array, .ARRAY = of_res };
+    Container buffer = { .label = String };
+    char* to_push;
+    int i = 0, o = 0;
+    while (x.STRING != NULL)
+    {
+        if ((x.STRING[i]) != '\n') o++;
+        else {
+            buffer.STRING = strdup(x.STRING,o);
+            x.STRING += o + 1;
+            push(buffer,res.ARRAY);
+        }
+        i++;
+    }
+    push(res,s);
+}
+
+//----------FUNÇÕES AUXILIARES----------
+
+/**
+ * \brief Função auxiliar para concatenar uma string com um array
+ *
+ * @param Container (A String)
+ * @param Container (O Array) 
+ *
+ * @returns Container
+ */
+Container prepend(Container x, Container y) {
+    Container res = { .label = Array, .ARRAY = initialize_stack() };
+    res.ARRAY->arr[0] = x;
+    for(int i = 0; i < y.ARRAY->sizeofstack; i++) push(pop(y.ARRAY),res.ARRAY);
+    free(y.ARRAY);
+    return res;
+}
+
+/**
+ * \brief Função auxiliar para concatenar um array com uma string
+ *
+ * @param Container (O Array)
+ * @param Container (A String) 
+ *
+ * @returns Container
+ */
+Container append(Container x, Container y) {
+    push(y,x.ARRAY);
+}
