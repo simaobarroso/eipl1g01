@@ -1,6 +1,7 @@
-#include "../types.h"
+#include "../control_types.h"
 #include "parser.h"
 #include "../operations/operations.h"
+#include "../stack/stack.h"
 
 Container* variables(void) {
     static Container vars[26] = {
@@ -87,14 +88,15 @@ OperatorFunction* hash(void) {
         [ReadInput+256] =   { HASH_CONTENT(args_s,ler_input) },
         [ValIndex] =        { HASH_CONTENT(args_2,indice) },
         [ElemInit] =        { HASH_CONTENT(args_2,buscarXINICIO) },
+        [RemoveFim] =       { HASH_CONTENT(args_1,removerFIM) },
+        [SubstringIndex] =  { HASH_CONTENT(args_2,substring) },
+        // [ElemEnd] =      { HASH_CONTENT(args_2,) },
         // [Concat] =       { HASH_CONTENT(args_2,concat) },
         // [ConcatTimes] =  { HASH_CONTENT(args_2,concat_times) },
         // [Separa] =       { HASH_CONTENT(args_1,separa) },
-        // [SubstringIndex] =  { HASH_CONTENT(args_2,substring_index) },
         // [ColocaStackM] = { HASH_CONTENT(args_1,removerINICIO) },
         // [RemoveFim] =       { HASH_CONTENT(args_1,removerFIM) }
-        // [FromArrToStack] =  { HASH_CONTENT(args_1,colocar_stack) },
-        // [ElemEnd] =      { HASH_CONTENT(args_2,) },
+        // [PopStack] =  { HASH_CONTENT(args_1,colocar_stack) },
         // GUIÃO 5
         // [ExecBloco] =    { HASH_CONTENT(args_1,exec_bloco) },
         // [Map] =          { HASH_CONTENT(args_1,map) },

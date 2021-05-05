@@ -2,6 +2,7 @@
  * @file Ficheiro que define o que é a Stack
  */
 #include "stack.h"
+#include "../control_types.h"
 
 #include <assert.h>
 #include <stdio.h>
@@ -75,12 +76,13 @@ void printstack(Stack stack) {
                 break;
             case Array:
                 printstack(stack->arr[i].ARRAY);
+                free(stack->arr[i].ARRAY);
                 break;
             case Lambda:
                 printf("{ %s }", stack->arr[i].LAMBDA);
                 free(stack->arr[i].LAMBDA);
                 break;
-            default: ERROR_0
+            default: ERROR_2
         }
     }
 }

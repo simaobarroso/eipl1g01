@@ -1,4 +1,4 @@
-#include "types.h"
+#include "../control_types.h"
 
 #ifndef STACK_H
 #define STACK_H

@@ -1,11 +1,11 @@
 /**
  * \brief Ficheiro com os tipos e funções do parser
  */
-#ifndef PARSER_H
-#define PARSER_H
+#ifndef _PARSER
+#define _PARSER
 
-#include "../stack.h"
-#include "../operations/operations.h"
+#include "../stack/stack.h"
+#include "../control_types.h"
 
 /**
  * \brief Número de argumentos em cada função
@@ -103,9 +103,9 @@ enum Operations { /**Enum com tipo Operations **/
     ConcatTimes = '*'+128,
     Separa = '/'+128,
     SubstringIndex = '#'+128,
-    ColocaStackM = ')'+128,
+    RemoveInicio = ')'+128,
     RemoveFim = '('+128,
-    FromArrToStack = '~'+128,
+    PopStack = '~'+128,
     ElemInit = '<'+128,
     ElemEnd = '>'+128,
     ValIndex = '='+128,
@@ -252,4 +252,4 @@ char* string_parse(Stack stack, char* line);
  */
 char* parse_hash(Stack,char*,OperatorFunction*);
 
-#endif /* PARSER_H */
+#endif

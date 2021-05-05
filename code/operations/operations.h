@@ -4,7 +4,9 @@
 #ifndef OPERATIONS_H
 #define OPERATIONS_H
 
-#include "../stack.h"
+#include "../control_types.h"
+#include "../parser/parser.h"
+#include "../stack/stack.h"
 
 #include <math.h>
 
@@ -266,9 +268,11 @@ void buscarXINICIO(Stack,Container,Container);
 
 char* buscarXINICIO_string(Container,Container);
 
-// void removerFIM(Stack,Container);
-// 
-// char* removerFIM_string(Stack,char*);
+void removerFIM(Stack,Container);
+
+char* removerFIM_string(Stack,char*);
+
+void substring(Stack,Container,Container);
 
 // GUIÃO 5
 

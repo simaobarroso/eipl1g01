@@ -1,10 +1,10 @@
 /**
  * @file Ficheiro que contêm a função principal do programa
  */
-#include "operations/operations.h"
+#include "control_types.h"
 #include "parser/parser.h"
-#include "stack.h"
-#include "types.h"
+#include "operations/operations.h"
+#include "stack/stack.h"
 
 #include <assert.h>
 #include <stdio.h>
@@ -30,9 +30,9 @@ int main(void) { // TODO(Mota): mudar para o debugger
     OperatorFunction* hashtable = hash();
     Container* vars = variables();
     parser(s,to_parse,hashtable,vars);
+    free(to_parse);
     printstack(s);
     putchar('\n');
-    free(to_parse);
     free_stack(s);
     return 0;
 }

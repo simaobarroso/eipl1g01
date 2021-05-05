@@ -1,12 +1,10 @@
 #include "operations.h"
+
 #include <assert.h>
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include <ctype.h>
-#include "../stack.h"
-#include "../parser/parser.h"
-#include "operations.h"
 
 /**
  * \brief Variável global para tamanho
@@ -56,7 +54,7 @@ void ler_input(Stack s) {
 //     else if((x->label == String && y->label == Array) || (isNum(x) && y->label == Array)) prepend(x,y);
 //     else if((x->label == Array && y->label == String) || (x->label == Array && isNum(y))) append(x,y);
 // }
-// 
+
 /**
  * \brief Coloca um array numa stack
  *
@@ -131,44 +129,45 @@ char* buscarXINICIO_string(Container string, Container index) {
     return buffer;
 }
 
-// void removerFIM(Stack s, Container stack) {
-//     Container res;
-//     switch (stack.label) {
-//         case Array:
-//             res = pop(stack.ARRAY);
-//             push(stack,s);
-//             push(res,s);
-//             break;
-//         case String:
-//             res.label = String;
-//             res.STRING = removerFIM_string(s,stack.STRING);
-//             push(res,s);
-//         default: ERROR_1
-//     }
-// }
-// 
-// char* removerFIM_string(Stack s, char* string) {
-//     Container res = { .label = Char, .CHAR = *(strchr(string,'\0') - 1) };
-//     push(res,s);
-//     return
-// }
-// 
-// /**
-//  * \brief Devolve o valor do indice da primeira ocurrencia de uma substring numa dada string
-//  *
-//  *
-//  * @param Stack
-//  * @param Container (string a verificar)
-//  * @param Container (subtring a procurar)  
-//  *
-//  */
-// void substring(Stack s, Container str, Container substr) {
-// 
-//     char* aux = str.STRING;
-//     long a = strtok(str.STRING,substr.STRING) - aux;
-//     Container res = { .label = Long, .LONG = a };
-//     push(res,s);
-// }
+void removerFIM(Stack s, Container stack) {
+    Container res;
+    switch (stack.label) {
+        case Array:
+            res = pop(stack.ARRAY);
+            push(stack,s);
+            push(res,s);
+            break;
+        case String:
+            res.label = String;
+            res.STRING = removerFIM_string(s,stack.STRING);
+            push(res,s);
+            break;
+        default: ERROR_1
+    }
+}
+
+char* removerFIM_string(Stack s, char* string) {
+    Container res = { .label = Char, .CHAR = *(strchr(string,'\0') - 1) };
+    push(res,s);
+    *(strchr(string,'\0') - 1) = '\0';
+    return string;
+}
+
+/**
+ * \brief Devolve o valor do indice da primeira ocurrencia de uma substring numa dada string
+ *
+ *
+ * @param Stack
+ * @param Container (string a verificar)
+ * @param Container (subtring a procurar)  
+ *
+ */
+void substring(Stack s, Container str, Container substr) { // VERIFICAR SE É MESMO ISTO!
+
+    long a = strspn(str.STRING,substr.STRING);
+    Container res = { .label = Long, .LONG = a };
+    push(res,s);
+}
 
 // /**
 //  * \brief Separa uma string em elementos de um array pelas as ocurrencias de uma determinada substring
