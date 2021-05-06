@@ -92,6 +92,24 @@ int number_string(char** line, char** num, char** end) {
     return strchr(*num,'.') != NULL;
 }
 
+/**
+ * \brief Função auxiliar para concatenar uma string com algo
+ *
+ * @param char
+ * @param char
+ *
+ * @returns Container
+ */
+char* better_strcat(char* fonte, char* join) {
+    char* save = join;
+    fonte = (char *) realloc(fonte, (strlen(fonte) + strlen(join)) * sizeof(char) + 1);
+    char* end_fonte = strchr(fonte,'\0');
+    while(join) {
+        *(end_fonte++) = *(join++);
+    }
+    return fonte;
+}
+
 /* 
 THEY CALLED ME MADMAN!
 

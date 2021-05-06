@@ -53,19 +53,25 @@ void colocar_stack(Stack stack, Container array) {
  * @param Container (Um array, uma String ou um enum)
  *
  */
-void concatenar_sa(Stack stack, Container x, Container y) { // TODO(Mota): algo de errado não está certo
+void concatenar_sa(Stack stack, Container x, Container y) { 
     if(x.label == Array && y.label == Array){
         for (int i= 0; i < y.ARRAY->sizeofstack;i++) push(y.ARRAY->arr[i], stack);
     }
-    // este if abaixo é literalmente o caso (x.label == String && y.label == String) apenas
-    if((x.label == String && y.label == String) ||(IS_NUM(x) && y.label == String) ||(x.label == String && IS_NUM(y)) ) strcat(x.STRING, y.STRING);
-    // estas condições de baixo estão quase bem, mas precisam de ser revistas
-    else if((x->label == String && y->label == Array) || (IS_NUM(x) && y->label == Array)) prepend(x,y); // HASHKEY much?
-    else if((x->label == Array && y->label == String) || (x->label == Array && isNum(y))) append(x,y);
+    if((x.label == String && y.label == String) ||(IS_NUM(x) && y.label == String) ||(x.label == String && IS_NUM(y))) strcat(x.STRING, y.STRING);
+    else if((x.label == String && y.label == Array) || (IS_NUM(x) && y.label == Array)) prepend(x,y);
+    else if((x.label == Array && y.label == String) || (x.label == Array && IS_NUM(y))) append(x,y);
+    else if(x.label == String && IS_NUM(y)) {
+            better_strcat(x.STRING ,toString(y).STRING);
+            free(y.STRING);
+        }
+    else if(IS_NUM(x) && y.label == String){
+            better_strcat(toString(x).STRING,y.STRING);
+            free(x.STRING);
+    }
 }
 
 /**
- * \brief Coloca um array numa stack
+ * \brief Coloca um array numa stackr_strcat(x,y);
  *
  * @param Container (Um array, uma String ou um enum)
  * @param Container (Um array, uma String ou um enum)
@@ -111,7 +117,15 @@ void indice(Stack s, Container array, Container indice) {
     }
 }
 
-// buscarXINICIO
+/**
+ * \brief Devolve os primeiros elementos/caracteres de um array ou String dependendo do segundo valor
+ *
+ *
+ * @param Container (o array ou string que vamos trabalhar com)
+ * @param Container (indice para o array dado) 
+ * @param Stack
+ *
+ */
 void buscarXINICIO(Stack s, Container x, Container y) {
     Container res;
     switch (x.label) {
@@ -122,10 +136,7 @@ void buscarXINICIO(Stack s, Container x, Container y) {
             free(buffer);
             break;
         case Array:
-            res.label = Array;
-            res.ARRAY = initialize_stack();
-            for(int i = 0; i < y.LONG; i++) push(x.ARRAY->arr[i],res.ARRAY); // como isto faz um for na mesma, certo é possível não usar pointers... caso de dúvidas: ver prepend
-            free(x.ARRAY);
+            x.ARRAY->sizeofstack = y.LONG;
             break;
         default: ERROR_1
     }
@@ -136,6 +147,34 @@ char* buscarXINICIO_string(Container string, Container index) {
     char* buffer = malloc(sizeof(char) * (strlen(string.STRING)));
     for(int i = 0; i < index.LONG; i++) buffer[i] = string.STRING[i];
     return buffer;
+}
+
+//push dos x ultimos elementos do array
+void buscarXFIM(Container x, Stack s, Container stack){
+    Label ofres = stack.label;
+    Stack new = initialize_stack();
+
+    for (int i = s->sizeofstack - x.LONG; i < s->sizeofstack; i++)
+    {
+        push(s->arr[i],new);
+    }
+
+    Container res = { .label = stack.label, .ARRAY = new };
+    free(stack.ARRAY);
+    push(res,s);
+}
+
+void removerINICIO(Container x, Stack s, Container stack) {
+    Label ofres = stack.label;
+    Stack new = initialize_stack();
+    for (int i = 1; i < s->sizeofstack; i++)
+    {
+        push(s->arr[i],new);
+    }
+
+    Container res = { .label = stack.label, .ARRAY = new };
+    free(stack.ARRAY);
+    push(res,s);
 }
 
 void removerFIM(Stack s, Container stack) {
@@ -297,3 +336,4 @@ Container prepend(Container x, Container y) { // TODO: definir isto no .h, also 
 Container append(Container x, Container y) { // TODO: definir isto no .h
     push(y,x.ARRAY);
 }
+
