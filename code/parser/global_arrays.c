@@ -90,13 +90,13 @@ OperatorFunction* hash(void) {
         [ElemInit] =        { HASH_CONTENT(args_2,buscarXINICIO) },
         [RemoveFim] =       { HASH_CONTENT(args_1,removerFIM) },
         [SubstringIndex] =  { HASH_CONTENT(args_2,substring) },
+        [Separa] =          { HASH_CONTENT(args_2,separar_which_space) },
+        [PopStack] =        { HASH_CONTENT(args_1,colocar_stack) }
         // [ElemEnd] =      { HASH_CONTENT(args_2,) },
         // [Concat] =       { HASH_CONTENT(args_2,concat) },
         // [ConcatTimes] =  { HASH_CONTENT(args_2,concat_times) },
-        // [Separa] =       { HASH_CONTENT(args_1,separa) },
         // [ColocaStackM] = { HASH_CONTENT(args_1,removerINICIO) },
         // [RemoveFim] =       { HASH_CONTENT(args_1,removerFIM) }
-        // [PopStack] =  { HASH_CONTENT(args_1,colocar_stack) },
         // GUIÃO 5
         // [ExecBloco] =    { HASH_CONTENT(args_1,exec_bloco) },
         // [Map] =          { HASH_CONTENT(args_1,map) },

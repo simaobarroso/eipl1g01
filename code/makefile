@@ -1,22 +1,19 @@
-CC=gcc
-CFLAGS=-Wall -Wextra
-OTHER=-c $(CFLAGS)
-DEPS= control_types.h stack/stack.h
+CC = gcc
+CFLAGS = -std=gnu11 -Wall -Wextra -pedantic-errors -O0 -g
+OBJS = main.o parser/parser.o operations/operations.o stack/stack.o control_types.o
+TARGET = exec
+LIBS = -lm
 
-run: main.o operations.o parser.o stack.o
-	$(CC) $(CFLAGS) -o exec -g %.o $(DEPS) -lm
+$(TARGET): $(OBJS)
+	$(CC) $(CFLAGS) -o exec $@ $^ $(LIBS)
 
-main.o: $(DEPS) main.c
-	$(CC) $(OTHER) *.h main.c
+operations/operations.o: 
+	$(CC) $(CFLAGS) *.c $(LIBS)
 
-stack.o: $(DEPS)
-	$(CC) $(OTHER)
+parser/parser.o:
+	$(CC) $(CFLAGS) *.c $(LIBS)
 
-operations.o: $(DEPS) operations/%.c
-	$(CC) $(OTHER) operations/%.c
-
-parser.o: $(DEPS) parser/%.c
-	$(CC) $(OTHER) parser/*.h
-
-rem: exec
+rem:
 	rm exec
+
+# gcc -std=gnu11 -Wall -Wextra -pedantic-errors -O0 -g operations/*.c stack/*.c parser/*.c *.c -lm

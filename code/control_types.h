@@ -1,8 +1,10 @@
 /**
- * \brief Todos os tipos que vão ser usados na Stack
+ * \brief Controla os tipos principais
  */
 #ifndef TYPES_H
 #define TYPES_H
+
+// ____TIPOS____
 
 /**
  * \brief Controla o tipo de cada container
@@ -17,44 +19,6 @@ typedef struct {
     int sizeofstack; // número de elementos da stack
     int alloc;       // número alocado
 } *Stack, Stack_plain;
-
-/**
- * \brief Erro de identação: deve ser mandado quando se inserem espaços/tabs/newline a mais
- */
-#define ERROR_0 { fputs("Error 0: wrong identation\n", stderr); exit(1); }
-/**
- * \brief Erro de tipos: deve ser mandado quando uma conversão de tipos corre mal, p. ex. Array para Double
- */
-#define ERROR_1 { fputs("Error 1: wrong type\n", stderr); exit(1); }
-/**
- * \brief Erro de modificação de tipos: o enum está completamente errado
- */
-#define ERROR_2 { fputs("Error 2: this should have been a SIGSEGV\n", stderr); exit(1); }
-
-/**
- * \brief Introduz facilidades de controlo de tipos
- */
-#define STRING content.f.s
-/**
- * \brief Introduz facilidades de controlo de tipos
- */
-#define ARRAY content.f.a
-/**
- * \brief Introduz facilidades de controlo de tipos
- */
-#define LONG content.n.l
-/**
- * \brief Introduz facilidades de controlo de tipos
- */
-#define DOUBLE content.n.d
-/**
- * \brief Introduz facilidades de controlo de tipos
- */
-#define CHAR content.n.c
-/**
- * \brief Introduz facilidades de controlo de tipos
- */
-#define LAMBDA content.b
 
 /**
  * \brief Por questões de familiariedade, pretende simular a classe Foldable como em Haskell
@@ -85,40 +49,80 @@ typedef struct Container {
     } content;
 } Container;
 
+// - FACILIDADES PARA TIPOS
 /**
- * \brief Define qual o tipo de Num que certa função pode devolver através da "importância" do tipo no enum
+ * \brief Introduz facilidades de controlo de tipos
  */
-#define NUM_RETURN(x,y) (x >= y ? x : y)
+#define STRING content.f.s
+/**
+ * \brief Introduz facilidades de controlo de tipos
+ */
+#define ARRAY content.f.a
+/**
+ * \brief Introduz facilidades de controlo de tipos
+ */
+#define LONG content.n.l
+/**
+ * \brief Introduz facilidades de controlo de tipos
+ */
+#define DOUBLE content.n.d
+/**
+ * \brief Introduz facilidades de controlo de tipos
+ */
+#define CHAR content.n.c
+/**
+ * \brief Introduz facilidades de controlo de tipos
+ */
+#define LAMBDA content.b
 
+// - FACILIDADES DA HASHTABLE
 /**
  * \brief Verifica ser pertence à classe Foldable
  */
-#define IS_FOLDABLE(c) (c.label >= String && !Lambda)
-
+#define IS_FOLDABLE(c) (c.label >= String && c.label < Lambda)
 /**
  * \brief Verifica ser pertence à classe Num
  */
 #define IS_NUM(c) (c.label <= Char)
-
 /**
  * \brief Verifica se é String ou Array
  */
 #define FOLD_TYPE(c) (Array - (c.label == String) + (c.label == String_A))
 
+// - GENERALIDADES PARA NÚMEROS
+/**
+ * \brief Define qual o tipo de Num que certa função pode devolver através da "importância" do tipo no enum
+ */
+#define NUM_RETURN(x,y) (x >= y ? x : y)
+/**
+ * \brief Calcula o comprimento dum long
+ */
+#define LONG_LENGTH(s) strspn(s,"-1234567890")
+/**
+ * \brief Calcula o comprimento dum double
+ */
+#define DOUBLE_LENGTH(s) strspn(s,".-1234567890")
 /**
  * \brief Devolve o máximo entre dois números
  */
 #define MAX(a,b) ((a > b) ? a : b)
 
-/**
- * \brief Calcula o comprimento dum long
- */
-#define LONG_LENGTH(s) strspn(s,"-1234567890")
+// ____ERROS____
 
 /**
- * \brief Calcula o comprimento dum double
+ * \brief Erro de identação: deve ser mandado quando se inserem espaços/tabs/newline a mais
  */
-#define DOUBLE_LENGTH(s) strspn(s,".-1234567890")
+#define ERROR_0 { fputs("Error 0: wrong identation\n", stderr); exit(1); }
+/**
+ * \brief Erro de tipos: deve ser mandado quando uma conversão de tipos corre mal, p. ex. Array para Double
+ */
+#define ERROR_1 { fputs("Error 1: wrong type\n", stderr); exit(1); }
+/**
+ * \brief Erro de modificação de tipos: acontece quando o enum dos tipos está completamente errado
+ */
+#define ERROR_2 { fputs("Error 2: this should have been a SIGSEGV\n", stderr); exit(1); }
+
+// ____CONVERSÕES____
 
 /**
  * \brief Converte para char

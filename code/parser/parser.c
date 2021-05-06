@@ -3,8 +3,8 @@
 #include "../operations/operations.h"
 #include "../stack/stack.h"
 
-#include <ctype.h>
 #include <assert.h>
+#include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -15,20 +15,15 @@
 #define SIZE 8192
 
 /**
- * \brief Linha genérica de verificação de existência de space quando avançar
+ * \brief Linha genérica de verificação de existência de space para avançar
  */
 #define PARSE_SPACE if (isspace(*line)) line++;
 
-// ALGUEM QUE AVISE SE SOUBER UMA MELHOR MANEIRA QUE ESTAS CONDIÇÕES --Mota
 void parser(Stack stack, char* line, OperatorFunction* hashtable, Container* vars) {
-    while (*line) { // o meu linter dá um erro aqui que não sei porque acontece --Mota
+    while (*line) {
         // para nums
         if (strspn(line,".-0123456789"))
             line = number_parse(stack,line);
-        
-        // para char
-        else if (*line == '\'')
-            line = char_parse(stack,line);
 
         // para var
         else if (isupper(*line) || *line == ':')
@@ -69,19 +64,13 @@ char* number_parse(Stack stack,char* line) {
     return line;
 }
 
-char* char_parse(Stack stack, char* line) {
-    Container res = { .label = Char, .CHAR = *(++line) };
-    push(res,stack);
-    return ++line;
-}
-
 char* var_control(Stack s,char* line,Container* vars) {
     if (isupper(*line)) push(vars[*line++ - 'A'],s);
     else vars[*(++line) - 'A'] = s->arr[s->sizeofstack - 1];
     return ++line;
 }
 
-char* structure_parse(Stack stack,char* line,OperatorFunction* hashtable,Container* vars) { // I don't like this --Mota
+char* structure_parse(Stack stack,char* line,OperatorFunction* hashtable,Container* vars) {
     switch(*line) {
         case '[': line = array_parse(stack,line,hashtable,vars); break;
         case '{': line = block_parse(stack,line); break;
@@ -138,7 +127,7 @@ char* string_parse(Stack stack, char* line) {
 /**
  * \brief Parâmetro que define o índice do array de funções em função do tipo de container
  */
-#define HASHKEY(container) 128 * (2 - (2 * (IS_NUM(container)) + IS_FOLDABLE(container))) + **line
+#define HASHKEY(container) 128 * (2 - (2 * IS_NUM(container)) - IS_FOLDABLE(container)) + **line
 
 int hashkey(Stack s,char** line,OperatorFunction* hashtable) {
     Container x = s->arr[s->sizeofstack - 1], y;
@@ -178,5 +167,13 @@ Container* num_args(Stack s, OperatorFunction* f) {
         res[i] = pop(s);
     }
     return res;
+}
+*/
+/* FUTURE IMPLEMENTATIONS:
+
+char* char_parse(Stack stack, char* line) {
+    Container res = { .label = Char, .CHAR = *(++line) };
+    push(res,stack);
+    return ++line;
 }
 */
