@@ -253,6 +253,26 @@ void to_string_op(Stack);
 void ler_input(Stack);
 
 /**
+ * \brief Coloca um array numa stack
+ *
+ * @param Stack 
+ * @param Container (O array dado) 
+ *
+ */
+void colocar_stack(Stack, Container);
+
+/**
+ * \brief Concatena strings ou arrays
+ *
+ * @param Container (Um array, uma String ou um enum)
+ * @param Container (Um array, uma String ou um enum)
+ *
+ */
+void concatenar_sa(Stack,Container,Container);
+
+
+
+/**
  * \brief Constrói um array do 0 até ao número dado
  *
  * @param Stack
@@ -260,23 +280,173 @@ void ler_input(Stack);
  */
 void range(Stack,Container);
 
+/**
+ * \brief Devolve o tamanho de uma string ou array
+ *
+ * @param Container (Um array, ou uma string)
+ *
+ */
 void length(Stack,Container);
 
+/**
+ * \brief Devolve o valor do array com o indice indicado pelo o utilizador
+ *
+ *
+ * @param Container (o array que vamos trabalhar com)
+ * @param Container (indice para o array dado) 
+ *
+ */
 void indice(Stack,Container,Container);
 
+/**
+ * \brief Devolve os primeiros elementos/caracteres de um array ou String dependendo do segundo valor
+ *
+ *
+ * @param Container (o array ou string que vamos trabalhar com)
+ * @param Container 
+ * @param Stack
+ *
+ */
 void buscarXINICIO(Stack,Container,Container);
 
+/**
+ * \brief Função auxiliar para buscarXINICIO para funcionar com Strings
+ *
+ *
+ * @param Container (a string que vamos trabalhar com)
+ * @param Container 
+ * @param Stack
+ *
+ */
 char* buscarXINICIO_string(Container,Container);
 
+/**
+ * \brief Devolve os ultimos elementos/caracteres de um array ou String dependendo do segundo valor
+ *
+ *
+ * @param Container (o array ou string que vamos trabalhar com)
+ * @param Container (indice para o array dado) 
+ * @param Stack
+ *
+ */
+void buscarXFIM(Container,Stack,Container);
+
+/**
+ * \brief Função auxiliar para o buscarXFIM funcionar com Strings
+ *
+ *
+ * @param Container
+ * @param Container 
+ *
+ */
+char* buscarXFIM_string(Container,Container);
+
+/**
+ * \brief Remove o primeiro elemento de um array ou de uma String
+ *
+ *
+ * @param Container (o array ou string que vamos trabalhar com)
+ * @param Container (Stack final)
+ *
+ */
+void removerINICIO(Stack,Container);
+
+/**
+ * \brief Remove o ultimo elemento de um array ou de uma String
+ *
+ *
+ * @param Container (o array ou string que vamos trabalhar com)
+ * @param Container (Stack final)
+ *
+ */
 void removerFIM(Stack,Container);
 
+/**
+ * \brief Função auxiliar para o removerFIM funcionar com Strings
+ *
+ *
+ * @param Container
+ * @param Container 
+ *
+ */
 char* removerFIM_string(Stack,char*);
 
+/**
+ * \brief Devolve o valor do indice da primeira ocurrencia de uma substring numa dada string
+ *
+ *
+ * @param Stack
+ * @param Container (string a verificar)
+ * @param Container (subtring a procurar)  
+ *
+ */
 void substring(Stack,Container,Container);
+
+/**
+ * \brief Separa uma string em elementos de um array pelas as ocorrencias de uma determinada substring
+ *
+ *
+ * @param Stack
+ * @param Container (string a separar)
+ * @param Container (subtring a usar como separadora)  
+ *
+ */
+void separar_sub(Stack,Container,Container);
+
+/**
+ * \brief Define Qual das Separações por espaço devia ser feita
+ *
+ *
+ * @param Container
+ * @param Container 
+ * @param Stack
+ *
+ */
+void separar_which_space(Stack,Container,Container);
+
+/**
+ * \brief Separa uma string em elementos de um array pelas as ocurrencias de whitespace
+ *
+ *
+ * @param Stack
+ * @param Container (string a separar) 
+ *
+ */
+void separar_space(Stack,Container);
+
+/**
+ * \brief Separa uma string em elementos de um array pelas as ocurrencias de newlines
+ *
+ *
+ * @param Stack
+ * @param Container (string a separar) 
+ *
+ */
+void separar_lines(Stack,Container);
+
+/**
+ * \brief Função auxiliar para concatenar um número com um array
+ *
+ * @param Container (O número)
+ * @param Container (O Array) 
+ *
+ * @returns Container
+ */
+Container prepend(Container,Container);
+
+/**
+ * \brief Função auxiliar para concatenar um array com um número
+ *
+ * @param Container (O Array)
+ * @param Container (A String) 
+ *
+ * @returns Container
+ */
+Container append(Container,Container);
 
 // GUIÃO 5
 
-// void foldf(Stack,char*);
+// void fold(Stack,char*);
 
 // void map(Stack,char*);
 

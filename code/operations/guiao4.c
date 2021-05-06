@@ -17,11 +17,7 @@ ISTO PRECISA DOS CASOS PARA STRING EM QUASE TUDO PORQUE USAR A FUNÇÃO string_t
 Also, definam isto no .h pls... mesmo para a documentação
 */
 
-/**
- * \brief lê todo o input do terminal
- *
- * @param Container
- */
+
 void ler_input(Stack s) {
     char string[SIZE], *c;
     assert(fgets(string,SIZE,stdin) != NULL);
@@ -34,25 +30,13 @@ void ler_input(Stack s) {
     push(res,s);
 }
 
-/**
- * \brief Coloca um array numa stack
- *
- * @param Stack 
- * @param Container (O array dado) 
- *
- */
+
 void colocar_stack(Stack stack, Container array) {
     for(int n= 0;n < array.ARRAY->sizeofstack;n++) push(array.ARRAY->arr[n], stack);
     free(array.ARRAY);
 }
 
-/**
- * \brief Concatena strings ou arrays
- *
- * @param Container (Um array, uma String ou um enum)
- * @param Container (Um array, uma String ou um enum)
- *
- */
+
 void concatenar_sa(Stack stack, Container x, Container y) { 
     if(x.label == Array && y.label == Array){
         for (int i= 0; i < y.ARRAY->sizeofstack;i++) push(y.ARRAY->arr[i], stack);
@@ -70,13 +54,6 @@ void concatenar_sa(Stack stack, Container x, Container y) {
     }
 }
 
-/**
- * \brief Coloca um array numa stackr_strcat(x,y);
- *
- * @param Container (Um array, uma String ou um enum)
- * @param Container (Um array, uma String ou um enum)
- *
- */
 void range(Stack s,Container x) {
     Container res = { .label = Long };
     for (int i = 0; i < x.LONG; i++) {
@@ -85,25 +62,13 @@ void range(Stack s,Container x) {
     }
 }
 
-/**
- * \brief Devolve o tamanho de uma string ou array
- *
- * @param Container (Um array, ou uma string)
- *
- */
+
 void length(Stack s,Container x) {
     Container n = { .label = Long, .LONG = (x.label != String) ? (long) x.ARRAY->sizeofstack : (long) strlen(x.STRING) };
     push(n, s);
 }
 
-/**
- * \brief Devolve o valor do array com o indice indicado pelo o utilizador
- *
- *
- * @param Container (o array que vamos trabalhar com)
- * @param Container (indice para o array dado) 
- *
- */
+
 void indice(Stack s, Container array, Container indice) {
     Container res;
     switch (array.label) {
@@ -117,15 +82,7 @@ void indice(Stack s, Container array, Container indice) {
     }
 }
 
-/**
- * \brief Devolve os primeiros elementos/caracteres de um array ou String dependendo do segundo valor
- *
- *
- * @param Container (o array ou string que vamos trabalhar com)
- * @param Container (indice para o array dado) 
- * @param Stack
- *
- */
+
 void buscarXINICIO(Stack s, Container x, Container y) {
     Container res;
     switch (x.label) {
@@ -143,13 +100,14 @@ void buscarXINICIO(Stack s, Container x, Container y) {
     push(res,s);
 }
 
+
 char* buscarXINICIO_string(Container string, Container index) {
     char* buffer = malloc(sizeof(char) * (strlen(string.STRING)));
     for(int i = 0; i < index.LONG; i++) buffer[i] = string.STRING[i];
     return buffer;
 }
 
-//push dos x ultimos elementos do array
+
 void buscarXFIM(Container x, Stack s, Container stack){
     Label ofres = stack.label;
     Stack new = initialize_stack();
@@ -164,7 +122,15 @@ void buscarXFIM(Container x, Stack s, Container stack){
     push(res,s);
 }
 
-void removerINICIO(Container x, Stack s, Container stack) {
+char* buscarXFIM_string(Container string, Container index){
+    char* buffer = malloc(sizeof(char) * (strlen(string.STRING)));
+    int j = strlen(string.STRING) - index.LONG;
+    for(int i = j+1; i <= index.LONG; i++) buffer[i] = string.STRING[i];
+    return buffer;
+}
+
+
+void removerINICIO(Stack s, Container stack) {
     Label ofres = stack.label;
     Stack new = initialize_stack();
     for (int i = 1; i < s->sizeofstack; i++)
@@ -201,15 +167,7 @@ char* removerFIM_string(Stack s, char* string) {
     return string;
 }
 
-/**
- * \brief Devolve o valor do indice da primeira ocurrencia de uma substring numa dada string
- *
- *
- * @param Stack
- * @param Container (string a verificar)
- * @param Container (subtring a procurar)  
- *
- */
+
 void substring(Stack s, Container str, Container substr) { // VERIFICAR SE É MESMO ISTO!
 
     long a = strspn(str.STRING,substr.STRING);
@@ -217,15 +175,7 @@ void substring(Stack s, Container str, Container substr) { // VERIFICAR SE É ME
     push(res,s);
 }
 
-/**
- * \brief Separa uma string em elementos de um array pelas as ocorrencias de uma determinada substring
- *
- *
- * @param Stack
- * @param Container (string a separar)
- * @param Container (subtring a usar como separadora)  
- *
- */
+
 void separar_sub(Stack s, Container str, Container substr) {
     
     int n;
@@ -247,18 +197,12 @@ void separar_sub(Stack s, Container str, Container substr) {
     
 }
 
+
 void separar_which_space(Stack s, Container x, Container format) {
     (format.CHAR == '\n') ? separar_lines(s,x) : separar_space(s,x);
 }
 
-/**
- * \brief Separa uma string em elementos de um array pelas as ocurrencias de whitespace
- *
- *
- * @param Stack
- * @param Container (string a separar) 
- *
- */
+
 void separar_space(Stack s, Container x) {
 
     Stack of_res = initialize_stack();
@@ -279,14 +223,7 @@ void separar_space(Stack s, Container x) {
     push(res,s);
 }
 
-/**
- * \brief Separa uma string em elementos de um array pelas as ocurrencias de newlines
- *
- *
- * @param Stack
- * @param Container (string a separar) 
- *
- */
+
 void separar_lines(Stack s, Container x) {
     Stack of_res = initialize_stack();
     Container res = { .label = Array, .ARRAY = of_res };
@@ -308,15 +245,8 @@ void separar_lines(Stack s, Container x) {
  
 //----------FUNÇÕES AUXILIARES----------
  
-/**
- * \brief Função auxiliar para concatenar um número com um array
- *
- * @param Container (O número)
- * @param Container (O Array) 
- *
- * @returns Container
- */
-Container prepend(Container x, Container y) { // TODO: definir isto no .h, also melhorei esta para não mexer em pointers, foi my bad
+
+Container prepend(Container x, Container y) { 
     push(y.ARRAY->arr[y.ARRAY->sizeofstack],y.ARRAY);
     for(int i = y.ARRAY->sizeofstack; i ; i--) {
         y.ARRAY->arr[i] = y.ARRAY->arr[i-1];
@@ -325,15 +255,8 @@ Container prepend(Container x, Container y) { // TODO: definir isto no .h, also 
     return y;
 }
 
-/**
- * \brief Função auxiliar para concatenar um array com um número
- *
- * @param Container (O Array)
- * @param Container (A String) 
- *
- * @returns Container
- */
-Container append(Container x, Container y) { // TODO: definir isto no .h
+
+Container append(Container x, Container y) { 
     push(y,x.ARRAY);
 }
 
