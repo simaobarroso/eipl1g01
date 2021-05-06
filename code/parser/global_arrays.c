@@ -190,5 +190,5 @@ OperatorFunction* hash(void) {
         // [Sort] =         { HASH_CONTENT(args_1,sort) },
         // [While] =        { HASH_CONTENT(args_1,while_bloco) }
     };
-return hashmap;
+return hashtable;
 }
