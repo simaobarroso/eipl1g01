@@ -34,7 +34,7 @@ void parser(Stack stack, char* line, OperatorFunction* hashtable, Container* var
             line = structure_parse(stack,line,hashtable,vars);
 
         else 
-            line = parse_hash(stack,line,hashtable);
+            line = parse_hash(stack,line,hashtable,vars);
 
         PARSE_SPACE
     }

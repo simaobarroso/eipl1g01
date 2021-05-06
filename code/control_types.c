@@ -3,8 +3,8 @@
 
 #include <assert.h>
 #include <ctype.h>
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 #define SIZE 8192
@@ -73,16 +73,38 @@ Container toString(Container x) { // tentar implementar apenas quando aparece o 
     return x;
 }
 
-// eu espero bem que isto deixe de ser necessário --Mota
 Container string_to_array(Container x) {
-    Container res = { .label = String_A, .ARRAY = initialize_stack() };
+    Container res = { .label = Array, .ARRAY = initialize_stack() };
     Container buffer = { .label = Char };
     while(x.STRING) {
         buffer.CHAR = *x.STRING;
         push(buffer,res.ARRAY);
         x.STRING++;
     }
+    free(x.STRING);
     return res;
+}
+
+Container array_to_string(Container x) {
+    char* buffer;
+    if (!all_char(x)) {
+        x.label = Array;    
+    }
+    else {
+        buffer = malloc(x.ARRAY->sizeofstack * sizeof(char));
+        for(int i = 0; i < x.ARRAY->sizeofstack; i++) buffer[i] = x.ARRAY->arr[i].CHAR;
+        free(x.ARRAY);
+        x.label = String;
+        x.STRING = buffer;
+    }
+    return x;
+}
+
+int all_char(Container x) {
+    int i = 0;
+    while(i < x.ARRAY->sizeofstack && x.ARRAY->arr[i].label == Char) i++;
+
+    return i == x.ARRAY->sizeofstack;
 }
 
 int number_string(char** line, char** num, char** end) {
@@ -109,17 +131,3 @@ char* better_strcat(char* fonte, char* join) {
     }
     return fonte;
 }
-
-/* 
-THEY CALLED ME MADMAN!
-
-char* better_strcat(char* fonte, char* join) {
-    char* save = join;
-    fonte = (char *) realloc(fonte, (strlen(fonte) + strlen(join)) * sizeof(char) + 1);
-    char* end_fonte = strchr(fonte,'\0');
-    while(join) {
-        *(end_fonte++) = *(join++);
-    }
-    return fonte;
-}
-*/

@@ -137,6 +137,12 @@ void copiaN(Stack);
  * @param Stack
  */
 void newline(Stack);
+/**
+ * \brief Mesmo que a pop, mas para ser usada no array de funções
+ *
+ * @param Stack
+ */
+void void_pop(Stack);
 
 // -------------------- GUIÃO 3 --------------------
 
@@ -308,8 +314,8 @@ Container concatenar(Container x, Container y);
  * @param Stack
  * 
  * @param Container Array/String a usar
- * 
- * @param Container O numero de vezes a copiar para depois concatenar
+ *
+ * @param Container Array/String a usar
  */
 void concatenarVezes (Stack,Container,Container);
 
@@ -321,7 +327,6 @@ void concatenarVezes (Stack,Container,Container);
  * @param Container Array/String a concatenar
  */
 void concatenar_sa(Stack,Container,Container);
-
 
 /**
  * \brief Constrói um array com o tamanho do número dado
@@ -511,8 +516,28 @@ Container append(Container,Container);
 
 // -------------------- GUIÃO 5 --------------------
 
+/**
+ * \brief Função que aplica uma ação a cada elemento de um array/string
+ *
+ * @param Stack
+ * @param Container
+ * @param Container
+ * @param OperatorFunction
+ * @param Container
+ */
+void map(Stack,Container,Container,OperatorFunction*,Container*);
+
+/**
+ * \brief Função que insere elementos num array enquanto a condição a ser verificada for verdadeira
+ *
+ * @param Stack
+ * @param Container
+ * @param Container
+ * @param OperatorFunction
+ * @param Container
+ */
+void while_bloco(Stack,Container,Container,OperatorFunction*,Container*);
+
 // void fold(Stack,char*);
 
-// void map(Stack,char*);
-
-#endif /* OPERATIONS_H */
+#endif

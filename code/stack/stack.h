@@ -59,12 +59,6 @@ void push(Container, Stack);
  */
 Container pop(Stack);
 /**
- * \brief Mesmo que a pop, mas para ser usada no array de funções
- *
- * @param Stack
- */
-void void_pop(Stack);
-/**
  * \brief Imprime a stack para o stdout.
  *
  * @param Stack

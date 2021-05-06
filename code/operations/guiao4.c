@@ -60,10 +60,9 @@ Container concatenar(Container x, Container y) {
     return res;
 }
 
-void concatenarVezes (Stack stack, Container sa, Container x){
+void concatenarVezes (Stack stack, Container sa, Container x) {
         Container res;
-        if (sa.label == String) res = { .label = String };
-        if (sa.label == Array) res = { .label = Array };
+        if (sa.label != String) res.label = Array;
         res = concatenar(sa,sa);
         for (int i = 1; i < x.LONG; i++)
         {
@@ -72,9 +71,8 @@ void concatenarVezes (Stack stack, Container sa, Container x){
         push(res,stack);
 }
 
-
 void concatenar_sa(Stack stack, Container x, Container y) { 
-    res = concatenar(x,y);
+    Container res = concatenar(x,y);
     push(res,stack);
 }
 
@@ -92,7 +90,6 @@ void length(Stack s,Container x) {
     push(n, s);
 }
 
-
 void indice(Stack s, Container array, Container indice) {
     Container res;
     switch (array.label) {
@@ -105,7 +102,6 @@ void indice(Stack s, Container array, Container indice) {
         default: ERROR_1
     }
 }
-
 
 void buscarXINICIO(Stack s, Container x, Container y) {
     Container res;
@@ -132,10 +128,9 @@ char* buscarXINICIO_string(Container string, Container index) {
     return buffer;
 }
 
-
-void buscarXFIM(Stack s,Container gt,Container x){
-        Stack new;
-        Container res = { .label = gt.label };
+void buscarXFIM(Stack s, Container gt, Container x) {
+    Container res = { .label = gt.label };
+    Stack new;
     switch (gt.label) {
         case Array:
             new = initialize_stack();
@@ -144,16 +139,17 @@ void buscarXFIM(Stack s,Container gt,Container x){
                 push(s->arr[i],new);
             }
 
-            Container res = { .label = gt.label, .ARRAY = new };
+            res .ARRAY = new;
             free(gt.ARRAY);
             push(res,s);
             break;
         case String:
-            res = buscarXFIM_string(gt,x);
+            res.STRING = buscarXFIM_string(gt,x);
             push(res,s);
             break;
-        default: ERROR_1        
-}
+        default: ERROR_1
+    }
+}   
 
 char* buscarXFIM_string(Container string, Container index){
     char* buffer = malloc(sizeof(char) * (strlen(string.STRING)));
@@ -165,24 +161,24 @@ char* buscarXFIM_string(Container string, Container index){
 
 void removerINICIO(Stack s, Container gt) {
     Stack new;
-    switch(gt.label) {
-      case Array:  
-        new = initialize_stack();
-        for (int i = 1; i < s->sizeofstack; i++)
-        {
-            push(s->arr[i],new);
-        }
-        Container res = { .label = gt.label, .ARRAY = new };
-        free(gt.ARRAY);
-        push(res,s);
-        break;
-      case String:
-        res = removerINICIO_string(s,gt.STRING);
-        push(res,s);
-        break;
-       default: ERROR_1; 
+    Container res = { .label = gt.label };
+    switch(res.label) {
+        case Array:  
+            new = initialize_stack();
+            res.ARRAY = new;
+            for (int i = 1; i < s->sizeofstack; i++)
+            {
+                push(s->arr[i],new);
+            }
+            free(gt.ARRAY);
+            push(res,s);
+            break;
+        case String:
+            res.STRING = removerINICIO_string(s,gt.STRING);
+            push(res,s);
+            break;
+        default: ERROR_1
     }
-
 }
 
 char* removerINICIO_string(Stack s, char* string) {   //faleta vere istu - juaum
@@ -213,7 +209,7 @@ char* removerFIM_string(Stack s, char* string) {
     return string;
 }
 
-void substring(Stack s, Container str, Container substr) { // VERIFICAR SE É MESMO ISTO!
+void substring(Stack s, Container str, Container substr) {
 
     long a = strspn(str.STRING,substr.STRING);
     Container res = { .label = Long, .LONG = a };

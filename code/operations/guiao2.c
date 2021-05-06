@@ -73,3 +73,7 @@ void to_double_op(Stack s) {
 void to_string_op(Stack s) {
     s->arr[s->sizeofstack - 1] = toString(s->arr[s->sizeofstack - 1]);
 }
+
+void void_pop(Stack s) {
+    pop(s);
+}

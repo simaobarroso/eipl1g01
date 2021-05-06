@@ -54,10 +54,6 @@ Container pop(Stack stack) {
     return stack->arr[--stack->sizeofstack];
 }
 
-void void_pop(Stack stack) {
-    pop(stack);
-}
-
 void printstack(Stack stack) {
     for (int i = 0; i < stack->sizeofstack; i++) {
         switch (stack->arr[i].label) {

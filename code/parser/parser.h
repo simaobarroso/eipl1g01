@@ -33,8 +33,11 @@ typedef void (*Args1Operation)(Stack,Container);
  */
 typedef void (*ArgsStackOperation)(Stack);
 
-
-typedef void (*BlockOperation)(Stack,Container,void**,Container*);
+struct OperatorFunction;
+/**
+ * \brief Tipo de função para blocos
+ */
+typedef void (*BlockOperation)(Stack,Container,struct OperatorFunction*,Container*);
 
 /**
  * \brief Tipo de cada elemento do array que gere funções
@@ -154,7 +157,7 @@ enum Operations { /**Enum com tipo Operations **/
     FromEitherMaior = '>'+256,    // idém^^
     Menor = '<',
     Maior = '>',
-    Igual = '=',
+    Igual = '=',    // isto vai ser um caso especial
     Nao = '!',
     Ifthenelse = '?',
     MudaVariavel = ':',

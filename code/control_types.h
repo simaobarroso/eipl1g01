@@ -170,13 +170,31 @@ Container toString(Container);
 Container to_num_type(Label,Container*);
 
 /**
- * \brief Por questões de melhor gestão de tipos, converte char* em Stack
+ * \brief Por questões de melhor gestão de tipos no guião 5, converte char* em Stack
  *
  * @param Container
  *
  * @returns Container
  */
 Container string_to_array(Container x);
+
+/**
+ * \brief Reverte o efeito da string_to_array
+ *
+ * @param Container
+ *
+ * @returns Container
+ */
+Container array_to_string(Container x);
+
+/**
+ * \brief verifica se a conversão para String é necessária
+ *
+ * @param Container
+ *
+ * @returns int
+ */
+int all_char(Container x);
 
 /**
  * \brief Função que dá parse a uma string para ser transformada em número, a ser usada juntamente com strtol e strtod
@@ -188,4 +206,14 @@ Container string_to_array(Container x);
  */
 int number_string(char** line,char** num,char** end);
 
-#endif /* TYPES_H */ 
+/**
+ * \brief Implementação memory safe do strcat
+ *
+ * @param char*
+ * @param char*
+ *
+ * @returns char*
+ */
+char* better_strcat(char* source, char* join);
+
+#endif
