@@ -17,7 +17,6 @@ ISTO PRECISA DOS CASOS PARA STRING EM QUASE TUDO PORQUE USAR A FUNÇÃO string_t
 Also, definam isto no .h pls... mesmo para a documentação
 */
 
-
 void ler_input(Stack s) {
     char string[SIZE], *c;
     assert(fgets(string,SIZE,stdin) != NULL);
@@ -29,7 +28,6 @@ void ler_input(Stack s) {
     Container res = { .label = String, .STRING = strdup(string) };
     push(res,s);
 }
-
 
 void colocar_stack(Stack stack, Container array) {
     for(int n= 0;n < array.ARRAY->sizeofstack;n++) push(array.ARRAY->arr[n], stack);
@@ -43,33 +41,31 @@ void concatenarVezes (Stack stack, Container sa, Container x){
         }
 }
 
-char* concatenarVezes_string (char* sa, long x){
-
+char* concatenarVezes_string (char* sa, long x) {
+    return NULL;
 }
 
 void concatenar_sa(Stack stack, Container x, Container y) { 
-    Container res;
-    if(x.label == Array && y.label == Array){
+    Container res = { .label = Array };
+    if(x.label == Array && y.label == Array) {
         for (int i= 0; i < y.ARRAY->sizeofstack;i++) push(y.ARRAY->arr[i], x.ARRAY);
-        return x;
     }
     else if(x.label == String && y.label == String){
         res.label = String;
         res.STRING = better_strcat(x.STRING, y.STRING);
         free(y.STRING);
     }
-    
     else if((x.label == String || (IS_NUM(x))) && y.label == Array) prepend(x,y);
     else if((x.label == Array && y.label == String) || (x.label == Array && IS_NUM(y))) append(x,y);
     else if(x.label == String && IS_NUM(y)) {
-            res.label = String;
-            res.STRING = better_strcat(x.STRING ,toString(y).STRING);
-            free(y.STRING);
-        }
+        res.label = String;
+        res.STRING = better_strcat(x.STRING ,toString(y).STRING);
+        free(y.STRING);
+    }
     else if(IS_NUM(x) && y.label == String){
-            res.label = String;
-            res.STRING = better_strcat(toString(x).STRING,y.STRING);
-            free(x.STRING);
+        res.label = String;
+        res.STRING = better_strcat(toString(x).STRING,y.STRING);
+        free(x.STRING);
     }
     push(res,stack);
 }
@@ -114,6 +110,7 @@ void buscarXINICIO(Stack s, Container x, Container y) {
             break;
         case Array:
             x.ARRAY->sizeofstack = y.LONG;
+            res = x;
             break;
         default: ERROR_1
     }
@@ -137,7 +134,7 @@ void buscarXFIM(Container x, Stack s, Container stack){
         push(s->arr[i],new);
     }
 
-    Container res = { .label = stack.label, .ARRAY = new };
+    Container res = { .label = ofres, .ARRAY = new };
     free(stack.ARRAY);
     push(res,s);
 }
@@ -157,8 +154,7 @@ void removerINICIO(Stack s, Container stack) {
     {
         push(s->arr[i],new);
     }
-
-    Container res = { .label = stack.label, .ARRAY = new };
+    Container res = { .label = ofres, .ARRAY = new };
     free(stack.ARRAY);
     push(res,s);
 }
@@ -187,7 +183,6 @@ char* removerFIM_string(Stack s, char* string) {
     return string;
 }
 
-
 void substring(Stack s, Container str, Container substr) { // VERIFICAR SE É MESMO ISTO!
 
     long a = strspn(str.STRING,substr.STRING);
@@ -195,9 +190,7 @@ void substring(Stack s, Container str, Container substr) { // VERIFICAR SE É ME
     push(res,s);
 }
 
-
 void separar_sub(Stack s, Container str, Container substr) {
-    
     int n;
     Container buffer = { .label = String };
     Container res = { .label = Array, .ARRAY = initialize_stack() };
@@ -210,11 +203,8 @@ void separar_sub(Stack s, Container str, Container substr) {
         push(buffer,res.ARRAY);
 
         str.STRING += n ? n + 1 : strlen(str.STRING);
-
     }
-    
     push(res,s);
-    
 }
 
 
@@ -224,7 +214,6 @@ void separar_which_space(Stack s, Container x, Container format) {
 
 
 void separar_space(Stack s, Container x) {
-
     Stack of_res = initialize_stack();
     Container res = { .label = Array, .ARRAY = of_res };
     Container buffer = { .label = String };
@@ -264,7 +253,6 @@ void separar_lines(Stack s, Container x) {
 }
  
 //----------FUNÇÕES AUXILIARES----------
- 
 
 Container prepend(Container x, Container y) { 
     push(y.ARRAY->arr[y.ARRAY->sizeofstack],y.ARRAY);
@@ -275,9 +263,7 @@ Container prepend(Container x, Container y) {
     return y;
 }
 
-
 Container append(Container x, Container y) { 
     push(y,x.ARRAY);
     return x;
 }
-
