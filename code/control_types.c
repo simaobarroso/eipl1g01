@@ -123,11 +123,14 @@ int number_string(char** line, char** num, char** end) {
  * @returns Container
  */
 char* better_strcat(char* fonte, char* join) {
-    char* save = join;
     fonte = (char *) realloc(fonte, (strlen(fonte) + strlen(join)) * sizeof(char) + 1);
     char* end_fonte = strchr(fonte,'\0');
-    while(join) {
-        *(end_fonte++) = *(join++);
+    while(*join != '\0') {
+        *end_fonte = *join;
+        end_fonte++;
+        join++;
     }
+    ++end_fonte;
+    *end_fonte = '\0';
     return fonte;
 }

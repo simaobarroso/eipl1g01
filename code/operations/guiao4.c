@@ -11,12 +11,6 @@
  */
 #define SIZE 10240
 
-/*
-ISTO PRECISA DOS CASOS PARA STRING EM QUASE TUDO PORQUE USAR A FUNÇÃO string_to_array DEVIA SER EVITADO!
-
-Also, definam isto no .h pls... mesmo para a documentação
-*/
-
 void ler_input(Stack s) {
     char string[SIZE], *c;
     assert(fgets(string,SIZE,stdin) != NULL);
@@ -40,7 +34,7 @@ Container concatenar(Container x, Container y) {
         for (int i= 0; i < y.ARRAY->sizeofstack;i++) push(y.ARRAY->arr[i], x.ARRAY);
         free(y.ARRAY);
     }
-    else if(x.label == String && y.label == String){
+    else if(x.label == String && y.label == String) {
         res.label = String;
         res.STRING = better_strcat(x.STRING, y.STRING);
         free(y.STRING);
@@ -62,8 +56,9 @@ Container concatenar(Container x, Container y) {
 
 void concatenarVezes (Stack stack, Container sa, Container x) {
         Container res;
-        if (sa.label != String) res.label = Array;
-        res = concatenar(sa,sa);
+        res.label = (sa.label != String) ? Array : String;
+        Container buffer = sa;
+        res = concatenar(sa,buffer);
         for (int i = 1; i < x.LONG; i++)
         {
             res = concatenar(res,sa);
@@ -158,7 +153,6 @@ char* buscarXFIM_string(Container string, Container index){
     return buffer;
 }
 
-
 void removerINICIO(Stack s, Container gt) {
     Stack new;
     Container res = { .label = gt.label };
@@ -182,7 +176,13 @@ void removerINICIO(Stack s, Container gt) {
 }
 
 char* removerINICIO_string(Stack s, char* string) {   //faleta vere istu - juaum
-
+    char* save = string;
+    char* to_dup = string+1;
+    Container res = { .label = Char, .CHAR = *to_dup };
+    push(res,s);
+    string = strdup(string+1);
+    free(save);
+    return string;
 }
 
 void removerFIM(Stack s, Container stack) {
@@ -228,7 +228,7 @@ void separar_sub(Stack s, Container str, Container substr) {
 
         push(buffer,res.ARRAY);
 
-        str.STRING += n ? n + 1 : strlen(str.STRING);
+        str.STRING += n ? n + 1 : (int)strlen(str.STRING);
     }
     push(res,s);
 }
@@ -238,12 +238,11 @@ void separar_which_space(Stack s, Container x, Container format) {
     (format.CHAR == '\n') ? separar_lines(s,x) : separar_space(s,x);
 }
 
-
 void separar_space(Stack s, Container x) {
     Stack of_res = initialize_stack();
-    Container res = { .label = Array, .ARRAY = of_res };
+    Container res = { .label = String, .ARRAY = of_res };
     Container buffer = { .label = String };
-    char* to_push;
+    char* save = x.STRING;
     int i = 0, o = 0;
     while (x.STRING != NULL)
     {
@@ -255,15 +254,15 @@ void separar_space(Stack s, Container x) {
         }
         i++;
     }
+    free(save);
     push(res,s);
 }
-
 
 void separar_lines(Stack s, Container x) {
     Stack of_res = initialize_stack();
     Container res = { .label = Array, .ARRAY = of_res };
     Container buffer = { .label = String };
-    char* to_push;
+    char* save = x.STRING;
     int i = 0, o = 0;
     while (x.STRING != NULL)
     {
@@ -275,6 +274,7 @@ void separar_lines(Stack s, Container x) {
         }
         i++;
     }
+    free(save);
     push(res,s);
 }
  

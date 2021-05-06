@@ -516,6 +516,8 @@ Container append(Container,Container);
 
 // -------------------- GUIÃO 5 --------------------
 
+void aplicarbloco(Stack,Container,Container,OperatorFunction*,Container*);
+
 /**
  * \brief Função que aplica uma ação a cada elemento de um array/string
  *
@@ -526,6 +528,10 @@ Container append(Container,Container);
  * @param Container
  */
 void map(Stack,Container,Container,OperatorFunction*,Container*);
+
+void fold(Stack,Container,Container,OperatorFunction*,Container*);
+
+void filter(Stack,Container,Container,OperatorFunction*,Container*);
 
 /**
  * \brief Função que insere elementos num array enquanto a condição a ser verificada for verdadeira

@@ -6,19 +6,21 @@
 #include <string.h>
 
 void aplicarbloco(Stack s, Container x, Container y, OperatorFunction* hashtable, Container* vars) {
+    push(x,s);
     parser(s,y.LAMBDA,hashtable,vars);
 }
 
 void map(Stack s, Container x, Container y, OperatorFunction* hashtable, Container* vars) {
     if (x.label == String) x = string_to_array(x);
-    int size = x.ARRAY->sizeofstack;
-    x.ARRAY->sizeofstack = 0;
-
-    for(int i = 0; i < size; i++) {
-        parser(x.ARRAY,y.LAMBDA,hashtable,vars);
+    Stack map = initialize_stack();
+    
+    for(int i = 0; i < x.ARRAY->sizeofstack; i++) {
+        push(x.ARRAY->arr[i],map);
+        parser(map,y.LAMBDA,hashtable,vars);
         x.ARRAY->sizeofstack++;
     }
     if (x.label == String_A) x = array_to_string(x);
+    free(x.ARRAY);
     push(x,s);
 }
 

@@ -22,7 +22,7 @@
 void parser(Stack stack, char* line, OperatorFunction* hashtable, Container* vars) {
     while (*line) {
         // para nums
-        if (strspn(line,".-0123456789"))
+        if (isdigit(*line) || *line == '.' || (*line == '-' && isdigit(line[1])))
             line = number_parse(stack,line);
 
         // para var
@@ -119,7 +119,9 @@ char* block_parse(Stack stack, char* line) {
 char* string_parse(Stack stack, char* line) {
     char* save = ++line;
     line = strchr(save,'"');
-    Container res = { .label = String, .STRING = strndup(save,line - save) };
+    // char* to_res = line+1;
+    // *(to_res) = '\0';
+    Container res = { .label = String, .STRING = strndup(strcat(save,"\0"),line - save + 1) };
     push(res,stack);
     return ++line;
 }
@@ -132,7 +134,7 @@ char* string_parse(Stack stack, char* line) {
 int hashkey(Stack s,char** line,OperatorFunction* hashtable) {
     Container x = s->arr[s->sizeofstack - 1], y;
     int res = HASHKEY(x);
-    if (s->sizeofstack > 1) y = s->arr[s->sizeofstack - 2];
+    if (s->sizeofstack > 1 && x.label != Lambda) y = s->arr[s->sizeofstack - 2];
     else return res;
     if (hashtable[res].arg > 1 && IS_FOLDABLE(x) < IS_FOLDABLE(y)) res = HASHKEY(y);
     return (**line != 'e') ? res : 256 + *(++(*line));
@@ -142,22 +144,18 @@ char* parse_hash(Stack s,char* line,OperatorFunction* hashtable,Container* vars)
     int index = hashkey(s,&line,hashtable);
     if (isspace(*line)) ERROR_0
     switch(hashtable[index].arg) {
-        case args_b: hashtable[index].f.args_b(s,pop(s),(void**)&hashtable,vars);
-        default: num_args(s,&hashtable[index],vars);
+        case args_b: hashtable[index].f.args_b(s,pop(s),pop(s),hashtable,vars); break;
+        default: num_args(s,&hashtable[index]);
     }
     return ++line;
 }
 
-void num_args(Stack s, OperatorFunction* func, Container* vars) {
-    Container res[3];
-    for(int i = 0; i <= func->arg; i++) {
-        res[i] = pop(s);
-    }
+void num_args(Stack s, OperatorFunction* func) {
     switch (func->arg) {
         case args_s: func->f.args_s(s); break;
-        case args_1: func->f.args_1(s,res[0]); break;
-        case args_2: func->f.args_2(s,res[0],res[1]); break;
-        case args_3: func->f.args_3(s,res[0],res[1],res[2]); break;
+        case args_1: func->f.args_1(s,pop(s)); break;
+        case args_2: func->f.args_2(s,pop(s),pop(s)); break;
+        case args_3: func->f.args_3(s,pop(s),pop(s),pop(s)); break;
         default: ERROR_0
     }
 }

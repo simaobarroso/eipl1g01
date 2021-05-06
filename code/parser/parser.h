@@ -11,7 +11,7 @@
  * \brief Número de argumentos em cada função
  */
 typedef enum { /**Enum com tipo Arguments **/
-    args_s, args_1, args_2, args_3, args_b } Arguments;
+    args_s = 0, args_1, args_2, args_3, args_b } Arguments;
 
 /**
  * \brief Tipo de função com 3 Container
@@ -37,7 +37,7 @@ struct OperatorFunction;
 /**
  * \brief Tipo de função para blocos
  */
-typedef void (*BlockOperation)(Stack,Container,struct OperatorFunction*,Container*);
+typedef void (*BlockOperation)(Stack,Container,Container,struct OperatorFunction*,Container*);
 
 /**
  * \brief Tipo de cada elemento do array que gere funções
@@ -325,6 +325,6 @@ char* parse_hash(Stack,char*,OperatorFunction*,Container*);
  * @param OperatorFunction
  * @param Container
  */
-void num_args(Stack s, OperatorFunction* func, Container* vars);
+void num_args(Stack s, OperatorFunction* func);
 
 #endif

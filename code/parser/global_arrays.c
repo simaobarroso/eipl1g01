@@ -181,14 +181,13 @@ OperatorFunction* hash(void) {
         [Concat] =          { HASH_CONTENT(args_2,concatenar_sa) },
         [ConcatenarVezes] = { HASH_CONTENT(args_2,concatenarVezes) },
         [RemoveInicio] =    { HASH_CONTENT(args_1,removerINICIO) },
-        [RemoveFim] =       { HASH_CONTENT(args_1,removerFIM) }
         // GUIÃO 5
-        // [ExecBloco] =    { HASH_CONTENT(args_1,exec_bloco) },
-        // [Map] =          { HASH_CONTENT(args_1,map) },
-        // [Fold] =         { HASH_CONTENT(args_1,fold) },
-        // [Filter] =       { HASH_CONTENT(args_1,filter) },
-        // [Sort] =         { HASH_CONTENT(args_1,sort) },
-        // [While] =        { HASH_CONTENT(args_1,while_bloco) }
+        [ExecBloco] =    { HASH_CONTENT(args_b,aplicarbloco) },
+        [Map] =          { HASH_CONTENT(args_b,map) },
+        [Fold] =         { HASH_CONTENT(args_b,fold) },
+        [Filter] =       { HASH_CONTENT(args_b,filter) },
+        // [Sort] =         { HASH_CONTENT(args_b,sort) },
+        [While] =        { HASH_CONTENT(args_b,while_bloco) }
     };
 return hashtable;
 }
