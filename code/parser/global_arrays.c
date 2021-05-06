@@ -177,10 +177,10 @@ OperatorFunction* hash(void) {
         [SubstringIndex] =  { HASH_CONTENT(args_2,substring) },
         [Separa] =          { HASH_CONTENT(args_2,separar_which_space) },
         [PopStack] =        { HASH_CONTENT(args_1,colocar_stack) },
-        [ElemEnd] =      { HASH_CONTENT(args_2,buscarXFIM) },
-        [Concat] =       { HASH_CONTENT(args_2,concatenar_sa) },
-        [ConcatenarVezes] =  { HASH_CONTENT(args_2,concatenarVezes) },
-        [RemoveInicio] = { HASH_CONTENT(args_1,removerINICIO) },
+        [ElemEnd] =         { HASH_CONTENT(args_2,buscarXFIM) },
+        [Concat] =          { HASH_CONTENT(args_2,concatenar_sa) },
+        [ConcatenarVezes] = { HASH_CONTENT(args_2,concatenarVezes) },
+        [RemoveInicio] =    { HASH_CONTENT(args_1,removerINICIO) },
         [RemoveFim] =       { HASH_CONTENT(args_1,removerFIM) }
         // GUIÃO 5
         // [ExecBloco] =    { HASH_CONTENT(args_1,exec_bloco) },

@@ -11,7 +11,7 @@
  * \brief Número de argumentos em cada função
  */
 typedef enum { /**Enum com tipo Arguments **/
-    args_s, args_1, args_2, args_3 } Arguments;
+    args_s, args_1, args_2, args_3, args_b } Arguments;
 
 /**
  * \brief Tipo de função com 3 Container
@@ -33,26 +33,20 @@ typedef void (*Args1Operation)(Stack,Container);
  */
 typedef void (*ArgsStackOperation)(Stack);
 
-/* COMING SOON TO YOUR HOME THEATRE:
 
-typedef void (*StackOperation)(Stack);
-
-typedef void (*NormalOperation)(Stack,Container*);
-
-typedef void (*BlockOperation)(Stack,Container*,OperatorFunction*,Container*);
-
-*/
+typedef void (*BlockOperation)(Stack,Container,void**,Container*);
 
 /**
  * \brief Tipo de cada elemento do array que gere funções
  */
-typedef struct { /**Struct com tipo OperatorFunction **/
+typedef struct OperatorFunction { /**Struct com tipo OperatorFunction **/
     Arguments arg;
     union {
         ArgsStackOperation args_s;
         Args1Operation args_1;
         Args2Operation args_2;
         Args3Operation args_3;
+        BlockOperation args_b;
     } f;
 } OperatorFunction;
 
@@ -169,7 +163,7 @@ enum Operations { /**Enum com tipo Operations **/
     ReadInput = 't',
     Length = ','+128,
     Concat = '+'+128,
-    ConcatTimes = '*'+128,
+    ConcatenarVezes = '*'+128,
     Separa = '/'+128,
     SubstringIndex = '#'+128,
     RemoveInicio = '('+128,
@@ -319,6 +313,15 @@ char* string_parse(Stack stack, char* line);
  *
  * @returns char*
  */
-char* parse_hash(Stack,char*,OperatorFunction*);
+char* parse_hash(Stack,char*,OperatorFunction*,Container*);
+
+/**
+ * \brief Distrubui os diversos pop pelas respetivas funções
+ *
+ * @param Stack
+ * @param OperatorFunction
+ * @param Container
+ */
+void num_args(Stack s, OperatorFunction* func, Container* vars);
 
 #endif

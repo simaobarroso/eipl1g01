@@ -138,37 +138,30 @@ int hashkey(Stack s,char** line,OperatorFunction* hashtable) {
     return (**line != 'e') ? res : 256 + *(++(*line));
 }
 
-char* parse_hash(Stack s,char* line,OperatorFunction* hashtable) {
+char* parse_hash(Stack s,char* line,OperatorFunction* hashtable,Container* vars) {
     int index = hashkey(s,&line,hashtable);
-    if (isspace(*line)) ERROR_0;
+    if (isspace(*line)) ERROR_0
     switch(hashtable[index].arg) {
-        case args_s:
-            hashtable[index].f.args_s(s);
-            break;
-        case args_1:
-            hashtable[index].f.args_1(s,pop(s));
-            break;
-        case args_2:
-            hashtable[index].f.args_2(s,pop(s),pop(s));
-            break;
-        case args_3:
-            hashtable[index].f.args_3(s,pop(s),pop(s),pop(s));
-            break;
-        default: // deve acontecer se receber um \s \t \n - verificar se tal é possível
-           ERROR_0
+        case args_b: hashtable[index].f.args_b(s,pop(s),(void**)&hashtable,vars);
+        default: num_args(s,&hashtable[index],vars);
     }
     return ++line;
 }
 
-/* PARA VER AMANHÃ
-Container* num_args(Stack s, OperatorFunction* f) {
-    static Container res[3];
-    for(int i = 0; i <= f->arg; i++) {
+void num_args(Stack s, OperatorFunction* func, Container* vars) {
+    Container res[3];
+    for(int i = 0; i <= func->arg; i++) {
         res[i] = pop(s);
     }
-    return res;
+    switch (func->arg) {
+        case args_s: func->f.args_s(s); break;
+        case args_1: func->f.args_1(s,res[0]); break;
+        case args_2: func->f.args_2(s,res[0],res[1]); break;
+        case args_3: func->f.args_3(s,res[0],res[1],res[2]); break;
+        default: ERROR_0
+    }
 }
-*/
+
 /* FUTURE IMPLEMENTATIONS:
 
 char* char_parse(Stack stack, char* line) {
