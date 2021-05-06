@@ -14,7 +14,7 @@
 /*
 ISTO PRECISA DOS CASOS PARA STRING EM QUASE TUDO PORQUE USAR A FUNÇÃO string_to_array DEVIA SER EVITADO!
 
-Also, definam isto no .h pls
+Also, definam isto no .h pls... mesmo para a documentação
 */
 
 /**
@@ -124,7 +124,7 @@ void buscarXINICIO(Stack s, Container x, Container y) {
         case Array:
             res.label = Array;
             res.ARRAY = initialize_stack();
-            for(int i = 0; i < y.LONG; i++) push(x.ARRAY->arr[i],res.ARRAY);
+            for(int i = 0; i < y.LONG; i++) push(x.ARRAY->arr[i],res.ARRAY); // como isto faz um for na mesma, certo é possível não usar pointers... caso de dúvidas: ver prepend
             free(x.ARRAY);
             break;
         default: ERROR_1
@@ -266,9 +266,9 @@ void separar_lines(Stack s, Container x) {
     }
     push(res,s);
 }
-// 
+ 
 //----------FUNÇÕES AUXILIARES----------
-// 
+ 
 /**
  * \brief Função auxiliar para concatenar um número com um array
  *
