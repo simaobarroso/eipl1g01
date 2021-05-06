@@ -36,22 +36,42 @@ void colocar_stack(Stack stack, Container array) {
     free(array.ARRAY);
 }
 
+void concatenarVezes (Stack stack, Container sa, Container x){
+        for (int i = 0; i < x.LONG; i++)
+        {
+            concatenar_sa(stack,sa,sa);
+        }
+}
+
+char* concatenarVezes_string (char* sa, long x){
+
+}
 
 void concatenar_sa(Stack stack, Container x, Container y) { 
+    Container res;
     if(x.label == Array && y.label == Array){
-        for (int i= 0; i < y.ARRAY->sizeofstack;i++) push(y.ARRAY->arr[i], stack);
+        for (int i= 0; i < y.ARRAY->sizeofstack;i++) push(y.ARRAY->arr[i], x.ARRAY);
+        return x;
     }
-    if((x.label == String && y.label == String) ||(IS_NUM(x) && y.label == String) ||(x.label == String && IS_NUM(y))) strcat(x.STRING, y.STRING);
-    else if((x.label == String && y.label == Array) || (IS_NUM(x) && y.label == Array)) prepend(x,y);
+    else if(x.label == String && y.label == String){
+        res.label = String;
+        res.STRING = better_strcat(x.STRING, y.STRING);
+        free(y.STRING);
+    }
+    
+    else if((x.label == String || (IS_NUM(x))) && y.label == Array) prepend(x,y);
     else if((x.label == Array && y.label == String) || (x.label == Array && IS_NUM(y))) append(x,y);
     else if(x.label == String && IS_NUM(y)) {
-            better_strcat(x.STRING ,toString(y).STRING);
+            res.label = String;
+            res.STRING = better_strcat(x.STRING ,toString(y).STRING);
             free(y.STRING);
         }
     else if(IS_NUM(x) && y.label == String){
-            better_strcat(toString(x).STRING,y.STRING);
+            res.label = String;
+            res.STRING = better_strcat(toString(x).STRING,y.STRING);
             free(x.STRING);
     }
+    push(res,stack);
 }
 
 void range(Stack s,Container x) {
@@ -258,5 +278,6 @@ Container prepend(Container x, Container y) {
 
 Container append(Container x, Container y) { 
     push(y,x.ARRAY);
+    return x;
 }
 

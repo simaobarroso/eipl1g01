@@ -10,7 +10,7 @@
 
 #include <math.h>
 
-// GUIÃO 1
+// -------------------- GUIÃO 1 --------------------
 
 /**
  * \brief A soma de duas variáveis
@@ -109,7 +109,7 @@ void decrementa(Stack,Container);
  */
 void bitwisenot(Stack,Container);
 
-// GUIÃO 2
+// -------------------- GUIÃO 2 --------------------
 
 /**
  * \brief Troca o 3º valor da stack para o topo
@@ -142,7 +142,7 @@ void copiaN(Stack);
  */
 void newline(Stack);
 
-// GUIÃO 3
+// -------------------- GUIÃO 3 --------------------
 
 /**
  * \brief Devolve o contrário do valor dado, por exemplo, se for 0, devolve 1, se for diferente de 0 devolve 0
@@ -243,7 +243,7 @@ void to_double_op(Stack);
  */
 void to_string_op(Stack);
 
-// GUIÃO 4
+// -------------------- GUIÃO 4 --------------------
 
 /**
  * \brief Lê o input até encontrar o carater nulo
@@ -260,6 +260,25 @@ void ler_input(Stack);
  *
  */
 void colocar_stack(Stack, Container);
+
+/**
+ * \brief Copia a String / Array e copia-a X vezes
+ *
+ * @param Stack A Stack do produto final
+ * @param Container Aquilo que vamos copiar
+ * @param Container O numero que vamos copiar X vezes
+ *
+ */
+void concatenarVezes (Stack,Container,Container);
+
+/**
+ * \brief Função auxiliar para a concatenarVezes funcionar com Strings
+ * 
+ * @param char*
+ * @param long
+ * 
+ */
+char* concatenarVezes_string(char*,long);
 
 /**
  * \brief Concatena strings ou arrays
@@ -444,7 +463,7 @@ Container prepend(Container,Container);
  */
 Container append(Container,Container);
 
-// GUIÃO 5
+// -------------------- GUIÃO 5 --------------------
 
 // void fold(Stack,char*);
 
