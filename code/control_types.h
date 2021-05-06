@@ -118,9 +118,13 @@ typedef struct Container {
  */
 #define ERROR_1 { fputs("Error 1: wrong type\n", stderr); exit(1); }
 /**
+ * \brief Erro de pop: acontece quando não for possível fazer pop
+ */
+#define ERROR_2 { fputs("Error 2: couldn't pop\n", stderr); exit(1); }
+/**
  * \brief Erro de modificação de tipos: acontece quando o enum dos tipos está completamente errado
  */
-#define ERROR_2 { fputs("Error 2: this should have been a SIGSEGV\n", stderr); exit(1); }
+#define ERROR_3 { fputs("Error 3: this should have been a SIGSEGV\n", stderr); exit(1); }
 
 // ____CONVERSÕES____
 

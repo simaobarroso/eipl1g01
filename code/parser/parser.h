@@ -39,7 +39,7 @@ typedef void (*StackOperation)(Stack);
 
 typedef void (*NormalOperation)(Stack,Container*);
 
-typedef void (*BlockOperation)(Stack,Container*,OperatorFunction*);
+typedef void (*BlockOperation)(Stack,Container*,OperatorFunction*,Container*);
 
 */
 
@@ -55,6 +55,75 @@ typedef struct { /**Struct com tipo OperatorFunction **/
         Args3Operation args_3;
     } f;
 } OperatorFunction;
+
+/*
+enum StackNumOperators {
+    // GUIÃO 1
+    Soma = '+',
+    Subtrai = '-',
+    Multiplica = '*',
+    Divide = '/',
+    Modulo = '%',
+    Potencia = '#',
+    Bitwiseand = '&',
+    Bitwiseor = '|',
+    Bitwisexor = '^',
+    Incrementa = ')',
+    Decrementa = '(',
+    Bitwisenot = '~',
+    // GUIÃO 2
+    NewLine = 'l',      // precisa de existir em todos
+    ToInt = 'i',        // precisa de existir em todos
+    ToChar = 'c',       // precisa de existir em todos
+    ToDouble = 'f',     // precisa de existir em todos
+    ToString = 's',     // precisa de existir em todos
+    Troca3 = '@',       // precisa de existir em todos
+    Inverte2 = '\\',    // precisa de existir em todos
+    Duplica = '_',      // precisa de existir em todos
+    CopiaN = '$',       // precisa de existir em todos
+    Pop = ';',          // precisa de existir em todos
+    // GUIÃO 3
+    Menor = '<',
+    Maior = '>',
+    Igual = '=',
+    Nao = '!',
+    Ifthenelse = '?',   // precisa de existir em todos
+    MudaVariavel = ':',
+    // GUIÃO 4
+    ReadInput = 't'     // precisa de existir em todos
+    Range = ','
+};
+
+enum FoldableOperators {
+    // GUIÃO 4
+    Length = ',',
+    Concat = '+',
+    ConcatTimes = '*',
+    Separa = '/',
+    SubstringIndex = '#',
+    RemoveInicio = '(',
+    RemoveFim = ')',
+    PopStack = '~',
+    ElemInit = '<',
+    ElemEnd = '>',
+    ValIndex = '='
+};
+
+enum BlockLogicOperators {
+    // GUIÃO 3
+    FromEitherE = '&',
+    FromEitherOu = '|',
+    FromEitherMenor = '<',
+    FromEitherMaior = '>',
+    // GUIÃO 5
+    ExecBloco = '~',
+    Map = '%',
+    Fold = '*',
+    Filter = ',',
+    Sort = '$',
+    While = 'w'
+};
+*/
 
 /**
  * \brief Os vários operadores matemáticos
@@ -87,18 +156,18 @@ enum Operations { /**Enum com tipo Operations **/
     // GUIÃO 3
     FromEitherE = '&'+256,
     FromEitherOu = '|'+256,
-    Menor = '<',
-    Maior = '>',
     FromEitherMenor = '<'+256,    // como não é usado em blocos, índice do either
     FromEitherMaior = '>'+256,    // idém^^
+    Menor = '<',
+    Maior = '>',
     Igual = '=',
     Nao = '!',
     Ifthenelse = '?',
     MudaVariavel = ':',
     // GUIÃO 4
     Range = ',',
-    Length = ','+128,
     ReadInput = 't',
+    Length = ','+128,
     Concat = '+'+128,
     ConcatTimes = '*'+128,
     Separa = '/'+128,

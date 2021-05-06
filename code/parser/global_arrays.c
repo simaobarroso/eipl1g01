@@ -31,9 +31,94 @@ Este array tem 384 posições
 As primeiras 128 posições correspondem a quando o operador é para ser executado com Long, Char ou Double
 As segundas para quando é para ser executado com Array ou String
 As terceiras para quando é para ser executado com um bloco
+
+OperatorFunction** hash(void) {
+    static OperatorFunction* hashtable[3] = {
+        hash_start1(),          // inicializa os primeiros 128
+        hash_start2(),          // inicializa os segundos 128
+        hash_start3()           // inicializa os últimos 128
+    };
+    return *hashtable;
+}
+
+OperatorFunction* hash_start1(void) {
+    static OperatorFunction hashtable[128] = {
+        // GUIÃO 1
+        [Soma] =            { HASH_CONTENT(args_2,soma) },
+        [Subtrai] =         { HASH_CONTENT(args_2,subtrai) },
+        [Multiplica] =      { HASH_CONTENT(args_2,multiplica) },
+        [Divide] =          { HASH_CONTENT(args_2,divide) },
+        [Modulo] =          { HASH_CONTENT(args_2,modulo) },
+        [Potencia] =        { HASH_CONTENT(args_2,potencia) },
+        [Bitwiseand] =      { HASH_CONTENT(args_2,bitwiseand) },
+        [Bitwiseor] =       { HASH_CONTENT(args_2,bitwiseor) },
+        [Bitwisexor] =      { HASH_CONTENT(args_2,bitwisexor) },
+        [Incrementa] =      { HASH_CONTENT(args_1,incrementa) },
+        [Decrementa] =      { HASH_CONTENT(args_1,decrementa) },
+        [Bitwisenot] =      { HASH_CONTENT(args_1,bitwisenot) },
+        // GUIÃO 2
+        [NewLine] =         { HASH_CONTENT(args_s,newline) },
+        [ToInt] =           { HASH_CONTENT(args_s,to_int_op) },
+        [ToChar] =          { HASH_CONTENT(args_s,to_char_op) },
+        [ToDouble] =        { HASH_CONTENT(args_s,to_double_op) },
+        [ToString] =        { HASH_CONTENT(args_s,to_string_op) },
+        [Troca3] =          { HASH_CONTENT(args_s,troca3) },
+        [Inverte2] =        { HASH_CONTENT(args_s,inverte2) },
+        [Duplica] =         { HASH_CONTENT(args_s,duplica) },
+        [CopiaN] =          { HASH_CONTENT(args_s,copiaN) },
+        [Pop] =             { HASH_CONTENT(args_s,void_pop) },
+        // GUIÃO 3
+        [Igual] =           { HASH_CONTENT(args_2,igual) },
+        [Maior] =           { HASH_CONTENT(args_2,maior) },
+        [Menor] =           { HASH_CONTENT(args_2,menor) },
+        [Nao] =             { HASH_CONTENT(args_1,nao) },
+        [Ifthenelse] =      { HASH_CONTENT(args_3,ifthenelse) },
+        // GUIÃO 4
+        [Range] =           { HASH_CONTENT(args_1,range) },
+    };
+}
+
+OperatorFunction* hash_start2(void) {
+    static OperatorFunction hashtable[128] = {
+        // GUIÃO 2
+        [NewLine] =         { HASH_CONTENT(args_s,newline) },
+        [ToInt] =           { HASH_CONTENT(args_s,to_int_op) },
+        [ToChar] =          { HASH_CONTENT(args_s,to_char_op) },
+        [ToDouble] =        { HASH_CONTENT(args_s,to_double_op) },
+        [ToString] =        { HASH_CONTENT(args_s,to_string_op) },
+        [Troca3] =          { HASH_CONTENT(args_s,troca3) },
+        [Inverte2] =        { HASH_CONTENT(args_s,inverte2) },
+        [Duplica] =         { HASH_CONTENT(args_s,duplica) },
+        [CopiaN] =          { HASH_CONTENT(args_s,copiaN) },
+        [Pop] =             { HASH_CONTENT(args_s,void_pop) },
+        // GUIÃO 3
+        [Ifthenelse] =      { HASH_CONTENT(args_3,ifthenelse) },
+    };
+}
+
+OperatorFunction* hash_start3(void) {
+    static OperatorFunction hashtable[128] = {
+        // GUIÃO 2
+        [NewLine] =     { HASH_CONTENT(args_s,newline) },
+        [Troca3] =          { HASH_CONTENT(args_s,troca3) },
+        [Inverte2] =        { HASH_CONTENT(args_s,inverte2) },
+        [Duplica] =         { HASH_CONTENT(args_s,duplica) },
+        [CopiaN] =          { HASH_CONTENT(args_s,copiaN) },
+        [Pop] =             { HASH_CONTENT(args_s,void_pop) },
+        // GUIÃO 3
+        [FromEitherE] =     { HASH_CONTENT(args_2,elogic) },
+        [FromEitherOu] =    { HASH_CONTENT(args_2,oulogic) },
+        [FromEitherMaior] = { HASH_CONTENT(args_2,compmaior) },
+        [FromEitherMenor] = { HASH_CONTENT(args_2,compmenor) },
+        [Ifthenelse] =      { HASH_CONTENT(args_3,ifthenelse) },
+        // GUIÃO 4
+        [ReadInput] =       { HASH_CONTENT(args_s,ler_input) },
+    };
+}
 */
+
 OperatorFunction* hash(void) {
-    static OperatorFunction hashmap[128*3] = {
+    static OperatorFunction hashtable[128*3] = {
         // GUIÃO 1
         [Soma] =            { HASH_CONTENT(args_2,soma) },
         [Subtrai] =         { HASH_CONTENT(args_2,subtrai) },
