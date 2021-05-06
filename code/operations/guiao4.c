@@ -34,29 +34,19 @@ void colocar_stack(Stack stack, Container array) {
     free(array.ARRAY);
 }
 
-void concatenarVezes (Stack stack, Container sa, Container x){
-        for (int i = 0; i < x.LONG; i++)
-        {
-            concatenar_sa(stack,sa,sa);
-        }
-}
-
-char* concatenarVezes_string (char* sa, long x) {
-    return NULL;
-}
-
-void concatenar_sa(Stack stack, Container x, Container y) { 
+Container concatenar(Container x, Container y) { 
     Container res = { .label = Array };
     if(x.label == Array && y.label == Array) {
         for (int i= 0; i < y.ARRAY->sizeofstack;i++) push(y.ARRAY->arr[i], x.ARRAY);
+        free(y.ARRAY);
     }
     else if(x.label == String && y.label == String){
         res.label = String;
         res.STRING = better_strcat(x.STRING, y.STRING);
         free(y.STRING);
     }
-    else if((x.label == String || (IS_NUM(x))) && y.label == Array) prepend(x,y);
-    else if((x.label == Array && y.label == String) || (x.label == Array && IS_NUM(y))) append(x,y);
+    else if((x.label == String || (IS_NUM(x))) && y.label == Array) res = prepend(x,y);
+    else if((x.label == Array && y.label == String) || (x.label == Array && IS_NUM(y))) res = append(x,y);
     else if(x.label == String && IS_NUM(y)) {
         res.label = String;
         res.STRING = better_strcat(x.STRING ,toString(y).STRING);
@@ -67,6 +57,24 @@ void concatenar_sa(Stack stack, Container x, Container y) {
         res.STRING = better_strcat(toString(x).STRING,y.STRING);
         free(x.STRING);
     }
+    return res;
+}
+
+void concatenarVezes (Stack stack, Container sa, Container x){
+        Container res;
+        if (sa.label == String) res = { .label = String };
+        if (sa.label == Array) res = { .label = Array };
+        res = concatenar(sa,sa);
+        for (int i = 1; i < x.LONG; i++)
+        {
+            res = concatenar(res,sa);
+        }
+        push(res,stack);
+}
+
+
+void concatenar_sa(Stack stack, Container x, Container y) { 
+    res = concatenar(x,y);
     push(res,stack);
 }
 
@@ -125,18 +133,26 @@ char* buscarXINICIO_string(Container string, Container index) {
 }
 
 
-void buscarXFIM(Container x, Stack s, Container stack){
-    Label ofres = stack.label;
-    Stack new = initialize_stack();
+void buscarXFIM(Stack s,Container gt,Container x){
+        Stack new;
+        Container res = { .label = gt.label };
+    switch (gt.label) {
+        case Array:
+            new = initialize_stack();
+            for (int i = s->sizeofstack - x.LONG; i < s->sizeofstack; i++)
+            {
+                push(s->arr[i],new);
+            }
 
-    for (int i = s->sizeofstack - x.LONG; i < s->sizeofstack; i++)
-    {
-        push(s->arr[i],new);
-    }
-
-    Container res = { .label = ofres, .ARRAY = new };
-    free(stack.ARRAY);
-    push(res,s);
+            Container res = { .label = gt.label, .ARRAY = new };
+            free(gt.ARRAY);
+            push(res,s);
+            break;
+        case String:
+            res = buscarXFIM_string(gt,x);
+            push(res,s);
+            break;
+        default: ERROR_1        
 }
 
 char* buscarXFIM_string(Container string, Container index){
@@ -147,16 +163,30 @@ char* buscarXFIM_string(Container string, Container index){
 }
 
 
-void removerINICIO(Stack s, Container stack) {
-    Label ofres = stack.label;
-    Stack new = initialize_stack();
-    for (int i = 1; i < s->sizeofstack; i++)
-    {
-        push(s->arr[i],new);
+void removerINICIO(Stack s, Container gt) {
+    Stack new;
+    switch(gt.label) {
+      case Array:  
+        new = initialize_stack();
+        for (int i = 1; i < s->sizeofstack; i++)
+        {
+            push(s->arr[i],new);
+        }
+        Container res = { .label = gt.label, .ARRAY = new };
+        free(gt.ARRAY);
+        push(res,s);
+        break;
+      case String:
+        res = removerINICIO_string(s,gt.STRING);
+        push(res,s);
+        break;
+       default: ERROR_1; 
     }
-    Container res = { .label = ofres, .ARRAY = new };
-    free(stack.ARRAY);
-    push(res,s);
+
+}
+
+char* removerINICIO_string(Stack s, char* string) {   //faleta vere istu - juaum
+
 }
 
 void removerFIM(Stack s, Container stack) {

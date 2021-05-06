@@ -15,97 +15,93 @@
 /**
  * \brief A soma de duas variáveis
  *
- * @param Duas variáveis do tipo int (integer)
- *
- * @returns O valor da soma das variáveis
+ * @param Container Um dos valor a usar
+ * 
+ * @param Container Um dos valor a usar
  */
 void soma(Stack,Container,Container);
 /**
  * \brief A subtração de duas variáveis
  *
- * @param Duas variáveis do tipo int (integer)
- *
- * @returns O valor da subtração das variáveis
+ * @param Container Um dos valor a usar
+ * 
+ * @param Container Um dos valor a usar
  */
 void subtrai(Stack,Container,Container);
 /**
  * \brief A multiplicação de duas variáveis
  *
- * @param Duas variáveis do tipo int (integer)
- *
- * @returns O valor da multiplicação das variáveis
+ * @param Container Um dos valor a usar
+ * 
+ * @param Container Um dos valor a usar
  */
 void multiplica(Stack,Container,Container);
 /**
  * \brief A divisão de duas variáveis
  *
- * @param Duas variáveis do tipo int (integer)
- *
- * @returns O valor da divisão inteira das variáveis
+ * @param Container Um dos valor a usar
+ * 
+ * @param Container Um dos valor a usar
  */
 void divide(Stack,Container,Container);
 /**
  * \brief O modulo de duas variáveis
  *
- * @param Duas variáveis do tipo int (integer)
- *
- * @returns O valor do modulo das variáveis
+ * @param Container Um dos valor a usar
+ * 
+ * @param Container Um dos valor a usar
  */
 void modulo(Stack,Container,Container);
 /**
  * \brief A potência de uma variável elevada à outra
  *
- * @param Duas variáveis do tipo int (integer)
- *
- * @returns O valor da potência
+ * @param Container Um dos valor a dividir
+ * 
+ * @param Container Um dos valor a dividir
  */
 void potencia(Stack,Container,Container);
 /**
  * \brief Forma um "e lógico" bitwise
  *
- * @param Duas variáveis do tipo int (integer)
- *
- * @returns O valor do "e lógico"
+ * @param Container Um dos valor a usar
+ * 
+ * @param Container Um dos valor a usar
  */
 void bitwiseand(Stack,Container,Container);
 /**
  * \brief Forma um bitwiseor
  *
- * @param Duas variáveis do tipo int (integer)
- *
- * @returns O valor do bitwiseor
+ * @param Container Um dos valor a usar
+ * 
+ * @param Container Um dos valor a usar
  */
 void bitwiseor(Stack,Container,Container);
 /**
  * \brief Forma um bitwisexor
  *
- * @param Duas variáveis do tipo int (integer)
- *
- * @returns O valor do bitwisexor
+ * @param Container Um dos valor a usar
+ * 
+ * @param Container Um dos valor a usar
  */
 void bitwisexor(Stack,Container,Container);
 /**
  * \brief Incrementação de uma unidade a uma variável int
  *
- * @param Uma variável do tipo int (integer)
- *
- * @returns O valor da variável acrescido de um
+ * @param Container Um dos valor a usar
+ * 
+ * @param Container Um dos valor a usar
  */
 void incrementa(Stack,Container);
 /**
  * \brief Decrementação de uma unidade a uma variável int
  *
- * @param Uma variável do tipo int (integer)
- *
- * @returns O valor da variável decrescido de um
+ * @param Container Valor a usar
  */
 void decrementa(Stack,Container);
 /**
  * \brief Forma um bitwisenot
  *
- * @param Duas variáveis do tipo int (integer)
- *
- * @returns O valor do bitwisenot
+ * @param Container Valor a usar
  */
 void bitwisenot(Stack,Container);
 
@@ -148,52 +144,78 @@ void newline(Stack);
  * \brief Devolve o contrário do valor dado, por exemplo, se for 0, devolve 1, se for diferente de 0 devolve 0
  *
  * @param Stack
+ * 
+ * @param Container Valor a usar
  */
 void nao(Stack,Container);
 /**
  * \brief Vê se um valor é menor que outro, se for menor, devolve esse valor, se não devolve 0
  *
  * @param Stack
+ * 
+ * @param Container Valor a comparar
+ * 
+ * @param Container Valor a comparar
  */
 void menor(Stack,Container,Container);
 /**
  * \brief Vê se um valor é maior que outro, se for maior, devolve esse valor, se não devolve 0
  *
- * @param Um apontador para uma stack
+ * @param Stack
+ * 
+ * @param Container Valor a comparar
+ * 
+ * @param Container Valor a comparar
  */
 void maior(Stack,Container,Container);
 /**
  * \brief Vê se um valor é igual ao outro, se for, devolve esse valor, se não devolve 0
  *
  * @param Stack
+ * 
+ * @param Container Valor a comparar
+ * 
+ * @param Container Valor a comparar
  */
 void igual(Stack,Container,Container);
 /**
  * \brief Se os dois argumnetos forem diferentes de 0, retorna o segundo argumento. Caso contrario, retorna 0.
  *
  * @param Stack
+ * 
+ * @param Container Valor a verificar
+ * 
+ * @param Container Valor a verificar
  */
 void elogic(Stack,Container,Container);
 /**
  * \brief Se os dois argumnetos forem iguais a 0, retorna 0. Caso contrario, devolve o primeiro argumento se este for verdadeiro, ou o segundo, caso contrario.
  *
  * @param Stack
+ * 
+ * @param Container Valor a verificar
+ * 
+ * @param Container Valor a verificar
  */
 void oulogic(Stack,Container,Container);
 /**
  * \brief Retorna o maior dos dois agrumentos a Stack.
  *
- * @param Container
- * @param Container
  * @param Stack
+ * 
+ * @param Container Valor a comparar
+ * 
+ * @param Container Valor a comparar
  */
 void compmaior(Stack,Container,Container);
 /**
  * \brief Retorna o menor dos dois argumentos a Stack.
  *
- * @param Container
- * @param Container
  * @param Stack
+ * 
+ * @param Container Valor a comparar
+ * 
+ * @param Container Valor a comparar
  */
 void compmenor(Stack,Container,Container);
 
@@ -201,6 +223,12 @@ void compmenor(Stack,Container,Container);
  * \brief Necessita de três numeros, se o primeiro não for 0, devolve o segundo valor, se não, devolve o terceiro valor
  *
  * @param Stack
+ * 
+ * @param Container Valor a verificar
+ * 
+ * @param Container Valor a verificar
+ * 
+ * @param Container Valor a verificar
  */
 void ifthenelse(Stack,Container,Container,Container);
 
@@ -208,10 +236,12 @@ void ifthenelse(Stack,Container,Container,Container);
  * \brief Controla os valores das variáveis
  *
  * @param Stack
- * @param Char
- * @param Container
- * @param Int
- *
+ * 
+ * @param Char Variavel a qual se vai atribuir o valor
+ * 
+ * @param Container Array das variaveis
+ * 
+ * @param Int Valor a atribuir
  */
 void muda_variavel(Stack,char,Container*,int);
 
@@ -256,198 +286,213 @@ void ler_input(Stack);
  * \brief Coloca um array numa stack
  *
  * @param Stack 
- * @param Container (O array dado) 
- *
+ * 
+ * @param Container Array a usar
  */
 void colocar_stack(Stack, Container);
 
 /**
- * \brief Copia a String / Array e copia-a X vezes
+ * \brief Função auxiliar que concatena duas Strings/Arrays 
  *
- * @param Stack A Stack do produto final
- * @param Container Aquilo que vamos copiar
- * @param Container O numero que vamos copiar X vezes
+ * @param Container Array/String a concatenar
+ * 
+ * @param Container Array/String a concatenar
  *
+ * \returns Array/String concatenado
+ */
+Container concatenar(Container x, Container y);
+
+/**
+ * \brief Copia a String / Array e concatena-a X vezes
+ *
+ * @param Stack
+ * 
+ * @param Container Array/String a usar
+ * 
+ * @param Container O numero de vezes a copiar para depois concatenar
  */
 void concatenarVezes (Stack,Container,Container);
 
 /**
- * \brief Função auxiliar para a concatenarVezes funcionar com Strings
- * 
- * @param char*
- * @param long
- * 
- */
-char* concatenarVezes_string(char*,long);
-
-/**
  * \brief Concatena strings ou arrays
  *
- * @param Container (Um array, uma String ou um enum)
- * @param Container (Um array, uma String ou um enum)
- *
+ * @param Container Array/String a concatenar
+ * 
+ * @param Container Array/String a concatenar
  */
 void concatenar_sa(Stack,Container,Container);
 
 
-
 /**
- * \brief Constrói um array do 0 até ao número dado
+ * \brief Constrói um array com o tamanho do número dado
  *
  * @param Stack
- * @param Container
+ * 
+ * @param Container O numero de elementos do array a criar
  */
 void range(Stack,Container);
 
 /**
  * \brief Devolve o tamanho de uma string ou array
- *
- * @param Container (Um array, ou uma string)
- *
+ * 
+ * @param Stack
+ * 
+ * @param Container Array/String a usar
  */
 void length(Stack,Container);
 
 /**
  * \brief Devolve o valor do array com o indice indicado pelo o utilizador
  *
- *
- * @param Container (o array que vamos trabalhar com)
- * @param Container (indice para o array dado) 
- *
+ * @param Stack
+ * 
+ * @param Container Array a verificar
+ * 
+ * @param Container Indice para o array dado 
  */
 void indice(Stack,Container,Container);
 
 /**
  * \brief Devolve os primeiros elementos/caracteres de um array ou String dependendo do segundo valor
  *
- *
- * @param Container (o array ou string que vamos trabalhar com)
- * @param Container 
  * @param Stack
- *
+ * 
+ * @param Container Array/String a usar
+ * 
+ * @param Container Numero de elementos a ir buscar
  */
 void buscarXINICIO(Stack,Container,Container);
 
 /**
  * \brief Função auxiliar para buscarXINICIO para funcionar com Strings
  *
- *
- * @param Container (a string que vamos trabalhar com)
- * @param Container 
- * @param Stack
- *
+ * @param Container String a usar
+ * 
+ * @param Container Numero de elementos a ir buscar
+ * 
+ * \returns Substring obtido  
  */
 char* buscarXINICIO_string(Container,Container);
 
 /**
  * \brief Devolve os ultimos elementos/caracteres de um array ou String dependendo do segundo valor
  *
- *
- * @param Container (o array ou string que vamos trabalhar com)
- * @param Container (indice para o array dado) 
  * @param Stack
- *
+ * 
+ * @param Container Array/String a usar
+ * 
+ * @param Container Numero de elementos a ir buscar
  */
-void buscarXFIM(Container,Stack,Container);
+void buscarXFIM(Stack,Container,Container);
 
 /**
  * \brief Função auxiliar para o buscarXFIM funcionar com Strings
  *
- *
- * @param Container
- * @param Container 
- *
+ * @param Container String a usar
+ * 
+ * @param Container Numero de elementos a ir buscar
+ * 
+ * \returns Substring obtida 
  */
 char* buscarXFIM_string(Container,Container);
 
 /**
  * \brief Remove o primeiro elemento de um array ou de uma String
  *
- *
- * @param Container (o array ou string que vamos trabalhar com)
- * @param Container (Stack final)
- *
+ * @param Stack
+ * 
+ * @param Container Array/String a usar
  */
 void removerINICIO(Stack,Container);
 
 /**
+ * \brief Remove o primeiro elemento de um array ou de uma String
+ *
+ * @param Stack
+ * 
+ * @param Container String a usar
+ * 
+ * \returns String alterada
+ */
+char* removerINICIO_string(Stack,char*);
+
+/**
  * \brief Remove o ultimo elemento de um array ou de uma String
  *
- *
- * @param Container (o array ou string que vamos trabalhar com)
- * @param Container (Stack final)
- *
+ * @param Stack
+ * 
+ * @param Container Array/String a usar
  */
 void removerFIM(Stack,Container);
 
 /**
  * \brief Função auxiliar para o removerFIM funcionar com Strings
- *
- *
- * @param Container
- * @param Container 
- *
+ * 
+ * @param Stack
+ * 
+ * @param Container String a usar
+ * 
+ * \returns String alterada 
  */
 char* removerFIM_string(Stack,char*);
 
 /**
  * \brief Devolve o valor do indice da primeira ocurrencia de uma substring numa dada string
  *
- *
  * @param Stack
- * @param Container (string a verificar)
- * @param Container (subtring a procurar)  
- *
+ * 
+ * @param Container String a verificar
+ * 
+ * @param Container Subtring a procurar
  */
 void substring(Stack,Container,Container);
 
 /**
  * \brief Separa uma string em elementos de um array pelas as ocorrencias de uma determinada substring
  *
- *
  * @param Stack
- * @param Container (string a separar)
- * @param Container (subtring a usar como separadora)  
- *
+ * 
+ * @param Container String a separar
+ * 
+ * @param Container Subtring a usar como separadora
  */
 void separar_sub(Stack,Container,Container);
 
 /**
- * \brief Define Qual das Separações por espaço devia ser feita
+ * \brief Define qual das Separações por espaço devia ser feita
  *
- *
- * @param Container
- * @param Container 
  * @param Stack
- *
+ * 
+ * @param Container String a separar
+ * 
+ * @param Container Carater a usar como separadora  
  */
 void separar_which_space(Stack,Container,Container);
 
 /**
  * \brief Separa uma string em elementos de um array pelas as ocurrencias de whitespace
  *
- *
  * @param Stack
- * @param Container (string a separar) 
- *
+ * 
+ * @param Container String a separar 
  */
 void separar_space(Stack,Container);
 
 /**
  * \brief Separa uma string em elementos de um array pelas as ocurrencias de newlines
  *
- *
  * @param Stack
- * @param Container (string a separar) 
- *
+ * 
+ * @param Container String a separar
  */
 void separar_lines(Stack,Container);
 
 /**
  * \brief Função auxiliar para concatenar um número com um array
  *
- * @param Container (O número)
- * @param Container (O Array) 
+ * @param Container Número a concatenar
+ * 
+ * @param Container Array a concatenar 
  *
  * @returns Container
  */
@@ -456,8 +501,9 @@ Container prepend(Container,Container);
 /**
  * \brief Função auxiliar para concatenar um array com um número
  *
- * @param Container (O Array)
- * @param Container (A String) 
+ * @param Container Array a concatenar
+ * 
+ * @param Container Numero a concatenar 
  *
  * @returns Container
  */
