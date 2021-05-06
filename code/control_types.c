@@ -116,7 +116,10 @@ THEY CALLED ME MADMAN!
 char* better_strcat(char* fonte, char* join) {
     char* save = join;
     fonte = (char *) realloc(fonte, (strlen(fonte) + strlen(join)) * sizeof(char) + 1);
-    for(char* end_fonte = strchr(fonte,'\0'); join;) *(end_fonte++) = *(join++);
+    char* end_fonte = strchr(fonte,'\0');
+    while(join) {
+        *(end_fonte++) = *(join++);
+    }
     return fonte;
 }
 */

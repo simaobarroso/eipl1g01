@@ -49,7 +49,7 @@ void push(Container x, Stack stack) {
 Container pop(Stack stack) {
     if (isEmpty(stack)) {
         putchar('\n');
-        exit(EXIT_SUCCESS);
+        ERROR_2
     }
     return stack->arr[--stack->sizeofstack];
 }
@@ -82,7 +82,7 @@ void printstack(Stack stack) {
                 printf("{ %s }", stack->arr[i].LAMBDA);
                 free(stack->arr[i].LAMBDA);
                 break;
-            default: ERROR_2
+            default: ERROR_3
         }
     }
 }
