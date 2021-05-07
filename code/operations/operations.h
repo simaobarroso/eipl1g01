@@ -320,6 +320,17 @@ Container concatenar(Container x, Container y);
 void concatenarVezes (Stack,Container,Container);
 
 /**
+ * \brief Função auxiliar
+ *
+ * 
+ * @param const char 
+ *
+ * @param const char 
+ * 
+ */
+char* concat(const char *, const char *);
+
+/**
  * \brief Concatena strings ou arrays
  *
  * @param Container Array/String a concatenar

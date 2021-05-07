@@ -28,6 +28,7 @@ void colocar_stack(Stack stack, Container array) {
     free(array.ARRAY);
 }
 
+
 Container concatenar(Container x, Container y) { 
     Container res = { .label = Array };
     if(x.label == Array && y.label == Array) {
@@ -53,6 +54,7 @@ Container concatenar(Container x, Container y) {
     return res;
 }
 
+/*
 void concatenarVezes (Stack stack, Container sa, Container x) { // well, esta dá treta, como eu temia, se tentarmos fazer isto com o mesmo array também vai dar, nem preciso de ver
         Container res;
         res.label = (sa.label != String) ? Array : String;
@@ -62,6 +64,43 @@ void concatenarVezes (Stack stack, Container sa, Container x) { // well, esta d�
             res = concatenar(res,sa);
         }
         push(res,stack);
+}
+*/
+
+char* concat(const char *s1, const char *s2)
+{
+    char *result = malloc(strlen(s1) + strlen(s2) + 1); 
+    strcpy(result, s1);
+    strcat(result, s2);
+    return result;
+}
+
+void concatenarVezes (Stack stack, Container sa, Container x) {
+        Container res;
+        switch(sa.label){
+        case String:
+            char* aux = sa.STRING;
+            char* saa = sa.STRING;
+            Container res;
+                for (int i = 1; i < x.LONG; i++)
+                {
+                    res.STRING = concat(aux,saa);
+                    aux = res.STRING;
+                    free(res.STRING);
+                }
+            push(res,stack);
+          break;
+        case Array:
+                 Container aux2 = sa;
+                 Container res;
+                 res.ARRAY->sizeofstack = x.LONG * sa.ARRAY->sizeofstack;
+                        for(int i= 0; i < (res.ARRAY->sizeofstack);i++){
+                                res.ARRAY->arr[i] = aux2.ARRAY->arr[i % x.LONG];
+                                
+                        }
+            push(res,stack);
+          break;
+  }
 }
 
 void concatenar_sa(Stack stack, Container x, Container y) { 
