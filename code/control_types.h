@@ -216,4 +216,14 @@ int number_string(char** line,char** num,char** end);
  */
 char* better_strcat(char* source, char* join);
 
+/**
+ * \brief Faz o mesmo que a strcmp, mas para arrays
+ *
+ * @param Stack
+ * @param Stack
+ *
+ * @returns int
+ */
+int arraycmp(Stack,Stack);
+
 #endif

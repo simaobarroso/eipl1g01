@@ -2,9 +2,9 @@
  * @file Ficheiro que contêm a função principal do programa
  */
 #include "control_types.h"
-#include "parser/parser.h"
-#include "operations/operations.h"
-#include "stack/stack.h"
+#include "parser.h"
+#include "operations.h"
+#include "stack.h"
 
 #include <assert.h>
 #include <stdio.h>
@@ -24,13 +24,12 @@
 int main(void) { // TODO(Mota): mudar para o debugger
 
     Stack s = initialize_stack();
-    char line[SIZE];
-    fgets(line,SIZE,stdin);
-    char* to_parse = strdup(line);
+    char* line = (char*) malloc(sizeof(char) * SIZE);
+    line = fgets(line,SIZE,stdin);
     OperatorFunction* hashtable = hash();
     Container* vars = variables();
-    parser(s,to_parse,hashtable,vars);
-    free(to_parse);
+    parser(s,line,hashtable,vars);
+    free(line);
     printstack(s);
     putchar('\n');
     free_stack(s);

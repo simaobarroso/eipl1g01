@@ -1,7 +1,7 @@
-#include "../control_types.h"
+#include "control_types.h"
 #include "parser.h"
-#include "../operations/operations.h"
-#include "../stack/stack.h"
+#include "operations.h"
+#include "stack.h"
 
 Container* variables(void) {
     static Container vars[26] = {

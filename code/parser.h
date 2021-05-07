@@ -4,8 +4,8 @@
 #ifndef _PARSER
 #define _PARSER
 
-#include "../stack/stack.h"
-#include "../control_types.h"
+#include "stack.h"
+#include "control_types.h"
 
 /**
  * \brief Número de argumentos em cada função

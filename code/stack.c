@@ -2,7 +2,7 @@
  * @file Ficheiro que define o que é a Stack
  */
 #include "stack.h"
-#include "../control_types.h"
+#include "control_types.h"
 
 #include <assert.h>
 #include <stdio.h>

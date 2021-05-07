@@ -4,9 +4,9 @@
 #ifndef OPERATIONS_H
 #define OPERATIONS_H
 
-#include "../control_types.h"
-#include "../parser/parser.h"
-#include "../stack/stack.h"
+#include "control_types.h"
+#include "parser.h"
+#include "stack.h"
 
 #include <math.h>
 

@@ -1,7 +1,7 @@
-#include "../control_types.h"
+#include "control_types.h"
 #include "parser.h"
-#include "../operations/operations.h"
-#include "../stack/stack.h"
+#include "operations.h"
+#include "stack.h"
 
 #include <assert.h>
 #include <ctype.h>

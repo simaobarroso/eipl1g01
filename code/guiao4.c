@@ -9,17 +9,19 @@
 /**
  * \brief Variável global para tamanho
  */
-#define SIZE 10240
+#define SIZE 512
 
 void ler_input(Stack s) {
-    char string[SIZE], *c;
-    assert(fgets(string,SIZE,stdin) != NULL);
+    char* string = malloc(sizeof(char) * SIZE);
+    char* c;
+    string = fgets(string,SIZE,stdin);
     c = strchr(string,'\0');
     while (*(c - 1) == '\n') {
-        fgets(c,SIZE,stdin);
+        c = fgets(c,SIZE,stdin);
         c = strchr(string,'\0');
     }
     Container res = { .label = String, .STRING = strdup(string) };
+    free(string);
     push(res,s);
 }
 
@@ -255,12 +257,18 @@ void separar_string(Stack s, Container x, Container format) {
     Container buf = { .label = String };
     size_t f_length = strlen(format.STRING);
     char* buffer = x.STRING;
-    while(*x.STRING) {
-        buffer = (strstr(buffer,format.STRING)) ? strstr(buffer,format.STRING) : strchr(buffer,'\0');
-        buf.STRING = strndup(x.STRING, buffer - x.STRING);
+    if (!(*format.STRING)) {
+        buf.STRING = x.STRING;
         push(buf,res.ARRAY);
-        buffer += f_length;
-        x.STRING = buffer;
+    }
+    else {
+        while(*x.STRING) {
+            buffer = (strstr(buffer,format.STRING)) ? strstr(buffer,format.STRING) : strchr(buffer,'\0');
+            buf.STRING = strndup(x.STRING, buffer - x.STRING);
+            push(buf,res.ARRAY);
+            buffer += f_length;
+            x.STRING = buffer;
+        }
     }
     push(res,s);
 }

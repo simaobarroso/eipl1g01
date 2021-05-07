@@ -1,5 +1,5 @@
 #include "control_types.h"
-#include "operations/operations.h"
+#include "operations.h"
 
 #include <assert.h>
 #include <ctype.h>
