@@ -28,8 +28,7 @@ void colocar_stack(Stack stack, Container array) {
     free(array.ARRAY);
 }
 
-
-Container concatenar(Container x, Container y) { 
+void concatenar_sa(Stack s, Container x, Container y) { 
     Container res = { .label = Array };
     if(x.label == Array && y.label == Array) {
         for (int i= 0; i < y.ARRAY->sizeofstack; i++) push(y.ARRAY->arr[i], x.ARRAY);
@@ -51,60 +50,30 @@ Container concatenar(Container x, Container y) {
         res.label = String;
         res.STRING = better_strcat(toString(x).STRING,y.STRING);
     }
-    return res;
+    push(res,s);
 }
 
-/*
-void concatenarVezes (Stack stack, Container sa, Container x) { // well, esta dá treta, como eu temia, se tentarmos fazer isto com o mesmo array também vai dar, nem preciso de ver
-        Container res;
-        res.label = (sa.label != String) ? Array : String;
-        res = concatenar(sa,sa);
-        for (int i = 1; i < x.LONG; i++)
-        {
-            res = concatenar(res,sa);
-        }
-        push(res,stack);
-}
-*/
-
-char* concat(const char *s1, const char *s2)
-{
-    char *result = malloc(strlen(s1) + strlen(s2) + 1); 
-    strcpy(result, s1);
-    strcat(result, s2);
-    return result;
-}
-
-void concatenarVezes (Stack stack, Container sa, Container x) {
-        Container res;
-        switch(sa.label){
+void concatenarVezes(Stack stack, Container sa, Container x) {
+    Container res = { .label = sa.label };
+    char* buffer;
+    int size;
+    switch(sa.label) {
         case String:
-            char* aux = sa.STRING;
-            char* saa = sa.STRING;
-            Container res;
-                for (int i = 1; i < x.LONG; i++)
-                {
-                    res.STRING = concat(aux,saa);
-                    aux = res.STRING;
-                    free(res.STRING);
-                }
-            push(res,stack);
-          break;
+            buffer = strdup(sa.STRING);
+            for(int i = 1; i < x.LONG; i++)
+                sa.STRING = better_strcat(sa.STRING,buffer);
+            free(buffer);
+            buffer = NULL;
+            res.STRING = sa.STRING;
+            break;
         case Array:
-                 Container aux2 = sa;
-                 Container res;
-                 res.ARRAY->sizeofstack = x.LONG * sa.ARRAY->sizeofstack;
-                        for(int i= 0; i < (res.ARRAY->sizeofstack);i++){
-                                res.ARRAY->arr[i] = aux2.ARRAY->arr[i % x.LONG];
-                                
-                        }
-            push(res,stack);
-          break;
-  }
-}
-
-void concatenar_sa(Stack stack, Container x, Container y) { 
-    Container res = concatenar(x,y);
+            size = sa.ARRAY->sizeofstack;
+            for(int i = size; i < (size * x.LONG); i++)
+                push(sa.ARRAY->arr[i % size],sa.ARRAY);
+            res.ARRAY = sa.ARRAY;
+            break;
+        default: ERROR_1
+    }
     push(res,stack);
 }
 
@@ -273,8 +242,27 @@ void separar_sub(Stack s, Container str, Container substr) {
 }
 
 
-void separar_which_space(Stack s, Container x, Container format) {
-    (format.CHAR == '\n') ? separar_lines(s,x) : separar_space(s,x);
+void separar_which(Stack s, Container x, Container format) {
+    switch(format.label) {
+        case Char: (format.CHAR == '\n') ? separar_lines(s,x) : separar_space(s,x); break;
+        case String: separar_string(s,x,format); break;
+        default: ERROR_1
+    }
+}
+
+void separar_string(Stack s, Container x, Container format) {
+    Container res = { .label = Array, .ARRAY = initialize_stack() };
+    Container buf = { .label = String };
+    size_t f_length = strlen(format.STRING);
+    char* buffer = x.STRING;
+    while(*x.STRING) {
+        buffer = (strstr(buffer,format.STRING)) ? strstr(buffer,format.STRING) : strchr(buffer,'\0');
+        buf.STRING = strndup(x.STRING, buffer - x.STRING);
+        push(buf,res.ARRAY);
+        buffer += f_length;
+        x.STRING = buffer;
+    }
+    push(res,s);
 }
 
 void separar_space(Stack s, Container x) {

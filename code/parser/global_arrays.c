@@ -181,7 +181,7 @@ OperatorFunction* hash(void) {
         [ElemInit] =        { HASH_CONTENT(args_2,buscarXINICIO) },
         [RemoveFim] =       { HASH_CONTENT(args_1,removerFIM) },
         [SubstringIndex] =  { HASH_CONTENT(args_2,substring) },
-        [Separa] =          { HASH_CONTENT(args_2,separar_which_space) },
+        [Separa] =          { HASH_CONTENT(args_2,separar_which) },
         [PopStack] =        { HASH_CONTENT(args_1,colocar_stack) },
         [ElemEnd] =         { HASH_CONTENT(args_2,buscarXFIM) },
         [Concat] =          { HASH_CONTENT(args_2,concatenar_sa) },

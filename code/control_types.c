@@ -42,14 +42,15 @@ Container toInt(Container x) {
 }
 
 Container toDouble(Container x) {
+    long n;
+    char c;
     switch (x.label) {
-        case Long: x.DOUBLE = x.LONG; break;
-        case Char: x.DOUBLE = x.CHAR; break;
+        case Long: n = x.LONG; x.DOUBLE = n; x.label = Double; break;
+        case Char: c = x.CHAR; x.DOUBLE = c; x.label = Double; break;
         case Double: break;
         case String: x.DOUBLE = strtod(x.STRING,NULL); break;
         default: ERROR_1
     }
-    x.label = Double;
     return x;
 }
 
@@ -130,6 +131,6 @@ char* better_strcat(char* fonte, char* join) {
         *(end_fonte++) = *(join++);
         len--;
     }
-    *(++end_fonte) = '\0';
+    *end_fonte = '\0';
     return fonte;
 }

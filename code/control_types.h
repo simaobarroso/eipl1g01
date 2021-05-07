@@ -83,7 +83,7 @@ typedef struct Container {
 /**
  * \brief Verifica ser pertence à classe Num
  */
-#define IS_NUM(c) (c.label <= Char)
+#define IS_NUM(c) (c.label <= Double)
 /**
  * \brief Verifica se é String ou Array
  */

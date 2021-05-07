@@ -12,7 +12,7 @@
     void func(Stack s, Container x,Container y) {                   \
         Container res = { .label = Double };                        \
         res.DOUBLE = op(toDouble(x).DOUBLE,toDouble(y).DOUBLE);     \
-        res = to_num_type(NUM_RETURN(x.label,y.label),&res);         \
+        res = to_num_type(NUM_RETURN(x.label,y.label),&res);        \
         push(res,s);                                                \
     }
 

@@ -481,9 +481,11 @@ void separar_sub(Stack,Container,Container);
  * 
  * @param Container String a separar
  * 
- * @param Container Carater a usar como separadora  
+ * @param Container Carater ou string a usar como separadora  
  */
-void separar_which_space(Stack,Container,Container);
+void separar_which(Stack,Container,Container);
+
+void separar_string(Stack,Container,Container);
 
 /**
  * \brief Separa uma string em elementos de um array pelas as ocurrencias de whitespace
