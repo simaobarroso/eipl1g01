@@ -67,7 +67,8 @@ char* number_parse(Stack stack,char* line) {
 char* var_control(Stack s,char* line,Container* vars) {
     if (isupper(*line)) push(vars[*line++ - 'A'],s);
     else vars[*(++line) - 'A'] = s->arr[s->sizeofstack - 1];
-    return ++line;
+    if (*line != '/') line++;
+    return line;
 }
 
 char* structure_parse(Stack stack,char* line,OperatorFunction* hashtable,Container* vars) {
@@ -119,9 +120,7 @@ char* block_parse(Stack stack, char* line) {
 char* string_parse(Stack stack, char* line) {
     char* save = ++line;
     line = strchr(save,'"');
-    // char* to_res = line+1;
-    // *(to_res) = '\0';
-    Container res = { .label = String, .STRING = strndup(strcat(save,"\0"),line - save + 1) };
+    Container res = { .label = String, .STRING = strndup(save,line - save) };
     push(res,stack);
     return ++line;
 }

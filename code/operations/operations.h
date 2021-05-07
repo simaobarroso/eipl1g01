@@ -413,13 +413,13 @@ void removerINICIO(Stack,Container);
 /**
  * \brief Remove o primeiro elemento de um array ou de uma String
  *
- * @param Stack
- * 
  * @param Container String a usar
+ *
+ * @param Container Char a devolver
  * 
  * \returns String alterada
  */
-char* removerINICIO_string(Stack,char*);
+char* removerINICIO_string(char*,Container*);
 
 /**
  * \brief Remove o ultimo elemento de um array ou de uma String

@@ -148,8 +148,14 @@ OperatorFunction* hash(void) {
         [Troca3+128] =      { HASH_CONTENT(args_s,troca3) },
         [Troca3+256] =      { HASH_CONTENT(args_s,troca3) },
         [Inverte2] =        { HASH_CONTENT(args_s,inverte2) },
+        [Inverte2+128] =    { HASH_CONTENT(args_s,inverte2) },
+        [Inverte2+256] =    { HASH_CONTENT(args_s,inverte2) },
         [Duplica] =         { HASH_CONTENT(args_s,duplica) },
+        [Duplica+128] =     { HASH_CONTENT(args_s,duplica) },
+        [Duplica+256] =     { HASH_CONTENT(args_s,duplica) },
         [CopiaN] =          { HASH_CONTENT(args_s,copiaN) },
+        [CopiaN+128] =      { HASH_CONTENT(args_s,copiaN) },
+        [CopiaN+256] =      { HASH_CONTENT(args_s,copiaN) },
         [Pop] =             { HASH_CONTENT(args_s,void_pop) },
         [Pop+128] =         { HASH_CONTENT(args_s,void_pop) },
         [Pop+256] =         { HASH_CONTENT(args_s,void_pop) },
@@ -182,12 +188,12 @@ OperatorFunction* hash(void) {
         [ConcatenarVezes] = { HASH_CONTENT(args_2,concatenarVezes) },
         [RemoveInicio] =    { HASH_CONTENT(args_1,removerINICIO) },
         // GUIÃO 5
-        [ExecBloco] =    { HASH_CONTENT(args_b,aplicarbloco) },
-        [Map] =          { HASH_CONTENT(args_b,map) },
-        [Fold] =         { HASH_CONTENT(args_b,fold) },
-        [Filter] =       { HASH_CONTENT(args_b,filter) },
+        [ExecBloco] =       { HASH_CONTENT(args_b,aplicarbloco) },
+        [Map] =             { HASH_CONTENT(args_b,map) },           // não funciona
+        [Fold] =            { HASH_CONTENT(args_b,fold) },          // acho que está ao contrário
+        [Filter] =          { HASH_CONTENT(args_b,filter) },        // não funciona
         // [Sort] =         { HASH_CONTENT(args_b,sort) },
-        [While] =        { HASH_CONTENT(args_b,while_bloco) }
+        [While] =           { HASH_CONTENT(args_b,while_bloco) }    // não testei
     };
 return hashtable;
 }

@@ -31,7 +31,8 @@ void colocar_stack(Stack stack, Container array) {
 Container concatenar(Container x, Container y) { 
     Container res = { .label = Array };
     if(x.label == Array && y.label == Array) {
-        for (int i= 0; i < y.ARRAY->sizeofstack;i++) push(y.ARRAY->arr[i], x.ARRAY);
+        for (int i= 0; i < y.ARRAY->sizeofstack; i++) push(y.ARRAY->arr[i], x.ARRAY);
+        res = x;
         free(y.ARRAY);
     }
     else if(x.label == String && y.label == String) {
@@ -44,21 +45,18 @@ Container concatenar(Container x, Container y) {
     else if(x.label == String && IS_NUM(y)) {
         res.label = String;
         res.STRING = better_strcat(x.STRING ,toString(y).STRING);
-        free(y.STRING);
     }
     else if(IS_NUM(x) && y.label == String){
         res.label = String;
         res.STRING = better_strcat(toString(x).STRING,y.STRING);
-        free(x.STRING);
     }
     return res;
 }
 
-void concatenarVezes (Stack stack, Container sa, Container x) {
+void concatenarVezes (Stack stack, Container sa, Container x) { // well, esta dá treta, como eu temia, se tentarmos fazer isto com o mesmo array também vai dar, nem preciso de ver
         Container res;
         res.label = (sa.label != String) ? Array : String;
-        Container buffer = sa;
-        res = concatenar(sa,buffer);
+        res = concatenar(sa,sa);
         for (int i = 1; i < x.LONG; i++)
         {
             res = concatenar(res,sa);
@@ -72,13 +70,15 @@ void concatenar_sa(Stack stack, Container x, Container y) {
 }
 
 void range(Stack s,Container x) {
-    Container res = { .label = Long };
+    Stack new = initialize_stack();
+    Container range = { .label = Long };
     for (int i = 0; i < x.LONG; i++) {
-        res.LONG = i;
-        push(res,s);
+        range.LONG = i;
+        push(range,new);
     }
+    Container res = { .label = Array, .ARRAY = new };
+    push(res,s);
 }
-
 
 void length(Stack s,Container x) {
     Container n = { .label = Long, .LONG = (x.label != String) ? (long) x.ARRAY->sizeofstack : (long) strlen(x.STRING) };
@@ -108,14 +108,13 @@ void buscarXINICIO(Stack s, Container x, Container y) {
             free(buffer);
             break;
         case Array:
-            x.ARRAY->sizeofstack = y.LONG;
+            if (y.LONG) x.ARRAY->sizeofstack = y.LONG; // ver isto amanhã
             res = x;
             break;
         default: ERROR_1
     }
     push(res,s);
 }
-
 
 char* buscarXINICIO_string(Container string, Container index) {
     char* buffer = malloc(sizeof(char) * (strlen(string.STRING)));
@@ -129,57 +128,58 @@ void buscarXFIM(Stack s, Container gt, Container x) {
     switch (gt.label) {
         case Array:
             new = initialize_stack();
-            for (int i = s->sizeofstack - x.LONG; i < s->sizeofstack; i++)
+            for (int i = gt.ARRAY->sizeofstack - x.LONG; i < gt.ARRAY->sizeofstack; i++)
             {
-                push(s->arr[i],new);
+                push(gt.ARRAY->arr[i],new);
             }
 
-            res .ARRAY = new;
+            res.ARRAY = new;
             free(gt.ARRAY);
-            push(res,s);
             break;
         case String:
             res.STRING = buscarXFIM_string(gt,x);
-            push(res,s);
             break;
         default: ERROR_1
     }
+    push(res,s);
 }   
 
-char* buscarXFIM_string(Container string, Container index){
-    char* buffer = malloc(sizeof(char) * (strlen(string.STRING)));
-    int j = strlen(string.STRING) - index.LONG;
-    for(int i = j+1; i <= index.LONG; i++) buffer[i] = string.STRING[i];
+char* buscarXFIM_string(Container string, Container index) {
+    char* buffer = strchr(string.STRING, '\0') - index.LONG;
+    buffer = strdup(buffer);
+    free(string.STRING);
     return buffer;
 }
 
 void removerINICIO(Stack s, Container gt) {
     Stack new;
     Container res = { .label = gt.label };
+    Container to_push;
     switch(res.label) {
         case Array:  
             new = initialize_stack();
             res.ARRAY = new;
-            for (int i = 1; i < s->sizeofstack; i++)
+            to_push = gt.ARRAY->arr[0];
+            for (int i = 1; i < gt.ARRAY->sizeofstack; i++)
             {
-                push(s->arr[i],new);
+                push(gt.ARRAY->arr[i],new);
             }
             free(gt.ARRAY);
-            push(res,s);
             break;
         case String:
-            res.STRING = removerINICIO_string(s,gt.STRING);
-            push(res,s);
+            res.STRING = removerINICIO_string(gt.STRING,&to_push);
             break;
         default: ERROR_1
     }
+    push(res,s);
+    push(to_push,s);
 }
 
-char* removerINICIO_string(Stack s, char* string) {   //faleta vere istu - juaum
+char* removerINICIO_string(char* string, Container* to_push) {
     char* save = string;
-    char* to_dup = string+1;
-    Container res = { .label = Char, .CHAR = *to_dup };
-    push(res,s);
+    char* to_dup = string;
+    to_push->label = Char; 
+    to_push->CHAR = *to_dup;
     string = strdup(string+1);
     free(save);
     return string;
@@ -210,9 +210,9 @@ char* removerFIM_string(Stack s, char* string) {
 }
 
 void substring(Stack s, Container str, Container substr) {
-
-    long a = strspn(str.STRING,substr.STRING);
-    Container res = { .label = Long, .LONG = a };
+    
+    char* a = strstr(str.STRING,substr.STRING);
+    Container res = { .label = Long, .LONG = a - str.STRING  };
     push(res,s);
 }
 
@@ -240,16 +240,19 @@ void separar_which_space(Stack s, Container x, Container format) {
 
 void separar_space(Stack s, Container x) {
     Stack of_res = initialize_stack();
-    Container res = { .label = String, .ARRAY = of_res };
+    Container res = { .label = Array, .ARRAY = of_res };
     Container buffer = { .label = String };
-    char* save = x.STRING;
-    int i = 0, o = 0;
-    while (x.STRING != NULL)
+    char* save = x.STRING, *buf = x.STRING;
+    int i = 0;
+    while (x.STRING[i])
     {
-        if (isspace(x.STRING[i]) != 0) o++;
-        else {
-            buffer.STRING = strndup(x.STRING,o);
-            x.STRING += o + 1;
+        if (isspace(x.STRING[i])) {
+            buffer.STRING = strndup(buf,&x.STRING[i] - buf);
+            buf = &x.STRING[i+1];
+            push(buffer,res.ARRAY);
+        }
+        else if (!x.STRING[i+1]) {
+            buffer.STRING = strndup(buf,&x.STRING[i+1] - buf);
             push(buffer,res.ARRAY);
         }
         i++;
@@ -262,14 +265,17 @@ void separar_lines(Stack s, Container x) {
     Stack of_res = initialize_stack();
     Container res = { .label = Array, .ARRAY = of_res };
     Container buffer = { .label = String };
-    char* save = x.STRING;
-    int i = 0, o = 0;
-    while (x.STRING != NULL)
+    char* save = x.STRING, *buf = x.STRING;
+    int i = 0;
+    while (x.STRING[i])
     {
-        if ((x.STRING[i]) != '\n') o++;
-        else {
-            buffer.STRING = strndup(x.STRING,o);
-            x.STRING += o + 1;
+        if (x.STRING[i] == '\n') {
+            buffer.STRING = strndup(buf,&x.STRING[i] - buf);
+            buf = &x.STRING[i+1];
+            push(buffer,res.ARRAY);
+        }
+        else if (!x.STRING[i+1]) {
+            buffer.STRING = strndup(buf,&x.STRING[i+1] - buf);
             push(buffer,res.ARRAY);
         }
         i++;
@@ -277,7 +283,7 @@ void separar_lines(Stack s, Container x) {
     free(save);
     push(res,s);
 }
- 
+
 //----------FUNÇÕES AUXILIARES----------
 
 Container prepend(Container x, Container y) { 

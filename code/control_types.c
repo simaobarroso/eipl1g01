@@ -55,7 +55,7 @@ Container toDouble(Container x) {
 
 Container toString(Container x) { // tentar implementar apenas quando aparece o "l"
     char str[SIZE];
-    if (x.label != String && x.label != String_A) {
+    if (x.label != String) {
         if (x.label == Long) {
             sprintf(str,"%ld",x.LONG);
             x.STRING = strdup(str);
@@ -124,13 +124,12 @@ int number_string(char** line, char** num, char** end) {
  */
 char* better_strcat(char* fonte, char* join) {
     fonte = (char *) realloc(fonte, (strlen(fonte) + strlen(join)) * sizeof(char) + 1);
+    int len = strlen(join);
     char* end_fonte = strchr(fonte,'\0');
-    while(*join != '\0') {
-        *end_fonte = *join;
-        end_fonte++;
-        join++;
+    while(len) {
+        *(end_fonte++) = *(join++);
+        len--;
     }
-    ++end_fonte;
-    *end_fonte = '\0';
+    *(++end_fonte) = '\0';
     return fonte;
 }
