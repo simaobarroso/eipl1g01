@@ -65,7 +65,7 @@ char* number_parse(Stack stack,char* line) {
 }
 
 char* var_control(Stack s,char* line,Container* vars) {
-    if (isupper(*line)) push(vars[*line++ - 'A'],s);
+    if (isupper(*line)) push(vars[*(line++) - 'A'],s);
     else vars[*(++line) - 'A'] = s->arr[s->sizeofstack - 1];
     if (*line != '/') line++;
     return line;
@@ -85,17 +85,20 @@ char* array_parse(Stack stack, char* line, OperatorFunction* hashtable, Containe
     int arr = 1;
     char* save = line+=2;
 
-    while(arr) {
+    while(arr && *save != ']') {
         if (*line == '[') arr++;
         if (*line == ']') arr--;
         line++;
     }
 
     Container res = { .label = Array, .ARRAY = initialize_stack() };
-    save = strndup(save,line - save - 2);
-    parser(res.ARRAY,save,hashtable,vars);
+    if (*line != ']') {
+        save = strndup(save,line - save - 2);
+        parser(res.ARRAY,save,hashtable,vars);
+        free(save);
+    }
+    else line++;
     push(res,stack);
-    free(save);
     
     PARSE_SPACE
     return line;
@@ -135,6 +138,7 @@ int hashkey(Stack s,char** line,OperatorFunction* hashtable) {
     int res = HASHKEY(x);
     if (s->sizeofstack > 1 && x.label != Lambda) y = s->arr[s->sizeofstack - 2];
     else return res;
+    if (LOGIC(x.label,y.label)) return **line;
     if (hashtable[res].arg > 1 && IS_FOLDABLE(x) < IS_FOLDABLE(y)) res = HASHKEY(y);
     return (**line != 'e') ? res : 256 + *(++(*line));
 }

@@ -9,19 +9,19 @@
 /**
  * \brief Variável global para tamanho
  */
-#define SIZE 512
+#define SIZE 8192
 
 void ler_input(Stack s) {
     char* string = malloc(sizeof(char) * SIZE);
-    char* c;
+    char* save = string;
     string = fgets(string,SIZE,stdin);
-    c = strchr(string,'\0');
-    while (*(c - 1) == '\n') {
-        c = fgets(c,SIZE,stdin);
-        c = strchr(string,'\0');
+    char* c = strchr(string,'\0');
+    while (string) {
+        string = fgets(c,SIZE,stdin);
+        if (string) c = strchr(string,'\0');
     }
-    Container res = { .label = String, .STRING = strdup(string) };
-    free(string);
+    Container res = { .label = String, .STRING = strdup(save) };
+    free(save);
     push(res,s);
 }
 
@@ -174,7 +174,7 @@ void removerINICIO(Stack s, Container gt) {
             {
                 push(gt.ARRAY->arr[i],new);
             }
-            free(gt.ARRAY);
+            // free(gt.ARRAY);
             break;
         case String:
             res.STRING = removerINICIO_string(gt.STRING,&to_push);
@@ -197,6 +197,7 @@ char* removerINICIO_string(char* string, Container* to_push) {
 
 void removerFIM(Stack s, Container stack) {
     Container res;
+    Container to_push;
     switch (stack.label) {
         case Array:
             res = pop(stack.ARRAY);
@@ -205,16 +206,17 @@ void removerFIM(Stack s, Container stack) {
             break;
         case String:
             res.label = String;
-            res.STRING = removerFIM_string(s,stack.STRING);
+            res.STRING = removerFIM_string(stack.STRING,&to_push);
             push(res,s);
+            push(to_push,s);
             break;
         default: ERROR_1
     }
 }
 
-char* removerFIM_string(Stack s, char* string) {
-    Container res = { .label = Char, .CHAR = *(strchr(string,'\0') - 1) };
-    push(res,s);
+char* removerFIM_string(char* string, Container* to_push) {
+    to_push->label = Char;
+    to_push->CHAR = *(strchr(string,'\0') - 1);
     *(strchr(string,'\0') - 1) = '\0';
     return string;
 }
@@ -222,7 +224,7 @@ char* removerFIM_string(Stack s, char* string) {
 void substring(Stack s, Container str, Container substr) {
     
     char* a = strstr(str.STRING,substr.STRING);
-    Container res = { .label = Long, .LONG = a - str.STRING  };
+    Container res = { .label = Long, .LONG = (a) ? a - str.STRING : -1  };
     push(res,s);
 }
 
@@ -277,22 +279,16 @@ void separar_space(Stack s, Container x) {
     Stack of_res = initialize_stack();
     Container res = { .label = Array, .ARRAY = of_res };
     Container buffer = { .label = String };
-    char* save = x.STRING, *buf = x.STRING;
-    int i = 0;
-    while (x.STRING[i])
+    // char* save = x.STRING;
+    u_long n;
+    while (*x.STRING)
     {
-        if (isspace(x.STRING[i])) {
-            buffer.STRING = strndup(buf,&x.STRING[i] - buf);
-            buf = &x.STRING[i+1];
-            push(buffer,res.ARRAY);
-        }
-        else if (!x.STRING[i+1]) {
-            buffer.STRING = strndup(buf,&x.STRING[i+1] - buf);
-            push(buffer,res.ARRAY);
-        }
-        i++;
+        n = strcspn(x.STRING,"\n\t\v\f\r ");
+        buffer.STRING = strndup(x.STRING,n);
+        x.STRING += strspn(x.STRING, "\n\t\v\f\r ") + n;
+        if (n) push(buffer,res.ARRAY);
     }
-    free(save);
+    // free(save);
     push(res,s);
 }
 
@@ -300,22 +296,18 @@ void separar_lines(Stack s, Container x) {
     Stack of_res = initialize_stack();
     Container res = { .label = Array, .ARRAY = of_res };
     Container buffer = { .label = String };
-    char* save = x.STRING, *buf = x.STRING;
-    int i = 0;
-    while (x.STRING[i])
+    // char* save = x.STRING;
+    char* buf;
+    u_long n;
+    while (*x.STRING)
     {
-        if (x.STRING[i] == '\n') {
-            buffer.STRING = strndup(buf,&x.STRING[i] - buf);
-            buf = &x.STRING[i+1];
-            push(buffer,res.ARRAY);
-        }
-        else if (!x.STRING[i+1]) {
-            buffer.STRING = strndup(buf,&x.STRING[i+1] - buf);
-            push(buffer,res.ARRAY);
-        }
-        i++;
+        n = strcspn(x.STRING,"\n");
+        buf = strndup(x.STRING,n);
+        x.STRING += strspn(x.STRING, "\n") + n;
+        buffer.STRING = buf;
+        if (n) push(buffer,res.ARRAY);
     }
-    free(save);
+    // free(save);
     push(res,s);
 }
 
@@ -333,4 +325,18 @@ Container prepend(Container x, Container y) {
 Container append(Container x, Container y) { 
     push(y,x.ARRAY);
     return x;
+}
+
+#define TOP s->arr[s->sizeofstack - 1]
+
+void print_top(Stack s) {
+    switch (s->arr[s->sizeofstack - 1].label) {
+        case Long: printf("%ld\n", TOP.LONG); break;
+        case Double: printf("%g\n", TOP.DOUBLE); break;
+        case Char: printf("%c\n", TOP.CHAR); break;
+        case String: printf("%s\n", TOP.STRING); break;
+        case Array: printstack(TOP.ARRAY); putchar('\n'); break;
+        case Lambda: printf("%s", TOP.LAMBDA); break;
+        default: ERROR_3
+    }
 }

@@ -1,3 +1,4 @@
+#include "control_types.h"
 #include "operations.h"
 
 #include <assert.h>
@@ -10,61 +11,60 @@ void aplicarbloco(Stack s, Container x, Container y, OperatorFunction* hashtable
     parser(s,y.LAMBDA,hashtable,vars);
 }
 
-void map(Stack s, Container x, Container y, OperatorFunction* hashtable, Container* vars) {
+void map(Stack s, Container x, Container fx, OperatorFunction* hashtable, Container* vars) {
     if (x.label == String) x = string_to_array(x);
     Stack map = initialize_stack();
+    Container res = { .label = x.label, .ARRAY = map };
     
     for(int i = 0; i < x.ARRAY->sizeofstack; i++) {
         push(x.ARRAY->arr[i],map);
-        parser(map,y.LAMBDA,hashtable,vars);
-        x.ARRAY->sizeofstack++;
+        parser(map,fx.LAMBDA,hashtable,vars);
     }
-    if (x.label == String_A) x = array_to_string(x);
-    free(x.ARRAY);
-    push(x,s);
-}
-
-void fold(Stack s, Container x, Container y, OperatorFunction* hashtable, Container* vars) {
-    while(x.ARRAY->sizeofstack != 1) {
-        parser(x.ARRAY,y.LAMBDA,hashtable,vars);
-    }
-    Container res = pop(x.ARRAY);
-    free(x.ARRAY);
+    
+    if (all_char(res)) res = array_to_string(res);
+    if (res.label == Array) free(x.ARRAY);
     push(res,s);
 }
 
-void filter(Stack s, Container x, Container y, OperatorFunction* hashtable, Container* vars) {
+void fold(Stack s, Container x, Container fx, OperatorFunction* hashtable, Container* vars) {
+    Stack fold = initialize_stack();
+    for(int i = x.ARRAY->sizeofstack - 1;i >= 0; i--) {
+        push(x.ARRAY->arr[i],fold);
+    }
+    free(x.ARRAY);
+    while(fold->sizeofstack > 1) parser(fold,fx.STRING,hashtable,vars);
+    Container res = { .label = Array, .ARRAY = fold };
+    push(res,s);
+}
+
+void filter(Stack s, Container x, Container fx, OperatorFunction* hashtable, Container* vars) {
     if (x.label == String) x = string_to_array(x);
 
     Stack filter = initialize_stack();
-    Container res = { .label = x.label };
+    Container res = { .label = Array, .ARRAY = filter };
 
     for(int i = 0; i < x.ARRAY->sizeofstack; i++) {
-        parser(filter,y.LAMBDA,hashtable,vars);
-        long check = toInt(pop(filter)).LONG;
-        if (check) push(x.ARRAY->arr[i],filter);
+        push(x.ARRAY->arr[i],filter);
+        parser(filter,fx.LAMBDA,hashtable,vars);
+        if (pop(filter).LONG) {
+            push(x.ARRAY->arr[i],filter);
+        }
     }
 
     free(x.ARRAY);
-    if (res.label == String_A) res = array_to_string(x);
+    if (all_char(res)) res = array_to_string(res);
     push(res,s);
 }
 
-void while_bloco(Stack s, Container x, Container y, OperatorFunction* hashtable, Container* vars) {
-    if (x.label == String)
-        x = string_to_array(x);
-
-    parser(s,y.LAMBDA,hashtable,vars);
-    long check = toInt(pop(s)).LONG;
-
-    for(int i = 0; x.ARRAY->sizeofstack && check; i++) {
-        x.ARRAY->sizeofstack--;
-        parser(s,y.LAMBDA,hashtable,vars);
-        check = toInt(pop(s)).LONG;
+void while_bloco(Stack s, Container x, Container fx, OperatorFunction* hashtable, Container* vars) {
+    Stack while_b = initialize_stack();
+    push(x,while_b);
+    while(IF_CONDITION(while_b->arr[while_b->sizeofstack - 1])) {
+        parser(while_b,fx.LAMBDA,hashtable,vars);
+        pop(while_b);
     }
-
-    if (x.label == String_A) x = array_to_string(x);
-    push(x,s);
+    push(pop(while_b),s);
+    free(while_b);
 }
 
 // void ordenar(Stack s, Container x, Container y, OperatorFunction* hashtable, Container* vars) {

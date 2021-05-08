@@ -9,7 +9,7 @@
 /**
  * \brief Controla o tipo de cada container
  */
-typedef enum Label { Long, Char, Double, String, String_A, Array, Lambda } Label;
+typedef enum Label { Long, Char, Double, String, Array, Lambda } Label;
 
 /**
  * \brief Controla os elementos da stack
@@ -88,6 +88,14 @@ typedef struct Container {
  * \brief Verifica se é String ou Array
  */
 #define FOLD_TYPE(c) (Array - (c.label == String) + (c.label == String_A))
+/**
+ * \brief Caso especial da hashkey para lógica
+ */
+#define LOGIC(x,y) (BOTH_FOLDABLE(x,y) && (**line == '>' || **line == '<' || **line == '='))
+/**
+ * \brief Verifica se 2 coisas são foldable
+ */
+#define BOTH_FOLDABLE(x,y) ((x == String && y == String) || (x == Array && y == Array))
 
 // - GENERALIDADES PARA NÚMEROS
 /**
@@ -106,6 +114,13 @@ typedef struct Container {
  * \brief Devolve o máximo entre dois números
  */
 #define MAX(a,b) ((a > b) ? a : b)
+/**
+ * \brief Condição geral deste programa para operações lógicas
+ */
+#define IF_CONDITION(x)                                      \
+        ((IS_NUM(x) && toInt(x).LONG) ||                     \
+        (x.label == Array && x.ARRAY->sizeofstack != 0) ||   \
+        (x.label == String && *x.STRING))
 
 // ____ERROS____
 

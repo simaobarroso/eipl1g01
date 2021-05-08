@@ -68,20 +68,22 @@ void printstack(Stack stack) {
                 break;
             case String: 
                 printf("%s", stack->arr[i].STRING);
-                free(stack->arr[i].STRING);
                 break;
             case Array:
                 printstack(stack->arr[i].ARRAY);
-                free(stack->arr[i].ARRAY);
                 break;
             case Lambda:
                 printf("{ %s }", stack->arr[i].LAMBDA);
-                free(stack->arr[i].LAMBDA);
                 break;
             default: ERROR_3
         }
     }
 }
+
+// fazer função de dar free geral
+
+
+
 
 // debugging
 /*

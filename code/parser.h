@@ -164,6 +164,7 @@ enum Operations { /**Enum com tipo Operations **/
     // GUIÃO 4
     Range = ',',
     ReadInput = 't',
+    Print = 'p',
     Length = ','+128,
     Concat = '+'+128,
     ConcatenarVezes = '*'+128,
@@ -180,7 +181,7 @@ enum Operations { /**Enum com tipo Operations **/
     Map = '%'+256,
     Fold = '*'+256,
     Filter = ','+256,
-    Sort = '$'+256,
+    SortOn = '$'+256,
     While = 'w'+256
 };
 

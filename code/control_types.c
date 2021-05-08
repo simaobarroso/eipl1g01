@@ -48,7 +48,7 @@ Container toDouble(Container x) {
         case Long: n = x.LONG; x.DOUBLE = n; x.label = Double; break;
         case Char: c = x.CHAR; x.DOUBLE = c; x.label = Double; break;
         case Double: break;
-        case String: x.DOUBLE = strtod(x.STRING,NULL); break;
+        case String: x.DOUBLE = strtod(x.STRING,NULL); x.label = Double; break;
         default: ERROR_1
     }
     return x;
@@ -77,23 +77,26 @@ Container toString(Container x) { // tentar implementar apenas quando aparece o 
 Container string_to_array(Container x) {
     Container res = { .label = Array, .ARRAY = initialize_stack() };
     Container buffer = { .label = Char };
-    while(x.STRING) {
+    while(*x.STRING) {
         buffer.CHAR = *x.STRING;
         push(buffer,res.ARRAY);
         x.STRING++;
     }
-    free(x.STRING);
+    // free(x.STRING); // Houston, we have a problem
     return res;
 }
 
 Container array_to_string(Container x) {
     char* buffer;
     if (!all_char(x)) {
-        x.label = Array;    
+        x.label = Array;
     }
     else {
-        buffer = malloc(x.ARRAY->sizeofstack * sizeof(char));
-        for(int i = 0; i < x.ARRAY->sizeofstack; i++) buffer[i] = x.ARRAY->arr[i].CHAR;
+        buffer = malloc(x.ARRAY->sizeofstack * sizeof(char) + 1);
+        for(int i = 0; i < x.ARRAY->sizeofstack; i++) {
+            buffer[i] = x.ARRAY->arr[i].CHAR;
+            buffer[i+1] = '\0';
+        }
         free(x.ARRAY);
         x.label = String;
         x.STRING = buffer;
@@ -104,7 +107,6 @@ Container array_to_string(Container x) {
 int all_char(Container x) {
     int i = 0;
     while(i < x.ARRAY->sizeofstack && x.ARRAY->arr[i].label == Char) i++;
-
     return i == x.ARRAY->sizeofstack;
 }
 
@@ -133,4 +135,19 @@ char* better_strcat(char* fonte, char* join) {
     }
     *end_fonte = '\0';
     return fonte;
+}
+
+int arraycmp(Stack esq,Stack dir) {
+    int r = 0;
+    if (esq->sizeofstack != dir->sizeofstack)
+        return esq->sizeofstack > dir->sizeofstack ? 1 : -1;
+    else {
+        for(int i = 0; i < esq->sizeofstack; i++) {
+            if (toDouble(esq->arr[i]).DOUBLE != toDouble(dir->arr[i]).DOUBLE) {
+                r = toDouble(esq->arr[i]).DOUBLE > toDouble(dir->arr[i]).DOUBLE ? 1 : -1;
+                i = esq->sizeofstack; // break não break
+            }
+        }
+    }
+    return r;
 }

@@ -164,6 +164,8 @@ void nao(Stack,Container);
  * @param Container Valor a comparar
  */
 void menor(Stack,Container,Container);
+
+void menor_ex(Stack,Container,Container);
 /**
  * \brief Vê se um valor é maior que outro, se for maior, devolve esse valor, se não devolve 0
  *
@@ -174,6 +176,9 @@ void menor(Stack,Container,Container);
  * @param Container Valor a comparar
  */
 void maior(Stack,Container,Container);
+
+void maior_ex(Stack,Container,Container);
+
 /**
  * \brief Vê se um valor é igual ao outro, se for, devolve esse valor, se não devolve 0
  *
@@ -184,6 +189,9 @@ void maior(Stack,Container,Container);
  * @param Container Valor a comparar
  */
 void igual(Stack,Container,Container);
+
+void igual_ex (Stack,Container,Container);
+
 /**
  * \brief Se os dois argumnetos forem diferentes de 0, retorna o segundo argumento. Caso contrario, retorna 0.
  *
@@ -214,6 +222,9 @@ void oulogic(Stack,Container,Container);
  * @param Container Valor a comparar
  */
 void compmaior(Stack,Container,Container);
+
+void compmaior_ex(Stack,Container,Container);
+
 /**
  * \brief Retorna o menor dos dois argumentos a Stack.
  *
@@ -224,6 +235,8 @@ void compmaior(Stack,Container,Container);
  * @param Container Valor a comparar
  */
 void compmenor(Stack,Container,Container);
+
+void compmenor_ex(Stack,Container,Container);
 
 /**
  * \brief Necessita de três numeros, se o primeiro não for 0, devolve o segundo valor, se não, devolve o terceiro valor
@@ -450,7 +463,7 @@ void removerFIM(Stack,Container);
  * 
  * \returns String alterada 
  */
-char* removerFIM_string(Stack,char*);
+char* removerFIM_string(char*,Container*);
 
 /**
  * \brief Devolve o valor do indice da primeira ocurrencia de uma substring numa dada string
@@ -504,6 +517,13 @@ void separar_space(Stack,Container);
  * @param Container String a separar
  */
 void separar_lines(Stack,Container);
+
+/**
+ * \brief Imprime o topo da stack
+ *
+ * @param Stack
+ */
+void print_top(Stack s);
 
 /**
  * \brief Função auxiliar para concatenar um número com um array

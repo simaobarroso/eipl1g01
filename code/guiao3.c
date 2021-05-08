@@ -10,11 +10,14 @@
 /**
  * \brief Facilitador de escrita de operações lógicas que retornam "bool"
  */
-#define LOGIC_OPERATION(func,op) 								\
-	void func(Stack stack, Container x, Container y) {			\
-		Container res = { .label = Long }; 						\
-		res.LONG = (toDouble(x).DOUBLE op toDouble(y).DOUBLE);	\
-		push(res,stack); 										\
+#define LOGIC_OPERATION(func,op) 								    \
+	void func(Stack stack, Container x, Container y) {			    \
+        if (BOTH_FOLDABLE(x.label,y.label)) func##_ex(stack,x,y);   \
+		else {                                                      \
+            Container res = { .label = Long }; 						\
+		    res.LONG = (toDouble(x).DOUBLE op toDouble(y).DOUBLE);	\
+		    push(res,stack); 										\
+        }                                                           \
 	}
 
 LOGIC_OPERATION(igual,==)
@@ -52,23 +55,26 @@ void oulogic(Stack stack, Container x, Container y) {
 /**
  * \brief Facilitador de escrita de operações lógicas que retornam o maior/menor dos números inseridos
  */
-#define EITHER_COMPARE_OPERATION(func,op) 									\
-	void func(Stack stack, Container x, Container y) { 						\
-		Container res; 														\
-		Label x_l = x.label; 												\
-		Label y_l = y.label; 												\
-		res = (toDouble(x).DOUBLE op toDouble(y).DOUBLE) 					\
-			? to_num_type(x_l,&x) 											\
-			: to_num_type(y_l,&y); 											\
-		push(res,stack); 													\
+#define EITHER_COMPARE_OPERATION(func,op) 								\
+	void func(Stack stack, Container x, Container y) { 					\
+        if (BOTH_FOLDABLE(x.label, y.label)) func##_ex(stack,x,y);      \
+		else {                                                          \
+            Container res; 												\
+		    Label x_l = x.label; 										\
+		    Label y_l = y.label; 										\
+		    res = (toDouble(x).DOUBLE op toDouble(y).DOUBLE) 			\
+		    	? to_num_type(x_l,&x) 									\
+		    	: to_num_type(y_l,&y); 									\
+		    push(res,stack); 											\
+        }                                                               \
 	}
 
 EITHER_COMPARE_OPERATION(compmaior,>)
 EITHER_COMPARE_OPERATION(compmenor,<)
 
-void ifthenelse(Stack stack, Container z, Container y, Container x) {
+void ifthenelse(Stack stack, Container x, Container y, Container z) {
 	Container res;
-	res = toInt(x).LONG ? y : z;
+    res = IF_CONDITION(x) ? y : z;
 	push(res,stack);
 }
 
@@ -88,47 +94,6 @@ void igual_ex (Stack s, Container x, Container y) {
         break;
     default: ERROR_1
     }
-}
-
-
-void emaior_ex(Stack s, Container x , Container y) {
-    Container res;
-    switch (x.label)
-    {
-    case String:
-        res.label = String;
-        if (strcmp(x.STRING,y.STRING) > 0) res.STRING = x.STRING;
-        else res.STRING = y.STRING;
-        push(res,s);
-        break;
-    case Array:
-        res.label = Array;
-        if (arraycmp(x.ARRAY,y.ARRAY) > 0) res.ARRAY = x.ARRAY;
-        else res.ARRAY = y.ARRAY;
-        push(res,s);
-        break;
-    default: ERROR_1
-    }
-}
-
-void emenor_ex(Stack s, Container x , Container y) {
-   Container res;
-    switch (x.label)
-    {
-    case String:
-        res.label = String;
-        if (strcmp(x.STRING,y.STRING) < 0) res.STRING = x.STRING;
-        else res.STRING = y.STRING;
-        push(res,s);
-        break;
-    case Array:
-        res.label = Array;
-        if (arraycmp(x.ARRAY,y.ARRAY) < 0) res.ARRAY = x.ARRAY;
-        else res.ARRAY = y.ARRAY;
-        push(res,s);
-        break;
-    default: ERROR_1
-    } 
 }
 
 void maior_ex(Stack s, Container x , Container y) {
@@ -165,4 +130,44 @@ void menor_ex(Stack s, Container x , Container y) {
         break;
     default: ERROR_1
     }
+}
+
+void compmaior_ex(Stack s, Container x , Container y) {
+    Container res;
+    switch (x.label)
+    {
+    case String:
+        res.label = String;
+        if (strcmp(x.STRING,y.STRING) > 0) res.STRING = x.STRING;
+        else res.STRING = y.STRING;
+        push(res,s);
+        break;
+    case Array:
+        res.label = Array;
+        if (arraycmp(x.ARRAY,y.ARRAY) > 0) res.ARRAY = x.ARRAY;
+        else res.ARRAY = y.ARRAY;
+        push(res,s);
+        break;
+    default: ERROR_1
+    }
+}
+
+void compmenor_ex(Stack s, Container x , Container y) {
+    Container res;
+    switch (x.label)
+    {
+    case String:
+        res.label = String;
+        if (strcmp(x.STRING,y.STRING) < 0) res.STRING = x.STRING;
+        else res.STRING = y.STRING;
+        push(res,s);
+        break;
+    case Array:
+        res.label = Array;
+        if (arraycmp(x.ARRAY,y.ARRAY) < 0) res.ARRAY = x.ARRAY;
+        else res.ARRAY = y.ARRAY;
+        push(res,s);
+        break;
+    default: ERROR_1
+    } 
 }

@@ -177,6 +177,9 @@ OperatorFunction* hash(void) {
         [ReadInput] =       { HASH_CONTENT(args_s,ler_input) },
         [ReadInput+128] =   { HASH_CONTENT(args_s,ler_input) },
         [ReadInput+256] =   { HASH_CONTENT(args_s,ler_input) },
+        [Print] =           { HASH_CONTENT(args_s, print_top) },
+        [Print+128] =       { HASH_CONTENT(args_s, print_top) },
+        [Print+256] =       { HASH_CONTENT(args_s, print_top) },
         [ValIndex] =        { HASH_CONTENT(args_2,indice) },
         [ElemInit] =        { HASH_CONTENT(args_2,buscarXINICIO) },
         [RemoveFim] =       { HASH_CONTENT(args_1,removerFIM) },
@@ -189,11 +192,11 @@ OperatorFunction* hash(void) {
         [RemoveInicio] =    { HASH_CONTENT(args_1,removerINICIO) },
         // GUIÃO 5
         [ExecBloco] =       { HASH_CONTENT(args_b,aplicarbloco) },
-        [Map] =             { HASH_CONTENT(args_b,map) },           // não funciona
-        [Fold] =            { HASH_CONTENT(args_b,fold) },          // acho que está ao contrário
+        [Map] =             { HASH_CONTENT(args_b,map) },
+        [Fold] =            { HASH_CONTENT(args_b,fold) },       // está ao contrário
         [Filter] =          { HASH_CONTENT(args_b,filter) },        // não funciona
-        // [Sort] =         { HASH_CONTENT(args_b,sort) },
-        [While] =           { HASH_CONTENT(args_b,while_bloco) }    // não testei
+        // [SortOn] =           { HASH_CONTENT(args_b,sort) },
+        [While] =            { HASH_CONTENT(args_b,while_bloco) }    // não funciona
     };
 return hashtable;
 }
