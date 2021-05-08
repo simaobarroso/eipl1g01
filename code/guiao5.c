@@ -90,9 +90,9 @@ void ordenar(Stack s, Container x, Container fx, OperatorFunction* hashtable, Co
     int n = 1;
 
     while(n < x.ARRAY->sizeofstack) {
-        for(size_t i = n; SORT_I(i) < SORT_I(i-1); i--) {
+        for(size_t i = n; SORT_I(i) < SORT_I(i-1) && i > 0; i--) {
             swap(&sort->arr[i-1],&sort->arr[i]);
-            swap(&x.ARRAY->arr[i],&x.ARRAY->arr[i-1]);
+            swap(&x.ARRAY->arr[i-1],&x.ARRAY->arr[i]);
         }
         n++;
     }
