@@ -154,6 +154,7 @@ void void_pop(Stack);
  * @param Container Valor a usar
  */
 void nao(Stack,Container);
+
 /**
  * \brief Vê se um valor é menor que outro, se for menor, devolve esse valor, se não devolve 0
  *
@@ -165,7 +166,39 @@ void nao(Stack,Container);
  */
 void menor(Stack,Container,Container);
 
+/**
+ * \brief Mesmo objetivo que a função igual, mas voltada para arrays e strings
+ *
+ * @param Stack
+ * 
+ * @param Container 
+ * 
+ * @param Container 
+ */
+void igual_ex (Stack,Container,Container);
+
+/**
+ * \brief Mesmo objetivo que a função maior, mas voltada para arrays e strings
+ *
+ * @param Stack 
+ * 
+ * @param Container
+ * 
+ * @param Container
+ */
+void maior_ex(Stack,Container,Container);
+
+/**
+ * \brief Mesmo objetivo que a função menor, mas voltada para arrays e strings
+ *
+ * @param Stack 
+ * 
+ * @param Container
+ * 
+ * @param Container
+ */
 void menor_ex(Stack,Container,Container);
+
 /**
  * \brief Vê se um valor é maior que outro, se for maior, devolve esse valor, se não devolve 0
  *
@@ -176,8 +209,6 @@ void menor_ex(Stack,Container,Container);
  * @param Container Valor a comparar
  */
 void maior(Stack,Container,Container);
-
-void maior_ex(Stack,Container,Container);
 
 /**
  * \brief Vê se um valor é igual ao outro, se for, devolve esse valor, se não devolve 0
@@ -190,8 +221,6 @@ void maior_ex(Stack,Container,Container);
  */
 void igual(Stack,Container,Container);
 
-void igual_ex (Stack,Container,Container);
-
 /**
  * \brief Se os dois argumnetos forem diferentes de 0, retorna o segundo argumento. Caso contrario, retorna 0.
  *
@@ -202,6 +231,7 @@ void igual_ex (Stack,Container,Container);
  * @param Container Valor a verificar
  */
 void elogic(Stack,Container,Container);
+
 /**
  * \brief Se os dois argumnetos forem iguais a 0, retorna 0. Caso contrario, devolve o primeiro argumento se este for verdadeiro, ou o segundo, caso contrario.
  *
@@ -212,6 +242,7 @@ void elogic(Stack,Container,Container);
  * @param Container Valor a verificar
  */
 void oulogic(Stack,Container,Container);
+
 /**
  * \brief Retorna o maior dos dois agrumentos a Stack.
  *
@@ -223,6 +254,15 @@ void oulogic(Stack,Container,Container);
  */
 void compmaior(Stack,Container,Container);
 
+/**
+ * \brief Mesmo objetivo da função compmaior, mas aplicada a arrays e strings
+ *
+ * @param Stack
+ * 
+ * @param Container Valor a comparar
+ * 
+ * @param Container Valor a comparar
+ */
 void compmaior_ex(Stack,Container,Container);
 
 /**
@@ -236,6 +276,15 @@ void compmaior_ex(Stack,Container,Container);
  */
 void compmenor(Stack,Container,Container);
 
+/**
+ * \brief Mesmo objetivo que a função compmenor, mas voltada para arrays e strings
+ *
+ * @param Stack 
+ * 
+ * @param Container
+ * 
+ * @param Container
+ */
 void compmenor_ex(Stack,Container,Container);
 
 /**
@@ -498,6 +547,15 @@ void separar_sub(Stack,Container,Container);
  */
 void separar_which(Stack,Container,Container);
 
+/**
+ * \brief Separa uma string em substrings através de um token
+ *
+ * @param Stack
+ * 
+ * @param Container String a separar
+ * 
+ * @param Container Carater ou string a usar como separadora  
+ */
 void separar_string(Stack,Container,Container);
 
 /**
@@ -549,10 +607,19 @@ Container append(Container,Container);
 
 // -------------------- GUIÃO 5 --------------------
 
+/**
+ * \brief Função que aplica um bloco ao topo de uma stack
+ *
+ * @param Stack
+ * @param Container
+ * @param Container
+ * @param OperatorFunction
+ * @param Container
+ */
 void aplicarbloco(Stack,Container,Container,OperatorFunction*,Container*);
 
 /**
- * \brief Função que aplica uma ação a cada elemento de um array/string
+ * \brief Função que é recebida para aplicar a map
  *
  * @param Stack
  * @param Container
@@ -562,10 +629,39 @@ void aplicarbloco(Stack,Container,Container,OperatorFunction*,Container*);
  */
 void map(Stack,Container,Container,OperatorFunction*,Container*);
 
+/**
+ * \brief Função que aplica uma ação a cada elemento de um array/string
+ *
+ * @param Stack
+ * @param Container
+ * @param Container
+ * @param OperatorFunction
+ * @param Container
+ *
+ * @returns Stack
+ */
 Stack map_sort_aux(Container,Container,OperatorFunction*,Container*);
 
+/**
+ * \brief Função que reduz o array pela aplicação de outra ou várias funções
+ *
+ * @param Stack
+ * @param Container
+ * @param Container
+ * @param OperatorFunction
+ * @param Container
+ */
 void fold(Stack,Container,Container,OperatorFunction*,Container*);
 
+/**
+ * \brief Função que filtra por condiçao um array ou string
+ *
+ * @param Stack
+ * @param Container
+ * @param Container
+ * @param OperatorFunction
+ * @param Container
+ */
 void filter(Stack,Container,Container,OperatorFunction*,Container*);
 
 /**
@@ -579,8 +675,26 @@ void filter(Stack,Container,Container,OperatorFunction*,Container*);
  */
 void while_bloco(Stack,Container,Container,OperatorFunction*,Container*);
 
+/**
+ * \brief Função que ordena um array após a aplicação da map 
+ *
+ * @param Stack
+ * @param Container
+ * @param Container
+ * @param OperatorFunction
+ * @param Container
+ */
 void ordenar(Stack,Container,Container,OperatorFunction*,Container*);
 
+/**
+ * \brief Auxiliar da funcao ordena, que troca o conteúdo de dois containers
+ *
+ * @param Stack
+ * @param Container
+ * @param Container
+ * @param OperatorFunction
+ * @param Container
+ */
 void swap(Container*,Container*);
 
 #endif

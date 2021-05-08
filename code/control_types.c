@@ -7,6 +7,9 @@
 #include <stdlib.h>
 #include <string.h>
 
+/**
+ * \brief Definição global de tamanho
+ */
 #define SIZE 8192
 
 Container to_num_type(Label l, Container* x) {

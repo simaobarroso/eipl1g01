@@ -246,14 +246,35 @@ char* better_strcat(char* source, char* join);
  * @param Stack
  * @param Stack
  *
- * @returns int
+ * @returns Int
  */
 int arraycmp(Stack,Stack);
 
+/**
+ * \brief Duplica um array
+ *
+ * @param Stack
+ *
+ * @returns Stack
+ **/ 
 Stack arraydup(Stack s);
 
+/**
+ * \brief Copia um container
+ *
+ * @param Apontador para um container
+ *
+ * @returns Container
+ **/ 
 Container copy_container(Container const*);
 
+/**
+ * \brief Converte um container de char para string 
+ *
+ * @param Container 
+ *
+ * @returns Container
+ **/ 
 Container char_to_string(Container);
 
 #endif
