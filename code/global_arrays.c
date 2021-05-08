@@ -134,31 +134,15 @@ OperatorFunction* hash(void) {
         [Bitwisenot] =      { HASH_CONTENT(args_1,bitwisenot) },
         // GUIÃO 2
         [NewLine] =         { HASH_CONTENT(args_s,newline) },
-        [NewLine+128] =     { HASH_CONTENT(args_s,newline) },
-        [NewLine+256] =     { HASH_CONTENT(args_s,newline) },
         [ToInt] =           { HASH_CONTENT(args_s,to_int_op) },
-        [ToInt+128] =       { HASH_CONTENT(args_s,to_int_op) },
         [ToChar] =          { HASH_CONTENT(args_s,to_char_op) },
-        [ToChar+128] =      { HASH_CONTENT(args_s,to_char_op) },
         [ToDouble] =        { HASH_CONTENT(args_s,to_double_op) },
-        [ToDouble+128] =    { HASH_CONTENT(args_s,to_double_op) },
         [ToString] =        { HASH_CONTENT(args_s,to_string_op) },
-        [ToString+128] =    { HASH_CONTENT(args_s,to_string_op) },
         [Troca3] =          { HASH_CONTENT(args_s,troca3) },
-        [Troca3+128] =      { HASH_CONTENT(args_s,troca3) },
-        [Troca3+256] =      { HASH_CONTENT(args_s,troca3) },
         [Inverte2] =        { HASH_CONTENT(args_s,inverte2) },
-        [Inverte2+128] =    { HASH_CONTENT(args_s,inverte2) },
-        [Inverte2+256] =    { HASH_CONTENT(args_s,inverte2) },
         [Duplica] =         { HASH_CONTENT(args_s,duplica) },
-        [Duplica+128] =     { HASH_CONTENT(args_s,duplica) },
-        [Duplica+256] =     { HASH_CONTENT(args_s,duplica) },
         [CopiaN] =          { HASH_CONTENT(args_s,copiaN) },
-        [CopiaN+128] =      { HASH_CONTENT(args_s,copiaN) },
-        [CopiaN+256] =      { HASH_CONTENT(args_s,copiaN) },
         [Pop] =             { HASH_CONTENT(args_s,void_pop) },
-        [Pop+128] =         { HASH_CONTENT(args_s,void_pop) },
-        [Pop+256] =         { HASH_CONTENT(args_s,void_pop) },
         // GUIÃO 3
         [FromEitherE] =     { HASH_CONTENT(args_2,elogic) },
         [FromEitherOu] =    { HASH_CONTENT(args_2,oulogic) },
@@ -175,11 +159,7 @@ OperatorFunction* hash(void) {
         [Range] =           { HASH_CONTENT(args_1,range) },
         [Length] =          { HASH_CONTENT(args_1,length) },
         [ReadInput] =       { HASH_CONTENT(args_s,ler_input) },
-        [ReadInput+128] =   { HASH_CONTENT(args_s,ler_input) },
-        [ReadInput+256] =   { HASH_CONTENT(args_s,ler_input) },
         [Print] =           { HASH_CONTENT(args_s, print_top) },
-        [Print+128] =       { HASH_CONTENT(args_s, print_top) },
-        [Print+256] =       { HASH_CONTENT(args_s, print_top) },
         [ValIndex] =        { HASH_CONTENT(args_2,indice) },
         [ElemInit] =        { HASH_CONTENT(args_2,buscarXINICIO) },
         [RemoveFim] =       { HASH_CONTENT(args_1,removerFIM) },
@@ -193,10 +173,10 @@ OperatorFunction* hash(void) {
         // GUIÃO 5
         [ExecBloco] =       { HASH_CONTENT(args_b,aplicarbloco) },
         [Map] =             { HASH_CONTENT(args_b,map) },
-        [Fold] =            { HASH_CONTENT(args_b,fold) },       // está ao contrário
-        [Filter] =          { HASH_CONTENT(args_b,filter) },        // não funciona
-        // [SortOn] =           { HASH_CONTENT(args_b,sort) },
-        [While] =            { HASH_CONTENT(args_b,while_bloco) }    // não funciona
+        [Fold] =            { HASH_CONTENT(args_b,fold) },
+        [Filter] =          { HASH_CONTENT(args_b,filter) },
+        [SortOn] =          { HASH_CONTENT(args_b,ordenar) },
+        [While] =           { HASH_CONTENT(args_b,while_bloco) }
     };
 return hashtable;
 }

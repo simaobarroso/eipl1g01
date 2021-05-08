@@ -136,7 +136,7 @@ char* string_parse(Stack stack, char* line) {
 int hashkey(Stack s,char** line,OperatorFunction* hashtable) {
     Container x = s->arr[s->sizeofstack - 1], y;
     int res = HASHKEY(x);
-    if (s->sizeofstack > 1 && x.label != Lambda) y = s->arr[s->sizeofstack - 2];
+    if (s->sizeofstack > 1 && x.label != Lambda && hashtable->arg) y = s->arr[s->sizeofstack - 2];
     else return res;
     if (LOGIC(x.label,y.label)) return **line;
     if (hashtable[res].arg > 1 && IS_FOLDABLE(x) < IS_FOLDABLE(y)) res = HASHKEY(y);

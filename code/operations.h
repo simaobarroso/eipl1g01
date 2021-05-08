@@ -562,6 +562,8 @@ void aplicarbloco(Stack,Container,Container,OperatorFunction*,Container*);
  */
 void map(Stack,Container,Container,OperatorFunction*,Container*);
 
+Stack map_sort_aux(Container,Container,OperatorFunction*,Container*);
+
 void fold(Stack,Container,Container,OperatorFunction*,Container*);
 
 void filter(Stack,Container,Container,OperatorFunction*,Container*);
@@ -577,6 +579,8 @@ void filter(Stack,Container,Container,OperatorFunction*,Container*);
  */
 void while_bloco(Stack,Container,Container,OperatorFunction*,Container*);
 
-// void fold(Stack,char*);
+void ordenar(Stack,Container,Container,OperatorFunction*,Container*);
+
+void swap(Container*,Container*);
 
 #endif
