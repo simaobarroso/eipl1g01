@@ -37,11 +37,12 @@ Stack map_sort_aux(Container x, Container fx, OperatorFunction* hashtable, Conta
 void fold(Stack s, Container x, Container fx, OperatorFunction* hashtable, Container* vars) {
     Stack fold = initialize_stack();
 
-    for(int i = x.ARRAY->sizeofstack - 1;i >= 0; i--) {
+    push(x.ARRAY->arr[0],fold);
+    for(int i = 1; i < x.ARRAY->sizeofstack; i++) {
         push(x.ARRAY->arr[i],fold);
+        parser(fold,fx.LAMBDA,hashtable,vars);
     }
-    free(x.ARRAY);
-    while(fold->sizeofstack > 1) parser(fold,fx.STRING,hashtable,vars);
+
     Container res = { .label = Array, .ARRAY = fold };
     push(res,s);
 }
@@ -77,7 +78,7 @@ void while_bloco(Stack s, Container x, Container fx, OperatorFunction* hashtable
 /**
  * \brief Auxiliar de escrita e leitura para conversão em Double
  */
-#define SORT_I(i) toDouble(sort->arr[i]).DOUBLE
+#define SORT_I(i) toDouble(SORT->arr[i]).DOUBLE
 
 void swap(Container *x,Container *y) {
     Container aux = *x;
@@ -85,19 +86,40 @@ void swap(Container *x,Container *y) {
     *y = aux;
 }
 
+#define SORT to_sort.ARRAY
+
 void ordenar(Stack s, Container x, Container fx, OperatorFunction* hashtable, Container* vars) {
-    Stack sort = map_sort_aux(x,fx,hashtable,vars);
+    Container to_sort = { .label = x.label, .ARRAY = arraydup(x.ARRAY) };
+    to_sort.ARRAY = map_sort_aux(to_sort,fx,hashtable,vars);
     int n = 1;
 
-    while(n < x.ARRAY->sizeofstack) {
-        for(size_t i = n; SORT_I(i) < SORT_I(i-1) && i > 0; i--) {
-            swap(&sort->arr[i-1],&sort->arr[i]);
-            swap(&x.ARRAY->arr[i-1],&x.ARRAY->arr[i]);
+    if (all_string(to_sort.ARRAY)) {
+        while(n < x.ARRAY->sizeofstack) {
+            for(size_t i = n; strcmp(SORT->arr[i].STRING,SORT->arr[i-1].STRING) < 0 && i > 0; i--) {
+                swap(&SORT->arr[i-1],&SORT->arr[i]);
+                swap(&x.ARRAY->arr[i-1],&x.ARRAY->arr[i]);
+            }
+            n++;
         }
-        n++;
+    } else if (all_array(to_sort.ARRAY)) {
+        while(n < x.ARRAY->sizeofstack) {
+            for(size_t i = n; arraycmp(SORT->arr[i].ARRAY,SORT->arr[i-1].ARRAY) < 0 && i > 0; i--) {
+                swap(&SORT->arr[i-1],&SORT->arr[i]);
+                swap(&x.ARRAY->arr[i-1],&x.ARRAY->arr[i]);
+            }
+            n++;
+        }
+    } else {
+        while(n < x.ARRAY->sizeofstack) {
+            for(size_t i = n; SORT_I(i) < SORT_I(i-1) && i > 0; i--) {
+                swap(&SORT->arr[i-1],&SORT->arr[i]);
+                swap(&x.ARRAY->arr[i-1],&x.ARRAY->arr[i]);
+            }
+            n++;
+        }
     }
     Container res = { .label = Array, .ARRAY = x.ARRAY };
     if (all_char(res)) array_to_string(res);
     push(res,s);
-    free(sort);
+    free(SORT);
 }

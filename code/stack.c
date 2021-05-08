@@ -8,7 +8,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define SIZE 20
+#define SIZE 50
 
 Stack initialize_stack(void) {
     Stack s = malloc(sizeof(Stack_plain));
@@ -47,10 +47,14 @@ void push(Container x, Stack stack) {
 }
 
 Container pop(Stack stack) {
+    // Container* tmp;
     if (isEmpty(stack)) {
-        putchar('\n');
         ERROR_2
     }
+    // if (stack->alloc > 200 && 0.65*stack->alloc > stack->sizeofstack)
+    //     tmp = realloc(stack->arr, (size_t) (stack->alloc * 0.65 * sizeof(Container)));
+    //     assert(tmp != NULL);
+    //     stack->arr = tmp;
     return stack->arr[--stack->sizeofstack];
 }
 
@@ -73,7 +77,9 @@ void printstack(Stack stack) {
                 printstack(stack->arr[i].ARRAY);
                 break;
             case Lambda:
-                printf("{ %s }", stack->arr[i].LAMBDA);
+                printf("{%c%s }",
+                    (*stack->arr[i].LAMBDA) ? ' ' : '\0',
+                    (*stack->arr[i].LAMBDA) ? stack->arr[i].LAMBDA : "");
                 break;
             default: ERROR_3
         }

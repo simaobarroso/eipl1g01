@@ -110,6 +110,18 @@ int all_char(Container x) {
     return i == x.ARRAY->sizeofstack;
 }
 
+int all_string(Stack x) {
+    int i = 0;
+    while(i < x->sizeofstack && x->arr[i].label == String) i++;
+    return i == x->sizeofstack;
+}
+
+int all_array(Stack x) {
+    int i = 0;
+    while(i < x->sizeofstack && x->arr[i].label == Array) i++;
+    return i == x->sizeofstack;
+}
+
 int number_string(char** line, char** num, char** end) {
     size_t buff = strspn(*line,".-0123456789");
     *end = *line + buff;
@@ -150,4 +162,32 @@ int arraycmp(Stack esq,Stack dir) {
         }
     }
     return r;
+}
+
+Stack arraydup(Stack s) {
+    Stack new = initialize_stack();
+    for(int i = 0; i < s->sizeofstack; i++) {
+        push(s->arr[i],new);
+    }
+    return new;
+}
+
+Container copy_container(Container const* x) {
+    Container res;
+    switch (x->label) {
+        case Long: res = *x; break;
+        case Char: res = *x; break;
+        case Double: res = *x; break;
+        case String: res.STRING = strdup(x->STRING); res.label = String; break;
+        case Array: res.ARRAY = arraydup(x->ARRAY); res.label = Array; break;
+        case Lambda: res.LAMBDA = strdup(x->STRING); res.label = Lambda; break;
+        default: ERROR_3
+    }
+    return res;
+}
+
+Container char_to_string(Container x) {
+    char str[] = {x.CHAR,'\0'};
+    Container res = { .label = String, .STRING = strdup(str) };
+    return res;
 }

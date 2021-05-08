@@ -14,7 +14,7 @@
 /**
  * \brief Tamanho máximo da linha a ser lida
  */
-#define SIZE 8192
+#define SIZE 10240
 
 /**
  * \brief Função main (função principal do programa)

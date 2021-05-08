@@ -20,6 +20,7 @@
 #define PARSE_SPACE if (isspace(*line)) line++;
 
 void parser(Stack stack, char* line, OperatorFunction* hashtable, Container* vars) {
+
     while (*line) {
         // para nums
         if (isdigit(*line) || *line == '.' || (*line == '-' && isdigit(line[1])))
@@ -33,9 +34,9 @@ void parser(Stack stack, char* line, OperatorFunction* hashtable, Container* var
         else if (strspn(line,"[{\""))
             line = structure_parse(stack,line,hashtable,vars);
 
-        else 
+        else if (!isspace(*line))
             line = parse_hash(stack,line,hashtable,vars);
-
+        
         PARSE_SPACE
     }
 }
@@ -66,8 +67,8 @@ char* number_parse(Stack stack,char* line) {
 
 char* var_control(Stack s,char* line,Container* vars) {
     if (isupper(*line)) push(vars[*(line++) - 'A'],s);
-    else vars[*(++line) - 'A'] = s->arr[s->sizeofstack - 1];
-    if (*line != '/') line++;
+    else vars[*(++line) - 'A'] = copy_container(&s->arr[s->sizeofstack - 1]);
+    if (*line != '/' && *line) line++;
     return line;
 }
 
@@ -108,12 +109,20 @@ char* block_parse(Stack stack, char* line) {
     int bloco = 1;
     char* save = line+=2;
 
-    while(bloco) {
+    while(bloco && *save != '}') {
         if (*line == '{') bloco++;
         if (*line == '}') bloco--;
         line++;
     }
-    Container res = { .label = Lambda, .STRING = strndup(save,line - save - 2) };
+    if (*line != '}') {
+        save = strndup(save,line - save - 2);
+    }
+    else {
+        save = NULL;
+        line++;
+    }
+    Container res = { .label = Lambda, .LAMBDA = strdup(save ? save : "") };
+    free(save);
     push(res,stack);
     
     PARSE_SPACE
@@ -136,7 +145,7 @@ char* string_parse(Stack stack, char* line) {
 int hashkey(Stack s,char** line,OperatorFunction* hashtable) {
     Container x = s->arr[s->sizeofstack - 1], y;
     int res = HASHKEY(x);
-    if (s->sizeofstack > 1 && x.label != Lambda && hashtable[**line].arg) y = s->arr[s->sizeofstack - 2];
+    if (s->sizeofstack > 1 && x.label != Lambda) y = s->arr[s->sizeofstack - 2];
     else return res;
     if (LOGIC(x.label,y.label)) return **line;
     if (hashtable[res].arg > 1 && IS_FOLDABLE(x) < IS_FOLDABLE(y)) res = HASHKEY(y);
@@ -146,6 +155,7 @@ int hashkey(Stack s,char** line,OperatorFunction* hashtable) {
 char* parse_hash(Stack s,char* line,OperatorFunction* hashtable,Container* vars) {
     int index = hashkey(s,&line,hashtable);
     if (isspace(*line)) ERROR_0
+    
     switch(hashtable[index].arg) {
         case args_b: hashtable[index].f.args_b(s,pop(s),pop(s),hashtable,vars); break;
         default: num_args(s,&hashtable[index]);

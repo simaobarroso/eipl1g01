@@ -7,7 +7,7 @@
 /**
  * \brief Variável global para tamanhos
  */
-#define SIZE 8192
+#define SIZE 10240
 
 void troca3(Stack stack) {
     if (stack->sizeofstack >= 3) {

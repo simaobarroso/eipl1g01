@@ -9,7 +9,7 @@
 /**
  * \brief Controla o tipo de cada container
  */
-typedef enum Label { Long, Char, Double, String, Array, Lambda } Label;
+typedef enum Label { Long, Char, Double, String, Array, Lambda, No_Pop } Label;
 
 /**
  * \brief Controla os elementos da stack
@@ -74,6 +74,10 @@ typedef struct Container {
  * \brief Introduz facilidades de controlo de tipos
  */
 #define LAMBDA content.b
+/**
+ * \brief Devolve o tipo do topo da stack
+ */
+#define TOP_TYPE(x) x->arr[x->sizeofstack - 1].label
 
 // - FACILIDADES DA HASHTABLE
 /**
@@ -117,10 +121,11 @@ typedef struct Container {
 /**
  * \brief Condição geral deste programa para operações lógicas
  */
-#define IF_CONDITION(x)                                      \
-        ((IS_NUM(x) && toInt(x).LONG) ||                     \
-        (x.label == Array && x.ARRAY->sizeofstack != 0) ||   \
-        (x.label == String && *x.STRING))
+#define IF_CONDITION(x)                                     \
+        ((IS_NUM(x) && toInt(x).LONG) ||                    \
+        (x.label == Array && x.ARRAY->sizeofstack != 0) ||  \
+        (x.label == String && *x.STRING)) ||                \
+        (x.label == Lambda && *x.LAMBDA)
 
 // ____ERROS____
 
@@ -209,7 +214,11 @@ Container array_to_string(Container x);
  *
  * @returns int
  */
-int all_char(Container x);
+int all_char(Container);
+
+int all_string(Stack);
+
+int all_array(Stack);
 
 /**
  * \brief Função que dá parse a uma string para ser transformada em número, a ser usada juntamente com strtol e strtod
@@ -240,5 +249,11 @@ char* better_strcat(char* source, char* join);
  * @returns int
  */
 int arraycmp(Stack,Stack);
+
+Stack arraydup(Stack s);
+
+Container copy_container(Container const*);
+
+Container char_to_string(Container);
 
 #endif

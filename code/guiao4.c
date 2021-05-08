@@ -16,6 +16,7 @@ void ler_input(Stack s) {
     char* save = string;
     string = fgets(string,SIZE,stdin);
     char* c = strchr(string,'\0');
+    
     while (string) {
         string = fgets(c,SIZE,stdin);
         if (string) c = strchr(string,'\0');
@@ -118,7 +119,7 @@ void buscarXINICIO(Stack s, Container x, Container y) {
             free(buffer);
             break;
         case Array:
-            if (y.LONG) x.ARRAY->sizeofstack = y.LONG; // ver isto amanhã
+            if (y.LONG) x.ARRAY->sizeofstack = y.LONG;
             res = x;
             break;
         default: ERROR_1
@@ -142,7 +143,6 @@ void buscarXFIM(Stack s, Container gt, Container x) {
             {
                 push(gt.ARRAY->arr[i],new);
             }
-
             res.ARRAY = new;
             free(gt.ARRAY);
             break;
@@ -222,9 +222,16 @@ char* removerFIM_string(char* string, Container* to_push) {
 }
 
 void substring(Stack s, Container str, Container substr) {
-    
+    int free_substr = 0;
+    if (str.label == Array) array_to_string(str);
+    if (substr.label == Char) {
+        substr = char_to_string(substr);
+        free_substr = 1;
+    }
+
     char* a = strstr(str.STRING,substr.STRING);
     Container res = { .label = Long, .LONG = (a) ? a - str.STRING : -1  };
+    if (free_substr) free(substr.STRING);
     push(res,s);
 }
 
