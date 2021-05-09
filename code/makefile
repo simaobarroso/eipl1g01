@@ -1,11 +1,10 @@
 CC = gcc
-EXEC = exec
-CFLAGS = -std=gnu11 -Wall -Wextra -pedantic-errors -O0 -g -o $(EXEC)
-OBJS = main.o parser/parser.o operations/operations.o stack/stack.o control_types.o
+CFLAGS = -std=gnu11 -Wall -Wextra -pedantic-errors -O0 -g -o
+OBJS = control_types.c global_arrays.c guiao1.c guiao2.c guiao3.c guiao4.c guiao5.c main.c parser.c stack.c
 TARGET = exec
 LIBS = -lm
 
-run: $(TARGET): $(OBJS)
+$(TARGET): $(OBJS)
 	$(CC) $(CFLAGS) $@ $^ $(LIBS)
 
 rem:

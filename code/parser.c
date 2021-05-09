@@ -66,7 +66,7 @@ char* number_parse(Stack stack,char* line) {
 }
 
 char* var_control(Stack s,char* line,Container* vars) {
-    if (isupper(*line)) push(vars[*(line++) - 'A'],s);
+    if (isupper(*line)) push(copy_container(&vars[*(line++) - 'A']),s);
     else vars[*(++line) - 'A'] = copy_container(&s->arr[s->sizeofstack - 1]);
     if (*line != '/' && *line) line++;
     return line;

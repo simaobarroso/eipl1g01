@@ -66,13 +66,14 @@ void filter(Stack s, Container x, Container fx, OperatorFunction* hashtable, Con
     push(res,s);
 }
 
+#define TOP(x) x->arr[x->sizeofstack - 1]
+
 void while_bloco(Stack s, Container x, Container fx, OperatorFunction* hashtable, Container* vars) {
     push(x,s);
     while(IF_CONDITION(x)) {
         parser(s,fx.LAMBDA,hashtable,vars);
         x = pop(s);
     }
-    push(pop(s),s);
 }
 
 /**
@@ -89,13 +90,13 @@ void swap(Container *x,Container *y) {
 #define SORT to_sort.ARRAY
 
 void ordenar(Stack s, Container x, Container fx, OperatorFunction* hashtable, Container* vars) {
-    Container to_sort = { .label = x.label, .ARRAY = arraydup(x.ARRAY) };
+    Container to_sort = { .label = Array, .ARRAY =  arraydup(x.ARRAY) };
     to_sort.ARRAY = map_sort_aux(to_sort,fx,hashtable,vars);
     int n = 1;
 
     if (all_string(to_sort.ARRAY)) {
         while(n < x.ARRAY->sizeofstack) {
-            for(size_t i = n; strcmp(SORT->arr[i].STRING,SORT->arr[i-1].STRING) < 0 && i > 0; i--) {
+            for(size_t i = n; i > 0 && strcmp(SORT->arr[i].STRING,SORT->arr[i-1].STRING) < 0; i--) {
                 swap(&SORT->arr[i-1],&SORT->arr[i]);
                 swap(&x.ARRAY->arr[i-1],&x.ARRAY->arr[i]);
             }
@@ -103,7 +104,7 @@ void ordenar(Stack s, Container x, Container fx, OperatorFunction* hashtable, Co
         }
     } else if (all_array(to_sort.ARRAY)) {
         while(n < x.ARRAY->sizeofstack) {
-            for(size_t i = n; arraycmp(SORT->arr[i].ARRAY,SORT->arr[i-1].ARRAY) < 0 && i > 0; i--) {
+            for(size_t i = n; i > 0 && arraycmp(SORT->arr[i].ARRAY,SORT->arr[i-1].ARRAY) < 0; i--) {
                 swap(&SORT->arr[i-1],&SORT->arr[i]);
                 swap(&x.ARRAY->arr[i-1],&x.ARRAY->arr[i]);
             }
@@ -111,7 +112,7 @@ void ordenar(Stack s, Container x, Container fx, OperatorFunction* hashtable, Co
         }
     } else {
         while(n < x.ARRAY->sizeofstack) {
-            for(size_t i = n; SORT_I(i) < SORT_I(i-1) && i > 0; i--) {
+            for(size_t i = n; i > 0 && SORT_I(i) < SORT_I(i-1); i--) {
                 swap(&SORT->arr[i-1],&SORT->arr[i]);
                 swap(&x.ARRAY->arr[i-1],&x.ARRAY->arr[i]);
             }

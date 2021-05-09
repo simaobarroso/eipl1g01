@@ -2,18 +2,30 @@
 #include <assert.h>
 
 /**
+ * \brief 
+ */
+#define RESULT(x,y) 
+
+/**
  * \brief Operacao com dois numeros, independentemente do tipo
  *
  * @param Funcao e operador
  * 
  * @returns Retorna uma funcao que faz operacao com dois numeros 
  */
-#define MATH_OPERATION(func, op)                                    \
-    void func(Stack s, Container x,Container y) {                   \
-        Container res = { .label = Double };                        \
-        res.DOUBLE = op(toDouble(x).DOUBLE,toDouble(y).DOUBLE);     \
-        res = to_num_type(NUM_RETURN(x.label,y.label),&res);        \
-        push(res,s);                                                \
+#define MATH_OPERATION(func, op)                                                    \
+    void func(Stack s, Container x,Container y) {                                   \
+        Container res;                                                              \
+        if (NUM_RETURN(x.label,y.label) == Double) {                                \
+            res.DOUBLE = op(toDouble(x).DOUBLE,toDouble(y).DOUBLE);                 \
+            res.label = Double;                                                     \
+        }                                                                           \
+        else {                                                                      \
+            res.LONG = op(toInt(x).LONG,toInt(y).LONG);                             \
+            res.label = Long;                                                       \
+        }                                                                           \
+        res = to_num_type(NUM_RETURN(x.label,y.label),&res);                        \
+        push(res,s);                                                                \
     }
 
 /**
@@ -27,7 +39,7 @@
 /**
  * \brief Multiplica dois numeros 
  */
-#define MULTIPLICA(x, y) x* y
+#define MULTIPLICA(x, y) x * y
 /**
  * \brief Divisao dois numeros 
  */

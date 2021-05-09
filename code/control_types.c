@@ -169,8 +169,21 @@ int arraycmp(Stack esq,Stack dir) {
 
 Stack arraydup(Stack s) {
     Stack new = initialize_stack();
+    Container buffer;
     for(int i = 0; i < s->sizeofstack; i++) {
-        push(s->arr[i],new);
+        switch(s->arr[i].label) {
+            case String: 
+                buffer.label = String;
+                buffer.STRING = strdup(s->arr[i].STRING);
+                push(buffer,new);
+                break;
+            case Array: 
+                buffer.label = Array;
+                buffer.ARRAY = arraydup(s->arr[i].ARRAY);
+                push(buffer,new);
+                break;
+            default: push(s->arr[i],new);
+        }
     }
     return new;
 }

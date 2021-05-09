@@ -8,7 +8,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define SIZE 50
+#define SIZE 40
 
 Stack initialize_stack(void) {
     Stack s = malloc(sizeof(Stack_plain));
@@ -37,9 +37,10 @@ int isFull(Stack stack) {
 }
 
 void push(Container x, Stack stack) {
+    Container* tmp = NULL;
     if (isFull(stack)) {
         stack->alloc *= 2;
-        Container* tmp = realloc(stack->arr, stack->alloc * sizeof(Container));
+        tmp = realloc(stack->arr, stack->alloc * sizeof(Container));
         assert(tmp != NULL);
         stack->arr = tmp;
     }

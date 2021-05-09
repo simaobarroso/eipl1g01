@@ -79,6 +79,12 @@ typedef struct Container {
  */
 #define TOP_TYPE(x) x->arr[x->sizeofstack - 1].label
 
+// - FACILIDADES PARA CONTAS
+/**
+ * \brief Verifica se um tipo é inteiro ou não
+ */
+#define IS_INTEGER(x,y) ((NUM_RETURN(x,y) < Double) ? Long : Double)
+
 // - FACILIDADES DA HASHTABLE
 /**
  * \brief Verifica ser pertence à classe Foldable
