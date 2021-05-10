@@ -25,7 +25,7 @@ LOGIC_OPERATION(menor,<)
 LOGIC_OPERATION(maior,>)
 
 void nao(Stack s,Container x){
-	toInt(x);
+	x = toInt(x);
 	x.LONG = !x.LONG;
 	push(x,s);
 }
