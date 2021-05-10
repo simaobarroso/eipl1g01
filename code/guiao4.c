@@ -34,7 +34,8 @@ void colocar_stack(Stack stack, Container array) {
 void concatenar_sa(Stack s, Container x, Container y) { 
     Container res = { .label = Array };
     if(x.label == Array && y.label == Array) {
-        for (int i= 0; i < y.ARRAY->sizeofstack; i++) push(y.ARRAY->arr[i], x.ARRAY);
+        for (int i= 0; i < y.ARRAY->sizeofstack; i++) 
+            push(y.ARRAY->arr[i], x.ARRAY);
         res = x;
         free(y.ARRAY);
     }

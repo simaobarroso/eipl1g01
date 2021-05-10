@@ -169,5 +169,5 @@ void compmenor_ex(Stack s, Container x , Container y) {
         push(res,s);
         break;
     default: ERROR_1
-    } 
+    }
 }

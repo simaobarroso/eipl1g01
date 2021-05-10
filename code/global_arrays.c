@@ -28,7 +28,7 @@ Container* variables(void) {
 /*
 Este array tem 384 posições
 
-As primeiras 128 posições correspondem a quando o operador é para ser executado com Long, Char ou Double
+As primeiras 128 posições correspondem a quando o operador é para ser executado com Long, Char ou Double, exceto nos casos de lógica
 As segundas para quando é para ser executado com Array ou String
 As terceiras para quando é para ser executado com um bloco
 
