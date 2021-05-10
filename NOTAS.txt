@@ -1,34 +1,4 @@
-NOTAS IMPORTANTES!!!
+COISAS A FAZER AGORA:
 
-    Tipos das funções:
-        func_s(Stack);
-        func_1(Stack,Container);
-        func_2(Stack,Container,Container);
-        func_3(Stack,Container,Container,Container);
-
-        chamada: func_example(Stack,pop(s));
-
-O que fazer ao código que já existe:
-
-    - Os either precisam de ser revistos para remover aqueles switch case dentro de switch case. (provavelmente passar tudo a Double)
-    - Agradeço a quem tiver a paciência de meter tudo o que está dentro de cada case do "operation" dentro das funções individuais porque:
-        - vamos usar um array de funções em vez do switch case
-        - como tal, o tipo de todas as funções passa a void (ou int, ainda vou verificar o debugger) e recebe uma stack
-
-O código para ainda se fazer:
-
-    - Acabar o guião 4
-    - O guião 5 vai continuar a doer
-
-Better parser (se der tempo):
-
-    - Algo parecido com a strtok, mas mais poderoso:
-        - better_strtok(char const* read, char const* ignore, char const* read_until_closing)
-            - exemplos: better_strtok(line," \n\t","[{\"")
-
-                procura por line[2] = ']' ou line[2] = '}'
-                se for array dá parse, se for bloco lê como string
-                se char const* read for um bloco, lê como parse
-                podemos usar strchr(line,}), strchr(line,])-1, strchr(line,")
-
-*futuras notas aqui*
+    !!!!!!!MELHORAR A GESTÃO DE MEMÓRIA!!!!!!!
+    Tentar melhorar a legibilidade;
