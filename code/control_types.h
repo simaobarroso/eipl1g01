@@ -6,45 +6,47 @@
 
 // ____TIPOS____
 
-/**
- * \brief Controla o tipo de cada container
- */
+/** Controla o tipo de cada container*/
 typedef enum Label { Long, Char, Double, String, Array, Lambda, No_Pop } Label;
 
-/**
- * \brief Controla os elementos da stack
- */
+/** Controla os elementos da stack */
 typedef struct {
-    struct Container* arr;  // stack itself
-    int sizeofstack; // número de elementos da stack
-    int alloc;       // número alocado
+    /** stack itself */
+    struct Container* arr;
+    /** número de elementos da stack */
+    int sizeofstack; 
+    /** número alocado */
+    int alloc; 
 } *Stack, Stack_plain;
 
-/**
- * \brief Por questões de familiariedade, pretende simular a classe Foldable como em Haskell
- */
+/** Por questões de familiariedade, pretende simular a classe Foldable como em Haskell */
 typedef union {
+    /** tipo string guião 4 */
     char* s;
+    /** tipo array guião 4 */
     Stack a;
 } Foldable;
 
-/**
- * \brief Por questões de familiariedade, pretende simular a classe Num como em Haskell
- */
+/** Por questões de familiariedade, pretende simular a classe Num como em Haskell */
 typedef union {
+    /** numeros long */
     long l;
+    /** numeros double */
     double d;
+    /** caracteres */
     char c;
 } Num;
 
-/**
- * \brief Estrutura de um container, que controla o tipo dos elementos da stack
- */
+/** Estrutura de um container, que controla o tipo dos elementos da stack */
 typedef struct Container {
+    /** label */
     Label label;
     union {
+        /** numeros */
         Num n;
+        /** foldable guião 4 */
         Foldable f;
+        /** caracter */
         char* b;
     } content;
 } Container;
@@ -222,8 +224,23 @@ Container array_to_string(Container x);
  */
 int all_char(Container);
 
+
+/**
+ * \brief verifica se todos os elementos de um array são strings
+ *
+ * @param Container
+ *
+ * @returns int
+ */
 int all_string(Stack);
 
+/**
+ * \brief verifica se todos os elementos de um array são arrays
+ *
+ * @param Container
+ *
+ * @returns int
+ */
 int all_array(Stack);
 
 /**
