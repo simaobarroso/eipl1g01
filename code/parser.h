@@ -144,18 +144,53 @@ Container* variables(void);
  */
 OperatorFunction* hash(void);
 
+/**
+ * \brief Inicializa os índices da hashtable correspondentes a operações de números
+ *
+ * @param OperatorFunction
+ */
 void hashtable_num_func(OperatorFunction*);
 
+/**
+ * \brief Inicializa os índices da hashtable correspondentes a operações de input, output e pop
+ *
+ * @param OperatorFunction
+ */
 void hashtable_io_func(OperatorFunction*);
 
+/**
+ * \brief Inicializa os índices da hashtable correspondentes a operações que alteram o topo da stack
+ *
+ * @param OperatorFunction
+ */
 void hashtable_type_func(OperatorFunction*);
 
+/**
+ * \brief Inicializa os índices da hashtable correspondentes a operações da stack
+ * 
+ * @param OperatorFunction
+ */
 void hashtable_stack_func(OperatorFunction*);
 
+/**
+ * \brief Inicializa os índices da hashtable correspondentes a operações lógicas
+ *
+ * @param OperatorFunction
+ */
 void hashtable_logic_func(OperatorFunction*);
 
+/**
+ * \brief Inicializa os índices da hashtable correspondentes a operações de arrays e strings
+ *
+ * @param OperatorFunction
+ */
 void hashtable_foldable_func(OperatorFunction*);
 
+/**
+ * \brief Inicializa os índices da hashtable correspondentes a operações de blocos
+ *
+ * @param OperatorFunction
+ */
 void hashtable_block_func(OperatorFunction*);
 
 /**
