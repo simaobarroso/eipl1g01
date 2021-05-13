@@ -66,8 +66,6 @@ void filter(Stack s, Container x, Container fx, OperatorFunction* hashtable, Con
     push(res,s);
 }
 
-#define TOP(x) x->arr[x->sizeofstack - 1]
-
 void while_bloco(Stack s, Container x, Container fx, OperatorFunction* hashtable, Container* vars) {
     push(x,s);
     while(IF_CONDITION(x)) {
@@ -87,8 +85,14 @@ void swap(Container *x,Container *y) {
     *y = aux;
 }
 
+/**
+ * \brief Auxiliar de escrita e leitura para aceder a campos dum Container Array
+ */
 #define SORT to_sort.ARRAY
 
+/*
+ERROS CONHECIDOS: [ 1 2 1 ] { 2 < } $ == 211 e devia ser 112
+*/
 void ordenar(Stack s, Container x, Container fx, OperatorFunction* hashtable, Container* vars) {
     Container to_sort = { .label = Array, .ARRAY =  arraydup(x.ARRAY) };
     to_sort.ARRAY = map_sort_aux(to_sort,fx,hashtable,vars);
