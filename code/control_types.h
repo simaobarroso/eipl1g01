@@ -7,7 +7,22 @@
 // ____TIPOS____
 
 /** Controla o tipo de cada container*/
-typedef enum Label { Long, Char, Double, String, Array, Lambda, No_Pop } Label;
+typedef enum Label { 
+    /** representa Long */
+    Long,
+    /** representa Char */
+    Char,
+    /** representa Double */
+    Double,
+    /** representa Strings */
+    String,
+    /** representa Arrays */
+    Array,
+    /** representa Blocos */
+    Lambda,
+    /** tipo de controlo */
+    No_Pop 
+} Label;
 
 /** Controla os elementos da stack */
 typedef struct {
