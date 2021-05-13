@@ -8,13 +8,15 @@ while true; do
     esac
 done
 
+echo
 echo Execução da Stack Machine...
 echo
 while true; do
     read -p "Depurar conteúdo? O resultado irá ser guardado nesta pasta no ficheiro 'memory_log.txt' [y/n] " yn
     echo
+    echo "SUGESTÃO: [ 2 ] :P ; 500 , { 2 * 3 + } % { :X P { X \ % 0 = } , , P @ P \ + ? :P ; } % P { S } %"
+    echo
     printf "INPUT: "
-    echo 
     case $yn in
         [Yy]* ) valgrind ./exec > ./memory_log.txt 2>&1; break;;
         [Nn]* ) ./exec; break;;
