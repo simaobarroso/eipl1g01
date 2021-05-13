@@ -53,75 +53,6 @@ typedef struct OperatorFunction { /**Struct com tipo OperatorFunction **/
     } f;
 } OperatorFunction;
 
-/*
-enum StackNumOperators {
-    // GUIÃO 1
-    Soma = '+',
-    Subtrai = '-',
-    Multiplica = '*',
-    Divide = '/',
-    Modulo = '%',
-    Potencia = '#',
-    Bitwiseand = '&',
-    Bitwiseor = '|',
-    Bitwisexor = '^',
-    Incrementa = ')',
-    Decrementa = '(',
-    Bitwisenot = '~',
-    // GUIÃO 2
-    NewLine = 'l',      // precisa de existir em todos
-    ToInt = 'i',        // precisa de existir em todos
-    ToChar = 'c',       // precisa de existir em todos
-    ToDouble = 'f',     // precisa de existir em todos
-    ToString = 's',     // precisa de existir em todos
-    Troca3 = '@',       // precisa de existir em todos
-    Inverte2 = '\\',    // precisa de existir em todos
-    Duplica = '_',      // precisa de existir em todos
-    CopiaN = '$',       // precisa de existir em todos
-    Pop = ';',          // precisa de existir em todos
-    // GUIÃO 3
-    Menor = '<',
-    Maior = '>',
-    Igual = '=',
-    Nao = '!',
-    Ifthenelse = '?',   // precisa de existir em todos
-    MudaVariavel = ':',
-    // GUIÃO 4
-    ReadInput = 't'     // precisa de existir em todos
-    Range = ','
-};
-
-enum FoldableOperators {
-    // GUIÃO 4
-    Length = ',',
-    Concat = '+',
-    ConcatTimes = '*',
-    Separa = '/',
-    SubstringIndex = '#',
-    RemoveInicio = '(',
-    RemoveFim = ')',
-    PopStack = '~',
-    ElemInit = '<',
-    ElemEnd = '>',
-    ValIndex = '='
-};
-
-enum BlockLogicOperators {
-    // GUIÃO 3
-    FromEitherE = '&',
-    FromEitherOu = '|',
-    FromEitherMenor = '<',
-    FromEitherMaior = '>',
-    // GUIÃO 5
-    ExecBloco = '~',
-    Map = '%',
-    Fold = '*',
-    Filter = ',',
-    Sort = '$',
-    While = 'w'
-};
-*/
-
 /**
  * \brief Os vários operadores matemáticos
  */
@@ -212,6 +143,20 @@ Container* variables(void);
  * @returns OperatorFunction
  */
 OperatorFunction* hash(void);
+
+void hashtable_num_func(OperatorFunction*);
+
+void hashtable_io_func(OperatorFunction*);
+
+void hashtable_type_func(OperatorFunction*);
+
+void hashtable_stack_func(OperatorFunction*);
+
+void hashtable_logic_func(OperatorFunction*);
+
+void hashtable_foldable_func(OperatorFunction*);
+
+void hashtable_block_func(OperatorFunction*);
 
 /**
  * \brief Mesma função definida em cima
