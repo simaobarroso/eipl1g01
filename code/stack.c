@@ -8,6 +8,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+/**
+ * \brief Definição geral de tamanho
+ */
 #define SIZE 40
 
 Stack initialize_stack(void) {
