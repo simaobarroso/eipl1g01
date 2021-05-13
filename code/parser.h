@@ -7,11 +7,19 @@
 #include "stack.h"
 #include "control_types.h"
 
-/**
- * \brief Número de argumentos em cada função
- */
-typedef enum { /**Enum com tipo Arguments **/
-    args_s = 0, args_1, args_2, args_3, args_b } Arguments;
+/**Enum com tipo Arguments **/
+typedef enum { 
+    /**Função com apenas uma stack **/    
+    args_s = 0,
+    /**Função com um container **/
+    args_1,
+    /**Função com dois containers **/
+    args_2, 
+    /**Função com três containers **/
+    args_3, 
+    /**Função para blocos **/
+    args_b 
+} Arguments;
 
 /**
  * \brief Tipo de função com 3 Container
@@ -39,16 +47,21 @@ struct OperatorFunction;
  */
 typedef void (*BlockOperation)(Stack,Container,Container,struct OperatorFunction*,Container*);
 
-/**
- * \brief Tipo de cada elemento do array que gere funções
- */
-typedef struct OperatorFunction { /**Struct com tipo OperatorFunction **/
+/**Struct com tipo OperatorFunction */
+typedef struct OperatorFunction { 
+    /**Tipo de função*/
     Arguments arg;
+    /**Union que distribui funções*/
     union {
+        /**Função de stack*/
         ArgsStackOperation args_s;
+        /**Função com um container*/
         Args1Operation args_1;
+        /**Função com dois containers*/
         Args2Operation args_2;
+        /**Função com três containers*/
         Args3Operation args_3;
+        /**Função para blocos*/
         BlockOperation args_b;
     } f;
 } OperatorFunction;
