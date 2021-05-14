@@ -1,3 +1,4 @@
+#include "control_types.h"
 #include "operations.h"
 
 #include <assert.h>
@@ -44,16 +45,30 @@ void concatenar_sa(Stack s, Container x, Container y) {
         res.STRING = better_strcat(x.STRING, y.STRING);
         free(y.STRING);
     }
-    else if((x.label == String || (IS_NUM(x))) && y.label == Array) res = prepend(x,y);
-    else if((x.label == Array && y.label == String) || (x.label == Array && IS_NUM(y))) res = append(x,y);
-    else if(x.label == String && IS_NUM(y)) {
-        res.label = String;
+    else
+        concatenar_num_array(s,x,y);
+    push(res,s);
+}
+
+void concatenar_num_array(Stack s, Container x, Container y) {
+    Container res = { .label = Array };
+    if (x.label <= String && y.label == Array)
+        res = prepend(x,y);
+    else if (x.label == Array && y.label <= String)
+        res = append(x,y);
+    else
+        concatenar_num_string(s,x,y);
+    push(res,s);
+}
+
+void concatenar_num_string(Stack s, Container x, Container y) {
+    Container res = { .label = String };
+    if (x.label == String && IS_NUM(y))
         res.STRING = better_strcat(x.STRING ,toString(y).STRING);
-    }
-    else if(IS_NUM(x) && y.label == String){
-        res.label = String;
+    else if (IS_NUM(x) && y.label == String)
         res.STRING = better_strcat(toString(x).STRING,y.STRING);
-    }
+    else
+        ERROR_1
     push(res,s);
 }
 
