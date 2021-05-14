@@ -69,66 +69,171 @@ typedef struct OperatorFunction {
 /** Os vários operadores matemáticos */
 enum Operations { /**Enum com tipo Operations **/
     // GUIÃO 1
+    /** soma*/
     Soma = '+',
+    /** subtração */
     Subtrai = '-',
+    /** multiplicação */
     Multiplica = '*',
+    /** divisão */
     Divide = '/',
+    /** modulo */
     Modulo = '%',
+    /** potencia */
     Potencia = '#',
+    /** bitwiseand */
     Bitwiseand = '&',
+    /** bitwiseor */
     Bitwiseor = '|',
+    /** bitwisexor*/
     Bitwisexor = '^',
+    /** ++ */
     Incrementa = ')',
+    /** -- */
     Decrementa = '(',
+    /** bitwisenot */
     Bitwisenot = '~',
     // GUIÃO 2
+    /** \n */
     NewLine = 'l',
+    /** para inteiro*/
     ToInt = 'i',
+    /** para caracter */
     ToChar = 'c',
+    /** para double*/
     ToDouble = 'f',
+    /** para string*/
     ToString = 's',
+    /** operação arroba*/
     Troca3 = '@',
+    /** inverte 2 */
     Inverte2 = '\\',
+    /** dpulica topo stack */
     Duplica = '_',
+    /** copia n numeros */
     CopiaN = '$',
+    /** pop stack */
     Pop = ';',
     // GUIÃO 3
+    /** fromeitehre*/
     FromEitherE = '&'+256,
+    /** fromeitherou */
     FromEitherOu = '|'+256,
+    /** fromeithermenor*/
     FromEitherMenor = '<'+256,    // como não é usado em blocos, índice do either
+    /** from either maior*/
     FromEitherMaior = '>'+256,    // idém^^
+    /** menor */
     Menor = '<',
+    /** maior */
     Maior = '>',
+    /** igual */
     Igual = '=',    // isto vai ser um caso especial
+    /** não */
     Nao = '!',
+    /** ifthenelse */
     Ifthenelse = '?',
+    /** muda variavel*/
     MudaVariavel = ':',
     // GUIÃO 4
+    /** range */
     Range = ',',
+    /** le input */
     ReadInput = 't',
+    /** dá print */
     Print = 'p',
+    /** tamanho*/
     Length = ','+128,
+    /** concat */
     Concat = '+'+128,
+    /** concatenarVezes */
     ConcatenarVezes = '*'+128,
+    /** separa */
     Separa = '/'+128,
+    /** index substring */
     SubstringIndex = '#'+128,
+    /** remove inicio*/
     RemoveInicio = '('+128,
+    /** remove fim*/
     RemoveFim = ')'+128,
+    /** pop stack*/
     PopStack = '~'+128,
+    /** elem init */
     ElemInit = '<'+128,
+    /** elme end */
     ElemEnd = '>'+128,
+    /** val index*/
     ValIndex = '='+128,
     // GUIÃO 5
+    /** execute bloco*/
     ExecBloco = '~'+256,
+    /** map */
     Map = '%'+256,
+    /** fold */
     Fold = '*'+256,
+    /** filter */
     Filter = ','+256,
+    /** sortOn*/
     SortOn = '$'+256,
+    /** while */
     While = 'w'+256
 };
 
 /** Definição das variáveis */
-enum Variaveis {A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z};
+enum Variaveis {
+    /** Variável */
+    A,
+    /** Variável */
+    B,
+    /** Variável */
+    C,
+    /** Variável */
+    D,
+    /** Variável */
+    E,
+    /** Variável */
+    F,
+    /** Variável */
+    G,
+    /** Variável */
+    H,
+    /** Variável */
+    I,
+    /** Variável */
+    J,
+    /** Variável */
+    K,
+    /** Variável */
+    L,
+    /** Variável */
+    M,
+    /** Variável */
+    N,
+    /** Variável */
+    O,
+    /** Variável */
+    P,
+    /** Variável */
+    Q,
+    /** Variável */
+    R,
+    /** Variável */
+    S,
+    /** Variável */
+    T,
+    /** Variável */
+    U,
+    /** Variável */
+    V,
+    /** Variável */
+    W,
+    /** Variável */
+    X,
+    /** Variável */
+    Y,
+    /** Variável */
+    Z
+    };
 
 /**
  * \brief Determina se o operador é para ser feito como Num, Foldable ou Lambda, dependendo do número de parâmetros de cada função
