@@ -335,6 +335,9 @@ Container append(Container x, Container y) {
     return x;
 }
 
+/**
+  * \brief Simplifciação de escrita do topo da stack
+  */
 #define TOP s->arr[s->sizeofstack - 1]
 
 void print_top(Stack s) {

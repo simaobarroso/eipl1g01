@@ -179,10 +179,61 @@ typedef enum {
     While = 'w'+256
 } Operations;
 
-/**
- * \brief Definição das variáveis
- */
-enum Variaveis {A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z};
+/** Definição das variáveis */
+enum Variaveis {
+    /** Variável */
+    A,
+    /** Variável */
+    B,
+    /** Variável */
+    C,
+    /** Variável */
+    D,
+    /** Variável */
+    E,
+    /** Variável */
+    F,
+    /** Variável */
+    G,
+    /** Variável */
+    H,
+    /** Variável */
+    I,
+    /** Variável */
+    J,
+    /** Variável */
+    K,
+    /** Variável */
+    L,
+    /** Variável */
+    M,
+    /** Variável */
+    N,
+    /** Variável */
+    O,
+    /** Variável */
+    P,
+    /** Variável */
+    Q,
+    /** Variável */
+    R,
+    /** Variável */
+    S,
+    /** Variável */
+    T,
+    /** Variável */
+    U,
+    /** Variável */
+    V,
+    /** Variável */
+    W,
+    /** Variável */
+    X,
+    /** Variável */
+    Y,
+    /** Variável */
+    Z
+};
 
 /**
  * \brief Determina se o operador é para ser feito como Num, Foldable ou Lambda, dependendo do número de parâmetros de cada função
