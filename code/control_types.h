@@ -53,10 +53,13 @@ typedef union {
 } Num;
 
 /** Estrutura de um container, que controla o tipo dos elementos da stack */
-typedef struct Container {
+typedef struct Container Container;
+
+struct Container {
     /** label */
     Label label;
-    union {
+    /** union Content */
+    union Content {
         /** numeros */
         Num n;
         /** foldable guião 4 */
@@ -64,7 +67,7 @@ typedef struct Container {
         /** caracter */
         char* b;
     } content;
-} Container;
+};
 
 // - FACILIDADES PARA TIPOS
 /**

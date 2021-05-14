@@ -66,68 +66,118 @@ typedef struct OperatorFunction {
     } f;
 } OperatorFunction;
 
-/**
- * \brief Os vários operadores matemáticos
- */
-enum Operations { /**Enum com tipo Operations **/
+/**Enum com tipo Operations **/
+typedef enum {
     // GUIÃO 1
+    /** Soma */
     Soma = '+',
+    /** Subtrai */
     Subtrai = '-',
+    /** Multiplica */
     Multiplica = '*',
+    /** Divide */
     Divide = '/',
+    /** Modulo */
     Modulo = '%',
+    /** Potencia */
     Potencia = '#',
+    /** Bitwiseand */
     Bitwiseand = '&',
+    /** Bitwiseor */
     Bitwiseor = '|',
+    /** Bitwisexor */
     Bitwisexor = '^',
+    /** Incrementa */
     Incrementa = ')',
+    /** Decrementa */
     Decrementa = '(',
+    /** Bitwisenot */
     Bitwisenot = '~',
     // GUIÃO 2
+    /** NewLine */
     NewLine = 'l',
+    /** ToInt */
     ToInt = 'i',
+    /** ToChar */
     ToChar = 'c',
+    /** ToDouble */
     ToDouble = 'f',
+    /** ToString */
     ToString = 's',
+    /** Troca3 */
     Troca3 = '@',
+    /** Inverte2 */
     Inverte2 = '\\',
+    /** Duplica */
     Duplica = '_',
+    /** CopiaN */
     CopiaN = '$',
+    /** Pop */
     Pop = ';',
     // GUIÃO 3
+    /* FromEitherE */
     FromEitherE = '&'+256,
+    /** FromEitherOu */
     FromEitherOu = '|'+256,
+    /** FromEitherMenor */
     FromEitherMenor = '<'+256,    // como não é usado em blocos, índice do either
+    /** FromEitherMaior */
     FromEitherMaior = '>'+256,    // idém^^
+    /** Menor */
     Menor = '<',
+    /** Maior */
     Maior = '>',
+    /** Igual */
     Igual = '=',    // isto vai ser um caso especial
+    /** Nao */
     Nao = '!',
+    /** Nao */
     Ifthenelse = '?',
+    /** MudaVariavel */
     MudaVariavel = ':',
     // GUIÃO 4
+    /** Range */
     Range = ',',
+    /** ReadInput */
     ReadInput = 't',
+    /** Print */
     Print = 'p',
+    /** Length */
     Length = ','+128,
+    /** Concat */
     Concat = '+'+128,
+    /** ConcatenarVezes */
     ConcatenarVezes = '*'+128,
+    /** Separa */
     Separa = '/'+128,
+    /** SubstringIndex */
     SubstringIndex = '#'+128,
+    /** RemoveInicio */
     RemoveInicio = '('+128,
+    /** RemoveFim */
     RemoveFim = ')'+128,
+    /** PopStack */
     PopStack = '~'+128,
+    /** ElemInit */
     ElemInit = '<'+128,
+    /** ElemEnd */
     ElemEnd = '>'+128,
+    /** ValIndex */
     ValIndex = '='+128,
     // GUIÃO 5
+    /** ExecBloco */
     ExecBloco = '~'+256,
+    /** Map */
     Map = '%'+256,
+    /** Fold */
     Fold = '*'+256,
+    /** Filter */
     Filter = ','+256,
+    /** SortOn */
     SortOn = '$'+256,
+    /** While */
     While = 'w'+256
-};
+} Operations;
 
 /**
  * \brief Definição das variáveis
