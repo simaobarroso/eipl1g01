@@ -2,11 +2,6 @@
 #include <assert.h>
 
 /**
- * \brief 
- */
-#define RESULT(x,y) 
-
-/**
  * \brief Operacao com dois numeros, independentemente do tipo
  *
  * @param Funcao e operador

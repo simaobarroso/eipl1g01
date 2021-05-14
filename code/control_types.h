@@ -32,6 +32,7 @@ typedef struct {
     int sizeofstack; 
     /** número alocado */
     int alloc; 
+   /** nome dado à estrutura de controlo de elementos da stack*/
 } *Stack, Stack_plain;
 
 /** Por questões de familiariedade, pretende simular a classe Foldable como em Haskell */
@@ -63,6 +64,7 @@ typedef struct Container {
         Foldable f;
         /** caracter */
         char* b;
+      /** nome dado à union */
     } content;
 } Container;
 

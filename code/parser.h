@@ -66,9 +66,7 @@ typedef struct OperatorFunction {
     } f;
 } OperatorFunction;
 
-/**
- * \brief Os vários operadores matemáticos
- */
+/** Os vários operadores matemáticos */
 enum Operations { /**Enum com tipo Operations **/
     // GUIÃO 1
     Soma = '+',
@@ -129,9 +127,7 @@ enum Operations { /**Enum com tipo Operations **/
     While = 'w'+256
 };
 
-/**
- * \brief Definição das variáveis
- */
+/** Definição das variáveis */
 enum Variaveis {A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z};
 
 /**
