@@ -65,9 +65,10 @@ struct Container {
         Num n;
         /** foldable guião 4 */
         Foldable f;
-        /** caracter */
+        /** Caracter do Content */
         char* b;
-    } content;
+      /** Content struct*/
+    } content; /** Content struct*/
 };
 
 // - FACILIDADES PARA TIPOS
