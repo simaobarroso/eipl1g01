@@ -119,13 +119,11 @@ void menor_ex(Stack s, Container x , Container y) {
     switch (x.label)
     {
     case String:
-        if (strcmp(x.STRING,y.STRING) < 0) res.LONG = 1;
-        else res.LONG = 0;
+        res.LONG = (strcmp(x.STRING,y.STRING) < 0) ? 1 : 0;
         push(res,s);
         break;
     case Array:
-        if (arraycmp(x.ARRAY,y.ARRAY) < 0) res.LONG = 1;
-        else res.LONG = 0;
+        res.LONG = (arraycmp(x.ARRAY,y.ARRAY) < 0) ? 1 : 0;
         push(res,s);
         break;
     default: ERROR_1
@@ -138,14 +136,12 @@ void compmaior_ex(Stack s, Container x , Container y) {
     {
     case String:
         res.label = String;
-        if (strcmp(x.STRING,y.STRING) > 0) res.STRING = x.STRING;
-        else res.STRING = y.STRING;
+        res.STRING = (strcmp(x.STRING,y.STRING) > 0) ? x.STRING : y.STRING;
         push(res,s);
         break;
     case Array:
         res.label = Array;
-        if (arraycmp(x.ARRAY,y.ARRAY) > 0) res.ARRAY = x.ARRAY;
-        else res.ARRAY = y.ARRAY;
+        res.ARRAY = (arraycmp(x.ARRAY,y.ARRAY) > 0) ? x.ARRAY : y.ARRAY;
         push(res,s);
         break;
     default: ERROR_1
@@ -158,14 +154,12 @@ void compmenor_ex(Stack s, Container x , Container y) {
     {
     case String:
         res.label = String;
-        if (strcmp(x.STRING,y.STRING) < 0) res.STRING = x.STRING;
-        else res.STRING = y.STRING;
+        res.STRING = (strcmp(x.STRING,y.STRING) < 0) ? x.STRING : y.STRING;
         push(res,s);
         break;
     case Array:
         res.label = Array;
-        if (arraycmp(x.ARRAY,y.ARRAY) < 0) res.ARRAY = x.ARRAY;
-        else res.ARRAY = y.ARRAY;
+        res.ARRAY = (arraycmp(x.ARRAY,y.ARRAY) < 0) ? x.ARRAY : y.ARRAY;
         push(res,s);
         break;
     default: ERROR_1

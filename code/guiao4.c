@@ -175,7 +175,6 @@ void removerINICIO(Stack s, Container gt) {
             {
                 push(gt.ARRAY->arr[i],new);
             }
-            // free(gt.ARRAY);
             break;
         case String:
             res.STRING = removerINICIO_string(gt.STRING,&to_push);

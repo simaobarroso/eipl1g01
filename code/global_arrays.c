@@ -80,8 +80,8 @@ void hashtable_io_func(OperatorFunction* hashtable) {
 void hashtable_type_func(OperatorFunction* hashtable) {
     HASH_CONTENT(ToInt, args_s, to_int_op)
     HASH_CONTENT(ToInt+128, args_s, to_int_op)
-    HASH_CONTENT(ToChar, args_s, to_int_op)
-    HASH_CONTENT(ToChar+128, args_s, to_int_op)
+    HASH_CONTENT(ToChar, args_s, to_char_op)
+    HASH_CONTENT(ToChar+128, args_s, to_char_op)
     HASH_CONTENT(ToDouble, args_s,to_double_op)
     HASH_CONTENT(ToDouble+128, args_s,to_double_op)
     HASH_CONTENT(ToString, args_s, to_string_op)
