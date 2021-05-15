@@ -68,7 +68,6 @@ typedef struct OperatorFunction {
 
 /**Enum com tipo Operations **/
 typedef enum {
-    // GUIÃO 1
     /** Soma */
     Soma = '+',
     /** Subtrai */
@@ -93,7 +92,6 @@ typedef enum {
     Decrementa = '(',
     /** Bitwisenot */
     Bitwisenot = '~',
-    // GUIÃO 2
     /** NewLine */
     NewLine = 'l',
     /** ToInt */
@@ -114,28 +112,26 @@ typedef enum {
     CopiaN = '$',
     /** Pop */
     Pop = ';',
-    // GUIÃO 3
     /* FromEitherE */
     FromEitherE = '&'+256,
     /** FromEitherOu */
     FromEitherOu = '|'+256,
     /** FromEitherMenor */
-    FromEitherMenor = '<'+256,    // como não é usado em blocos, índice do either
+    FromEitherMenor = '<'+256,
     /** FromEitherMaior */
-    FromEitherMaior = '>'+256,    // idém^^
+    FromEitherMaior = '>'+256,
     /** Menor */
     Menor = '<',
     /** Maior */
     Maior = '>',
     /** Igual */
-    Igual = '=',    // isto vai ser um caso especial
+    Igual = '=',
     /** Nao */
     Nao = '!',
     /** Nao */
     Ifthenelse = '?',
     /** MudaVariavel */
     MudaVariavel = ':',
-    // GUIÃO 4
     /** Range */
     Range = ',',
     /** ReadInput */
@@ -164,7 +160,6 @@ typedef enum {
     ElemEnd = '>'+128,
     /** ValIndex */
     ValIndex = '='+128,
-    // GUIÃO 5
     /** ExecBloco */
     ExecBloco = '~'+256,
     /** Map */

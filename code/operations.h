@@ -406,7 +406,7 @@ void concatenar_sa(Stack,Container,Container);
  * @param Container A concatenar
  * @param Container A concatenar
  *
- * @returns Container
+ * \returns Container
  */
 Container concatenar_num_array(Container,Container);
 
@@ -416,7 +416,7 @@ Container concatenar_num_array(Container,Container);
  * @param Container A concatenar
  * @param Container A concatenar
  *
- * @returns Container
+ * \returns Container
  */
 Container concatenar_num_string(Container,Container);
 

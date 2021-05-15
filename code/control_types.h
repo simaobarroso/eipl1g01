@@ -56,6 +56,7 @@ typedef union {
 /** Estrutura de um container, que controla o tipo dos elementos da stack */
 typedef struct Container Container;
 
+/** Estrutura do container */
 struct Container {
     /** label */
     Label label;
@@ -67,7 +68,7 @@ struct Container {
         Foldable f;
         /** Caracter do Content */
         char* b;
-      /** Content struct*/
+    /** Content struct*/
     } content; /** Content struct*/
 };
 
