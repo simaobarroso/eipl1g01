@@ -58,12 +58,29 @@ void push(Container, Stack);
  * @returns Devolve o conteúdo desse índice
  */
 Container pop(Stack);
+
 /**
  * \brief Imprime a stack para o stdout.
  *
  * @param Stack
  */
 void printstack(Stack);
+
+/**
+ * \brief Imprime números para o stdout
+ *
+ * @param Stack
+ * @param int
+ */
+void print_number(Stack,int);
+
+/**
+ * \brief Imprime os restantes tipos para o stdout
+ *
+ * @param Stack
+ * @param int
+ */
+void print_rest(Stack,int);
 
 //void printcontainer(Container*);
 

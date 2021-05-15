@@ -46,22 +46,22 @@ void concatenar_sa(Stack s, Container x, Container y) {
         free(y.STRING);
     }
     else
-        concatenar_num_array(s,x,y);
+        res = concatenar_num_array(x,y);
     push(res,s);
 }
 
-void concatenar_num_array(Stack s, Container x, Container y) {
-    Container res = { .label = Array };
+Container concatenar_num_array(Container x, Container y) {
+    Container res;
     if (x.label <= String && y.label == Array)
         res = prepend(x,y);
     else if (x.label == Array && y.label <= String)
         res = append(x,y);
     else
-        concatenar_num_string(s,x,y);
-    push(res,s);
+        res = concatenar_num_string(x,y);
+    return res;
 }
 
-void concatenar_num_string(Stack s, Container x, Container y) {
+Container concatenar_num_string(Container x, Container y) {
     Container res = { .label = String };
     if (x.label == String && IS_NUM(y))
         res.STRING = better_strcat(x.STRING ,toString(y).STRING);
@@ -69,7 +69,7 @@ void concatenar_num_string(Stack s, Container x, Container y) {
         res.STRING = better_strcat(toString(x).STRING,y.STRING);
     else
         ERROR_1
-    push(res,s);
+    return res;
 }
 
 void concatenarVezes(Stack stack, Container sa, Container x) {

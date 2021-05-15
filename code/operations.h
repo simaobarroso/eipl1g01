@@ -393,13 +393,32 @@ void concatenarVezes (Stack,Container,Container);
 char* concat(const char *, const char *);
 
 /**
- * \brief Concatena strings ou arrays
+ * \brief Concatena 2 strings ou 2 arrays
  *
  * @param Container Array/String a concatenar
- * 
  * @param Container Array/String a concatenar
  */
 void concatenar_sa(Stack,Container,Container);
+
+/**
+ * \brief Concatena algo com arrays
+ *
+ * @param Container A concatenar
+ * @param Container A concatenar
+ *
+ * @returns Container
+ */
+Container concatenar_num_array(Container,Container);
+
+/**
+ * \brief Concatena números/char com strings
+ *
+ * @param Container A concatenar
+ * @param Container A concatenar
+ *
+ * @returns Container
+ */
+Container concatenar_num_string(Container,Container);
 
 /**
  * \brief Constrói um array com o tamanho do número dado
@@ -685,6 +704,30 @@ void while_bloco(Stack,Container,Container,OperatorFunction*,Container*);
  * @param Container
  */
 void ordenar(Stack,Container,Container,OperatorFunction*,Container*);
+
+/**
+ * \brief Ordena arrays de strings
+ *
+ * @param Container
+ * @param Container
+ */
+void ordenar_strings(Container,Container);
+
+/**
+ * \brief Ordena arrays de arrays
+ *
+ * @param Container
+ * @param Container
+ */
+void ordenar_arrays(Container,Container);
+
+/**
+ * \brief Ordena arrays de números/char
+ *
+ * @param Container
+ * @param Container
+ */
+void ordenar_rest(Container,Container);
 
 /**
  * \brief Auxiliar da funcao ordena, que troca o conteúdo de dois containers

@@ -96,35 +96,54 @@ ERROS CONHECIDOS: [ 1 2 1 ] { 2 < } $ == 211 e devia ser 112
 void ordenar(Stack s, Container x, Container fx, OperatorFunction* hashtable, Container* vars) {
     Container to_sort = { .label = Array, .ARRAY =  arraydup(x.ARRAY) };
     to_sort.ARRAY = map_sort_aux(to_sort,fx,hashtable,vars);
-    int n = 1;
 
-    if (all_string(to_sort.ARRAY)) {
-        while(n < x.ARRAY->sizeofstack) {
-            for(size_t i = n; i > 0 && strcmp(SORT->arr[i].STRING,SORT->arr[i-1].STRING) < 0; i--) {
-                swap(&SORT->arr[i-1],&SORT->arr[i]);
-                swap(&x.ARRAY->arr[i-1],&x.ARRAY->arr[i]);
-            }
-            n++;
-        }
-    } else if (all_array(to_sort.ARRAY)) {
-        while(n < x.ARRAY->sizeofstack) {
-            for(size_t i = n; i > 0 && arraycmp(SORT->arr[i].ARRAY,SORT->arr[i-1].ARRAY) < 0; i--) {
-                swap(&SORT->arr[i-1],&SORT->arr[i]);
-                swap(&x.ARRAY->arr[i-1],&x.ARRAY->arr[i]);
-            }
-            n++;
-        }
-    } else {
-        while(n < x.ARRAY->sizeofstack) {
-            for(size_t i = n; i > 0 && SORT_I(i) < SORT_I(i-1); i--) {
-                swap(&SORT->arr[i-1],&SORT->arr[i]);
-                swap(&x.ARRAY->arr[i-1],&x.ARRAY->arr[i]);
-            }
-            n++;
-        }
-    }
+    if (all_string(to_sort.ARRAY))
+        ordenar_strings(x,to_sort);
+
+    else if (all_array(to_sort.ARRAY))
+        ordenar_arrays(x,to_sort);
+
+    else
+        ordenar_rest(x,to_sort);
+
     Container res = { .label = Array, .ARRAY = x.ARRAY };
     if (all_char(res)) array_to_string(res);
     push(res,s);
     free(SORT);
+}
+
+void ordenar_strings(Container x, Container to_sort) {
+    int n = 1;
+
+    while(n < x.ARRAY->sizeofstack) {
+        for(size_t i = n; i > 0 && strcmp(SORT->arr[i].STRING,SORT->arr[i-1].STRING) < 0; i--) {
+            swap(&SORT->arr[i-1],&SORT->arr[i]);
+            swap(&x.ARRAY->arr[i-1],&x.ARRAY->arr[i]);
+        }
+    n++;
+    }
+}
+
+void ordenar_arrays(Container x, Container to_sort) {
+    int n = 1;
+
+    while(n < x.ARRAY->sizeofstack) {
+        for(size_t i = n; i > 0 && arraycmp(SORT->arr[i].ARRAY,SORT->arr[i-1].ARRAY) < 0; i--) {
+            swap(&SORT->arr[i-1],&SORT->arr[i]);
+            swap(&x.ARRAY->arr[i-1],&x.ARRAY->arr[i]);
+        }
+    n++;
+    }
+}
+
+void ordenar_rest(Container x, Container to_sort) {
+    int n = 1;
+
+    while(n < x.ARRAY->sizeofstack) {
+        for(size_t i = n; i > 0 && SORT_I(i) < SORT_I(i-1); i--) {
+            swap(&SORT->arr[i-1],&SORT->arr[i]);
+            swap(&x.ARRAY->arr[i-1],&x.ARRAY->arr[i]);
+        }
+    n++;
+    }
 }

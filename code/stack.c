@@ -64,36 +64,41 @@ Container pop(Stack stack) {
 
 void printstack(Stack stack) {
     for (int i = 0; i < stack->sizeofstack; i++) {
-        switch (stack->arr[i].label) {
-            case Long:
-                printf("%ld", stack->arr[i].LONG);
-                break;
-            case Double:
-                printf("%g", stack->arr[i].DOUBLE);
-                break;
-            case Char: 
-                printf("%c", stack->arr[i].CHAR);
-                break;
-            case String: 
-                printf("%s", stack->arr[i].STRING);
-                break;
-            case Array:
-                printstack(stack->arr[i].ARRAY);
-                break;
-            case Lambda:
-                printf("{%c%s }",
-                    (*stack->arr[i].LAMBDA) ? ' ' : '\0',
-                    (*stack->arr[i].LAMBDA) ? stack->arr[i].LAMBDA : "");
-                break;
-            default: ERROR_3
-        }
+        print_number(stack,i);
     }
 }
 
-// fazer função de dar free geral
+void print_number(Stack stack, int i) {
+    switch (stack->arr[i].label) {
+        case Long:
+            printf("%ld", stack->arr[i].LONG);
+            break;
+        case Double:
+            printf("%g", stack->arr[i].DOUBLE);
+            break;
+        case Char: 
+            printf("%c", stack->arr[i].CHAR);
+            break;
+        default: print_rest(stack,i);
+    }
+}
 
-
-
+void print_rest(Stack stack, int i) {
+    switch (stack->arr[i].label) {
+        case String: 
+            printf("%s", stack->arr[i].STRING);
+            break;
+        case Array:
+            printstack(stack->arr[i].ARRAY);
+            break;
+        case Lambda:
+            printf("{%c%s }",
+                (*stack->arr[i].LAMBDA) ? ' ' : '\0',
+                (*stack->arr[i].LAMBDA) ? stack->arr[i].LAMBDA : "");
+            break;
+        default: ERROR_3
+    }
+}
 
 // debugging
 /*
